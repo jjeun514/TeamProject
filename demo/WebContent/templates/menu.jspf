@@ -1,0 +1,129 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<style rel="stylesheet" type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap');
+*{
+	font-family: 'Noto Serif KR', serif;
+	margin: 0px auto;
+	padding: 0px;
+}
+#text{
+	padding-left: 10px;
+}
+img{
+	width: 30px;
+	vertical-align: middle;
+}
+#top{
+	vertical-align: middle;
+	margin-bottom: 10px;
+	height: 80px;
+	background-color: #2e5187;
+	width: 100%;
+	color: white;
+	border-bottom: solid white thick;
+}
+#id{
+	line-height: 50px;
+	text-align: center;
+}
+#home,#logout{
+	text-align: center;
+}
+table{
+	border-collapse: collapse;
+	width: 100%;
+}
+#home>a:link,#home>a:visited,
+#logout>a:link,#logout>a:visited{
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+}
+#home>a:hover,
+#logout>a:hover{
+	color: #c5cfde;
+	text-decoration: none;
+}
+
+#body{
+	background-color: #f5f9ff;
+	width: 100%;
+}
+#leftMenu{
+	min-width: 100px;
+	text-align: center;
+	line-height: 50px;
+	border-right: solid white 3px;
+}
+#leftMenu>ul>li>a:link,#leftMenu>ul>li>a:visited{
+	color: black;
+	text-decoration: none;
+}
+#leftMenu>ul>li>a:hover{
+	color: #184ea1;
+	font-weight: bold;
+	text-decoration: none;
+}
+#contents{
+	background-color: white;
+	border: solid 1px lightgray;
+	width: 90%;
+	padding: 5px;
+}
+ul{
+	list-style: none;
+}
+ul>li{
+	border-bottom: solid 1px #bfcadb;
+}
+#main1,#main2{
+	background-color: #3963a3;
+	color: white;
+	font-size: 20px;
+}
+#sub11,#sub12,#sub21,#sub22,#sub23{
+	font-size: 13px;
+}
+#tmp{
+	height: 160px;
+}
+</style>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+</head>
+<body>
+<%  // 인증된 세션이 없는경우, 해당페이지를 볼 수 없게 함.
+    if (session.getAttribute("signedUser") == null) {
+    	session.invalidate();	// 세션 정보 삭제
+        response.sendRedirect("login.jsp"); // 로그인 페이지로 이동
+    }
+%>
+<table>
+	<tr id="top">
+		<td id="text">비트캠프 평양지점<br>LMS</td>
+		<%
+		String id=request.getParameter("idInput");
+		%>
+		<td id="id"><img src="/demo/imgs/user1.png"><%=session.getAttribute("signedUser")%></td>
+		<td id="home"><a href="/demo/home.jsp">홈</a></td>
+		<td id="logout"><a href="/demo/login.jsp">로그아웃</a></td>
+	</tr>
+</table>
+
+<table id="body">	
+	<tr>
+		<td id="leftMenu">
+		<ul>
+			<li id="main1">강의관리</li>
+			<li id="sub11"><a href="/demo/lecMgmt/newLec.jsp">강의개설</a></li>
+			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
+			<li id="main2">학생관리</li>
+			<li id="sub21"><a href="/demo/stuMgmt/stuList.jsp">수강생목록</a></li>
+			<li id="sub22"><a href="/demo/stuMgmt/stuAtt.jsp">출결관리</a></li>
+			<li id="sub23"><a href="/demo/stuMgmt/stuScore.jsp">성적관리</a></li>
+			<li id="tmp"></li>
+		</ul>
+		</td>
+		
+		<td id="contents">
