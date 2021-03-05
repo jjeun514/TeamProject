@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var bck, form;
+	window.onload = function() {
+		form = document.querySelector('form');
+		bck = document.querySelector('button[type="button"]');
+		bck.onclick = function() {
+			history.back();
+		}
+		form.onsubmit = function() {
+			var deptno = document.querySelector('#deptno').value;
+			var dname = document.querySelector('#dname').value;
+			var loc = document.querySelector('#loc').value;
+			console.log(deptno, dname, loc);
+						xhr=new XMLHttpRequest();
+						xhr.onreadystatechange=function(){
+							if(xhr.readyState==4)
+							location.href='ex10.html';
+						}
+						xhr.open('get','ex12.jsp?deptno='+deptno+'&dname='+dname+'&loc='+loc, true);
+						xhr.send();
+		
+			return false;
+		}
+	}
+</script>
+
+</head>
+<body>
+	<h1>입력 페이지</h1>
+	<form action="#">
+		<div>
+			<label for="deptno">deptno</label> <input type="text" id="deptno"
+				name="deptno">
+		</div>
+		<div>
+			<label for="dname">dname</label> <input type="text" id="dname"
+				name="dname">
+		</div>
+		<div>
+			<label for="loc">loc</label> <input type="text" id="loc" name="loc">
+		</div>
+		<div>
+			<button type="submit">입 력</button>
+			<button type="reset">취 소</button>
+			<button type="button">뒤 로</button>
+		</div>
+	</form>
+</body>
+</html>

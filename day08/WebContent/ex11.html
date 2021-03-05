@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style rel="stylesheet" type="text/css">
+        h1+div {
+            width: 480px;
+            padding: 0px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0px;
+            width: 960px;
+            height: 100px;
+        }
+
+        ul>li {
+            width: 160px;
+            height: 100px;
+          
+        }
+
+        ul>li>img {
+            width: 160px;
+            height: 100px;
+            padding: 0px;
+        }
+
+    </style>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+        var cnt = 0;
+
+      function nextfunc() {
+      if (cnt < 3) {
+      cnt++;
+      var b=parseInt($('ul').css('margin-left'));
+      $('ul').css('margin-left', b - 160 + 'px');
+        }
+         return false;
+        }
+
+        function prevfunc() {
+        if (cnt > 0) {
+        cnt--;
+        var b = parseInt($('ul').css('margin-left'));
+        $('ul').css('margin-left',b+160 +'px');
+        }
+        return false;
+        }
+        $(function() {
+            var prev = $('<a href="#"/>')
+                .text('prev')
+                .click(prevfunc);
+            var next = $('<a href="#"/>')
+                .text('next')
+                .click(nextfunc);
+            $('div').append(prev).append(next);
+
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>이벤트 실습1</h1>
+    <div>
+        <ul>
+            <li><img src="imgs/1.jpg" alt="" /></li>
+            <li><img src="imgs/2.jpg" alt="" /></li>
+            <li><img src="imgs/3.jpg" alt="" /></li>
+            <li><img src="imgs/4.jpg" alt="" /></li>
+            <li><img src="imgs/5.jpg" alt="" /></li>
+            <li><img src="imgs/6.jpg" alt="" /></li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style rel="stylesheet" type="text/css">
+        div>img{
+            width: 100px;
+
+        }
+        div>div:first-child{
+            width: 100px;
+            height: 300px;
+        }    
+    </style>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            $('div>div').first().slideUp(3000,'easeInBounce').slideDown(3000,'easeInBounce');
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <div><img src="imgs/1.jpg" alt=""/></div>
+        <div><img src="imgs/2.jpg" alt=""/></div>
+    </div>
+</body>
+</html>

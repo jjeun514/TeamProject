@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style rel="stylesheet" type="text/css">
+        div{
+            background-color: tan;
+        }
+        @media screen and (max-width:1024px){
+            div{
+                width: 100%;
+            }
+            ul{
+                list-style: none;
+           
+            }
+            ul>li{
+              
+                height: 50px;
+            }
+           
+        }
+
+        @media screen and (min-width:1024px){
+            div{
+                width:1024px;
+                background-color: rebeccapurple;
+            }
+            ul{
+                list-style: none;
+            }
+            
+            ul>li{
+                float: left;
+            }
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>제목</h1>
+        <p>내용</p>
+        <ul>
+            <li>menu1</li>
+            <li>menu1</li>
+            <li>menu1</li>
+            <li>menu1</li>
+        </ul>
+    </div>
+</body>
+
+</html>

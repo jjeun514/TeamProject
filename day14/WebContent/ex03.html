@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('form').submit(function(){
+		$.ajax({
+			url:$('form').attr('action'),
+			type:'delete',
+			data:$('form').serialize()
+		});	
+		return false;
+	});		
+	});
+</script>
+</head>
+<body>
+	<h1>param 전달	</h1>
+	<form action="ex04.bit" method="get">
+		<div>
+			<label>id</label>
+			<input type="text" name="id">
+		</div>
+		<div>
+			<button>전송</button>
+		</div>
+	</form>
+</body>
+</html>

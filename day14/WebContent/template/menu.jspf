@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	<div>
+		<div id="header">
+			<h1>비트교육센터</h1>
+		</div>
+		<div id="navi">
+			<a href="#">home</a>
+			<a href="#">dept</a>
+			<a href="#">emp</a>
+			<a href="#">login</a>
+		</div>
+		<div id="content">
