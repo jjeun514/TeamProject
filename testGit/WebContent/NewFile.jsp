@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>권태민 권태민 권태민 권태민</h1>
+<<<<<<< HEAD
+<h1>권태민 권태민 권태민 권태민 권태민</h1>
+=======
+
+>>>>>>> refs/remotes/origin/main
 </body>
 </html>
