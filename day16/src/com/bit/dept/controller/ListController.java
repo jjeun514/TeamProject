@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bit.dept.model.DeptDao;
-
+//이야오
 @WebServlet("/dept/list.bit")
 public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
