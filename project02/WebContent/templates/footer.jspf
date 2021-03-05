@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style rel="stylesheet" type="text/css">
+div{
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+</td>
+	</tr>
+</table>
+</body>
+</html>
+
+<div>
+	Copyright &copy; 비트캠프 평양지점 All rights are reserved.
+</div>
+</body>
+</html>
