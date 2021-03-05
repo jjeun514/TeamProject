@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+    var obj1={"key1":"val1","key2":"val2","key3":"val3"}
+        console.log(obj1["key3"]); 
+        console.log('---------------------');
+    var k1="key1";
+    var v1="val1";
+    var k2=true;
+    var v2="val2";
+    var v3="val3";    
+    var obj2={
+        k1:v1,k2:v2,'aaa':v3,key4:v2,f1:function (){console.log('obj-f1 run...');}
+    };
+        
+        obj2.aaa='';
+    console.log(obj2["key4"]);
+    console.log(obj2["k1"]);
+    
+    console.log(obj2.aaa);
+    console.log(obj2.f1());
+    console.log(Math.random());
+        
+    
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

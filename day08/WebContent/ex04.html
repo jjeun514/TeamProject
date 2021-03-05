@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+    var arr=[];
+    $(function(){
+        $('li').each(function(){
+            arr.push($(this).clone());     
+        });
+       callback();
+    });
+        
+    function callback(){
+        var ele=arr.shift();
+            arr.push(ele);
+        $('div').html(ele);
+        setTimeout(callback,1000);
+    }
+    </script>
+</head>
+<body>
+    <div>
+        <ul>
+            <li><img src="imgs/1.jpg" alt=""></li>
+            <li><img src="imgs/2.jpg" alt=""></li>
+            <li><img src="imgs/3.jpg" alt=""></li>
+            <li><img src="imgs/4.jpg" alt=""></li>
+            <li><img src="imgs/5.jpg" alt=""></li>
+            <li><img src="imgs/6.jpg" alt=""></li>
+        </ul>
+    </div>
+</body>
+</html>

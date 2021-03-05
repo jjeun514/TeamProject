@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style rel="stylesheet" type="text/css">
+        nav{
+            background-color: gray;
+            height: 50px;
+        }
+        nav>ul{
+            list-style: none;
+            padding: 0px;
+            width: 400px;
+            margin: 0px auto;
+        }
+        nav>ul>li{
+            float: left;
+            width: 100px;
+        }
+        nav>ul>li>a{
+            display: block;
+            height: 50px;
+            background-color: gray;
+            color: white;
+            text-decoration: none;
+             text-align: center;
+            line-height: 50px;
+        }
+        nav>ul>li>ol{
+            list-style: none;
+            padding: 0px;
+            
+        }
+        nav>ul>li>ol>li{}
+        nav>ul>li>ol>li>a{
+            display: block;
+            height: 50px;
+            background-color: darkgray;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            line-height: 50px;
+        }
+        nav a:hover{
+            background-color: yellow;
+        }
+    </style>
+    <script type="text/javascript">
+    var mn2,ol,li2;
+        window.onload=function(){
+        mn2=document.querySelectorAll('ul>li>a')[1];
+        li2=document.querySelectorAll('ul>li')[1];
+        ol=document.querySelector('li>ol');
+            ol.style.display='none';
+            
+//        mn2.addEventListener('click',function(e){
+//           e.preventDefault();
+//            if(ol.style.display=='none'){
+//                ol.style.display='block';
+//            }else{
+//                ol.style.display='none';
+//            }
+           ol.addEventListener('mouseover',function(e){
+               e.stopPropagation();
+           }); li2.addEventListener('mouseover',function(e){
+            if(ol.style.display=='none'){
+                ol.style.display='block';
+            }else{
+                ol.style.display='none';
+            }
+            });
+        };
+ 
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="">menu1</a>
+            </li>
+            <li>
+                <a href="">menu2</a>
+                <ol>
+                    <li><a href="#">2-1</a></li>
+                    <li><a href="#">2-2</a></li>
+                    <li><a href="#">2-3</a></li>
+                    <li><a href="#">2-4</a></li>
+                </ol>
+            </li>
+            <li>
+                <a href="">menu3</a>
+            </li>
+            <li>
+                <a href="">menu4</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

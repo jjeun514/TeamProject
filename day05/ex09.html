@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+    window.onload=function(){
+        var h1=document.querySelector('h1');
+        var btn=document.querySelector('button');
+        var body=document.querySelector('body');
+        
+        
+//        h1.onclick=function(){
+//            alert('h1을 클릭함');
+//        }
+//        body.onclick=function(){
+//            alert('바디를 클릭함');
+//        }
+        btn.onclick=function(){
+            console.log('클릭');
+        }
+        btn.onmousedown=function(){
+            console.log('mousedown');
+        }
+        btn.onmouseup=function(){
+            console.log('mouseup');
+        }
+        btn.onmouseover=function(){
+            console.log('mouseover');
+        }
+        btn.onmouseout=function(){
+            console.log('mouseout');
+        }
+         btn.ondblclick=function(){
+            console.log('더블클릭');
+        }
+        
+    }
+    </script>
+</head>
+<body>
+    <h1>마우스 이벤트</h1>
+    <button>btn</button>
+</body>
+</html>

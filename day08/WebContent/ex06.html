@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('button').eq(0).click(function(){
+           console.log('첫번째 버튼 클릭'); 
+        }).mousedown(function(){
+            console.log('mousedown');
+        }).mouseup(function(){
+           console.log('mouseup'); 
+        });
+        
+        $('button').eq(1).mousedown(function(){
+            console.log('mousedown');
+        }).mouseup(function(){
+           console.log('mouseup'); 
+        });
+        $('button').eq(2).mouseover(function(){
+            console.log('mouseover');
+        }).mouseout(function(){
+            console.log('mouseout');
+        });
+        $('button').eq(3)
+            .mouseenter(function(){
+            console.log('mouseenter');
+        }).mouseleave(function(){
+            console.log('mouseleave');
+        });
+        $('div').mouseover(function(){
+            console.log('div over');
+        }).mouseout(function(){
+            console.log('div out');
+        }).mouseenter(function(){
+            console.log('div enter');
+        }).mouseleave(function(){
+            console.log('div leave');
+        });
+    });
+        
+    </script>
+</head>
+<body>
+    <h1>마우스 이벤트</h1>
+    <div>
+        <button>btn1</button>
+        <button>btn2</button>
+        <button>btn3</button>
+        <button>btn4</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.get('ex01.json', function(data) {
+			/*
+			data.root.forEach(function(ele,idx){
+				console.log(ele,idx);
+			});
+			 */
+			$(data.root).each(function(idx, ele) {
+				var tr=$('<tr/>');
+				$('<td/>').html(ele.key1).appendTo(tr);
+				$('<td/>').html(ele.key2).appendTo(tr);
+				$('<td/>').html(ele.key3).appendTo(tr);
+				$('<td/>').html(ele.key4).appendTo(tr);
+				$('table').append(tr);
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>json pasing</h1>
+	<table></table>
+</body>
+</html>

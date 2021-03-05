@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+    table{
+       width: 800px;
+       border: 3px solid black;
+    }
+    table>thead>tr>th{
+       border: 3px solid black;
+    }
+    table>tbody>tr>td{
+       border: 3px solid black;
+    }   
+    
+</style>
+<script type="text/javascript">
+var table;
+window.onload=function(){
+   table=document.querySelector('table');
+   dataLoad();
+};
+var xhr,data,arr;
+function dataLoad(){
+   xhr=new XMLHttpRequest();
+   xhr.onreadystatechange=callback;
+   xhr.open('get','ex06.xml');
+   xhr.send();
+}
+function callback(){
+   if(xhr.readyState==4 && xhr.status==200){
+      data=xhr.responseXML;
+      arr=data.children[0].children;
+      var result="<tbody>";
+      for(var i=0; i<arr.length; i++){
+         var num=arr[i].children[0].childNodes[0].nodeValue;
+         var name=arr[i].children[1].childNodes[0].nodeValue;
+         var kor=arr[i].children[2].childNodes[0].nodeValue;
+         var eng=arr[i].children[3].childNodes[0].nodeValue;
+         var math=arr[i].children[4].childNodes[0].nodeValue;
+         //console.log(num,name,kor,eng,math);
+         result+="<tr>";
+         result+="<td>"+num+"</td><td>"+kor+"</td><td>"+eng+"</td><td>"+math+"</td>";
+         result+="</tr>";
+      }
+      result+="</tbody>";
+      table.innerHTML=table.innerHTML+result;
+      
+   }
+}
+</script>
+</head>
+<body>
+   <h1>학생성적리스트</h1>
+   <table>
+      <thead>
+         <tr>
+            <th>학번</th>
+            <th>이름</th>
+            <th>국어</th>
+            <th>영어</th>
+            <th>수학</th>
+         </tr>
+      </thead>
+   </table>
+</body>
+</html>

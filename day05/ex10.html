@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style rel="stylesheet" type="text/css">
+        nav {
+            background-color: gray;
+        }
+
+        nav>ul {
+            background-color: aqua;
+            list-style: none;
+            padding: 0px;
+        }
+        nav>ul>li{
+            float: left;
+           background-color: coral;
+        }
+        nav>ul>li>a,nav>ul>li>span {
+            background-color: beige;
+            list-style: none;
+            padding: 0px;
+
+        }
+        nav>ul>li>ol{
+            display: none;
+            width: 100px;
+            background-color: blue;
+        }
+
+        nav>ul>li>a:hover,nav>ul>li>span:hover {
+            color: red;
+        }
+    </style>
+    <script>
+        var lis;
+        window.onload=function(){
+            lis=document.querySelectorAll("nav>ul>li");
+            lis[1].onmouseover=function(){
+              var ol=document.querySelectorAll('ol')[0];
+              ol.style.display='block';
+            }
+             lis[1].onmouseout=function(){
+              var ol=document.querySelectorAll('ol')[0];
+              ol.style.display='';
+            };
+            lis[2].onmouseover=function(){
+              var ol=document.querySelectorAll('ol')[1];
+              ol.style.display='block';
+            }
+             lis[2].onmouseout=function(){
+              var ol=document.querySelectorAll('ol')[1];
+              ol.style.display='';
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="">menu1</a></li>
+            <li><span>menu2</span>
+                <ol>
+                    <li><a>menu2-1</a></li>
+                    <li><a>menu2-2</a></li>
+                    <li><a>menu2-3</a></li>
+                </ol>
+            </li>
+            <li><span>menu3</span>
+            <ol>
+                    <li><a>menu3-1</a></li>
+                    <li><a>menu3-2</a></li>
+                    <li><a>menu3-3</a></li>
+                </ol>
+            </li>
+            <li><a href="">menu4</a></li>
+        </ul>
+    </nav>
+</body></html>

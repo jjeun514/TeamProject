@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+    var arr=['item1','item2','item3','item4'];
+    arr.forEach(function(a,b){
+        console.log(a,b);
+    });
+        console.log("");
+        $(arr).each(function(a,b){
+            console.log(a,b);
+        });
+        console.log("");
+        $(function(){
+            $('li').each(function(idx,ele){
+                console.log(idx,ele)
+            })
+        })
+    </script>
+    </head>
+<body>
+    <ul>
+        <li>item01</li>
+        <li>item02</li>
+        <li>item03</li>
+        <li>item04</li>
+    </ul>
+</body>
+</html>
