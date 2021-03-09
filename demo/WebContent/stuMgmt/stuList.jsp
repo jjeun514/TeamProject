@@ -54,19 +54,14 @@
 		h1{
 			text-align: center;
 		}
+		
+		h3{
+			text-align: center;
+		}
 	</style>
 	
 	<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript">
-	
-	$(function(){
-		$('select').on('change',function(){
-			var selectLec = $(this).val();
-			alert($(this).val());
-			
-		});
-		
-	});
 	
 	</script>
 	
@@ -74,48 +69,54 @@
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
 	<h1>＜ 수강생 목록 ＞</h1>
-	<table id="topPart">
-	<tr><td><select id="selectLec">
-		<option default>강의를 선택하시오</option>
-		<option value="1">웹 개발자 양성 A</option>
-		<option value="2">웹 개발자 양성 B</option>
-		<option value="3">웹 개발자 양성 C</option>
-	</select>
-	<button><a href="newStu.jsp" id="addBtn">수강생 등록</a></button></td></tr>
-	</table>
-	
-	<table id="stuTable">
-	<thead>
-		<tr>
-			<th>학번</th>
-			<th>이름</th>
-			<th>전화번호</th>
-			<th>출석률</th>
-			<th>자바</th>
-			<th>웹</th>
-			<th>프레임워크</th>
-		</tr>
-	</thead>
-	
-	<tbody>
-	<%
-	List<StuInfoDto> list = null;
-	list = (List<StuInfoDto>)request.getAttribute("selectLec");
-	if ( list != null ) {
-		for (StuInfoDto stuInfo: list){
-	%>
-		<tr>
-			<td><%=stuInfo.getStuNo() %></td>
-			<td><%=stuInfo.getStuName() %></td>
-			<td><%=stuInfo.getStuPhone() %></td>
-			<td>출석률</td>
-			<td><%=stuInfo.getJava() %></td>
-			<td><%=stuInfo.getWeb() %></td>
-			<td><%=stuInfo.getFramework() %></td>
-		</tr>
-	<%}}%>
-	</tbody>
-	</table>
+	<h3>강의명</h3>
+	<h3>To Do : 항목별 앵커태그, 강의 동적 처리, 출석률 계산, 수강생 등록, 수강생 개별 정보</h3>
+	<form action="/stuList.bit" method="post">
+		<table id="topPart">
+			
+			<tr><td><select name="selectLec" onchange="this.form.submit();">
+				<option>강의를 선택하시오</option>
+				<option value="1">웹 개발자 양성 A</option>
+				<option value="2">웹 개발자 양성 B</option>
+				<option value="3">웹 개발자 양성 C</option>
+			</select>
+			<button><a href="newStu.jsp" id="addBtn">수강생 등록</a></button></td></tr>
+			</table>
+			
+			<table id="stuTable">
+			<thead>
+				<tr>
+					<th>학번</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>출석률</th>
+					<th>자바</th>
+					<th>웹</th>
+					<th>프레임워크</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+			<%
+			List<StuInfoDto> list = null;
+			list = (List<StuInfoDto>)request.getAttribute("selectLec");
+			if ( list != null ) {
+				for (StuInfoDto stuInfo: list){
+			%>
+				<tr>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuNo() %></a></td>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuName() %></a></td>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuPhone() %></a></td>
+					<td>출석률</td>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getJava() %></a></td>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getWeb() %></a></td>
+					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getFramework() %></a></td>
+				</tr>				
+			<%}} %>
+			</tbody>
+			
+		</table>
+	</form>
 	<%@ include file="../templates/footer.jspf" %>
 	</body>
 	</html>

@@ -31,8 +31,8 @@ public class StuInfoDao {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 		
 		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
-		query += "from student stu inner join score score";
-		query += "on stu.stuNo = score.stuNo where stu.lecNo = ?";
+		query += " from student stu left outer join score score";
+		query += " on stu.stuNo = score.stuNo where stu.lecNo = ?";
 		System.out.println(query);
 		
 		try {
@@ -43,7 +43,7 @@ public class StuInfoDao {
 			
 			StuInfoDto stuInfo = null;
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				stuInfo = new StuInfoDto();
 				stuInfo.setStuNo(rs.getInt("stuNo"));
 				stuInfo.setStuName(rs.getString("stuName"));
@@ -53,6 +53,7 @@ public class StuInfoDao {
 				stuInfo.setFramework(rs.getInt("framework"));
 				list.add(stuInfo);
 			}
+			System.out.println("리스트 add 후"+list.size());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

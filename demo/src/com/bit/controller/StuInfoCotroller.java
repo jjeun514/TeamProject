@@ -18,13 +18,15 @@ public class StuInfoCotroller extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int lecNo = 1; //Integer.parseInt(req.getParameter("selectLec"));
+		String param = req.getParameter("selectLec");
+		int lecNo = Integer.parseInt(param);
+		//int lecNo = 1; //Integer.parseInt(req.getParameter("selectLec"));
 		System.out.println(lecNo);
 		
 		StuInfoDao dao = new StuInfoDao();
 		req.setAttribute("selectLec", dao.stuList(lecNo));
 	
-		RequestDispatcher rd = req.getRequestDispatcher("stuList.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("stuMgmt/stuList.jsp");
 		rd.forward(req, resp);
 	}
 	
