@@ -119,9 +119,9 @@ ul>li{
 			<li id="sub11"><a href="/demo/lecMgmt/newLec.jsp">강의개설</a></li>
 			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
 			<li id="main2">학생관리</li>
-			<li id="sub21"><a href="/demo/stuMgmt/stuList.jsp">수강생목록</a></li>
-			<li id="sub22"><a href="/demo/stuMgmt/stuAtt.jsp">출결관리</a></li>
-			<li id="sub23"><a href="/demo/stuMgmt/stuScore.jsp">성적관리</a></li>
+			<li id="sub21"><a href="/stuMgmt/stuList.jsp">수강생목록</a></li>
+			<li id="sub22"><a href="/stuMgmt/stuAtt.jsp">출결관리</a></li>
+			<li id="sub23"><a href="/stuMgmt/stuScore.jsp">성적관리</a></li>
 			<li id="tmp"></li>
 		</ul>
 		</td>

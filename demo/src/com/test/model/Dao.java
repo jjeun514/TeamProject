@@ -48,8 +48,8 @@ public class Dao {
 				String b=rs.getString("sysPw");
 				System.out.println("a:"+a);
 				System.out.println("b:"+b);
-				bean.setSysId(rs.getString("sysId"));
-				bean.setSysPw(rs.getString("sysPw"));
+				bean.setSysId(a);
+				bean.setSysPw(b);
 				bean.setEmpNo(rs.getInt("empNo"));
 				list.add(bean);
 			}
@@ -105,4 +105,5 @@ public class Dao {
 		}
 		return x;
 	}
+	
 }

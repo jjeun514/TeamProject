@@ -1,4 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@page import="java.util.*, com.test.model.StuInfoDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
 	<!DOCTYPE html>
 	<html>
@@ -54,16 +55,31 @@
 			text-align: center;
 		}
 	</style>
+	
+	<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+	
+	$(function(){
+		$('select').on('change',function(){
+			var selectLec = $(this).val();
+			alert($(this).val());
+			
+		});
+		
+	});
+	
+	</script>
+	
 	</head>
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
 	<h1>＜ 수강생 목록 ＞</h1>
 	<table id="topPart">
-	<tr><td><select>
-		<option>강의를 선택하시오</option>
-		<option>웹 개발자 양성 A</option>
-		<option>웹 개발자 양성 B</option>
-		<option>웹 개발자 양성 C</option>
+	<tr><td><select id="selectLec">
+		<option default>강의를 선택하시오</option>
+		<option value="1">웹 개발자 양성 A</option>
+		<option value="2">웹 개발자 양성 B</option>
+		<option value="3">웹 개발자 양성 C</option>
 	</select>
 	<button><a href="newStu.jsp" id="addBtn">수강생 등록</a></button></td></tr>
 	</table>
@@ -80,26 +96,24 @@
 			<th>프레임워크</th>
 		</tr>
 	</thead>
+	
 	<tbody>
-		<tr id="link">
-			<td><a href="stuDetail.jsp">01</a></td>
-			<td><a href="stuDetail.jsp">권태민</a></td>
-			<td><a href="stuDetail.jsp">01046117304</a></td>
-			<td><a href="stuDetail.jsp">50</a></td>
-			<td><a href="stuDetail.jsp">85</a></td>
-			<td><a href="stuDetail.jsp">99</a></td>
-			<td><a href="stuDetail.jsp">100</a></td>
+	<%
+	List<StuInfoDto> list = null;
+	list = (List<StuInfoDto>)request.getAttribute("selectLec");
+	if ( list != null ) {
+		for (StuInfoDto stuInfo: list){
+	%>
+		<tr>
+			<td><%=stuInfo.getStuNo() %></td>
+			<td><%=stuInfo.getStuName() %></td>
+			<td><%=stuInfo.getStuPhone() %></td>
+			<td>출석률</td>
+			<td><%=stuInfo.getJava() %></td>
+			<td><%=stuInfo.getWeb() %></td>
+			<td><%=stuInfo.getFramework() %></td>
 		</tr>
-		
-		<tr id="link">
-			<td><a href="stuDetail.jsp">02</a></td>
-			<td><a href="stuDetail.jsp">권태만</a></td>
-			<td><a href="stuDetail.jsp">01046117306</a></td>
-			<td><a href="stuDetail.jsp">100</a></td>
-			<td><a href="stuDetail.jsp">90</a></td>
-			<td><a href="stuDetail.jsp">88</a></td>
-			<td><a href="stuDetail.jsp">58</a></td>
-		</tr>
+	<%}}%>
 	</tbody>
 	</table>
 	<%@ include file="../templates/footer.jspf" %>
