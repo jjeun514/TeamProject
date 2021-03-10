@@ -62,6 +62,8 @@ button{
 <%@ include file="/templates/menu.jspf" %>
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 정보 수정</h1></td></tr>
+<!-- 수정할 정보들 전부 input
+	 수정 후 확인 버튼 누르면 lecDetail.jsp로 이동 -->
 	<tr>
 		<th>강의명</th>
 		<td><input type="text" name= "lecture" id="lecture"></td>
