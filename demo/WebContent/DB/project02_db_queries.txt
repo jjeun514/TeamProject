@@ -1,0 +1,126 @@
+drop database 'scott.project';
+
+create database project;
+
+use project;
+
+drop table attendance;
+drop table score;
+drop table student;
+drop table lecture;
+drop table account;
+drop table emp;
+drop table dept;
+
+create table dept (
+deptNo int(2) auto_increment primary key,
+dname varchar(15) not null
+);
+
+create table emp (
+empNo int(4) auto_increment primary key,
+ename varchar(15) not null,
+empPhone varchar(11) unique,
+deptNo int(2) not null,
+foreign key (deptNo) references dept(deptNo)
+);
+
+create table account (
+sysId varchar(20) primary key,
+sysPw varchar(20) not null,
+empNo int(4) not null,
+foreign key (empNo) references emp(empNo)
+);
+
+create table lecture (
+lecNo int(2)  auto_increment primary key,
+lecName varchar(50) not null,
+lecRoom varchar(5) not null,
+lecStartDate date,
+lecFinishDate date,
+empNo int(4) not null,
+foreign key (empNo) references emp(empNo)
+);
+
+create table student (
+stuNo int(6) auto_increment primary key,
+stuName varchar(15) not null,
+stuPhone varchar(11) unique,
+lecNo int(2) not null,
+foreign key (lecNo) references lecture(lecNo)
+);
+
+create table score (
+stuNo int(6) not null,
+java int(3) default 0 check(java between 0 and 100),
+web int(3) default 0 check(web between 0 and 100),
+framework int(3) default 0 check(framework between 0 and 100),
+foreign key (stuNo) references student(stuNo)
+);
+
+create table attendance (
+stuNo int(6) not null,
+stuAtt int(2),
+stuLeave int(2),
+stuLate int(2),
+stuAbsent int(2),
+foreign key (stuNo) references student(stuNo)
+);
+
+insert into dept(dname) values('sales');
+insert into dept(dname) values('admin');
+insert into dept(dname) values('lecturer');
+
+insert into emp(ename, empPhone, deptNo) values('smith', '01011111111', 1);
+insert into emp(ename, empPhone, deptNo) values('adams', '01022222222', 1);
+insert into emp(ename, empPhone, deptNo) values('roy', '01033333333', 2);
+insert into emp(ename, empPhone, deptNo) values('noah', '01044444444', 2);
+insert into emp(ename, empPhone, deptNo) values('emma', '01055555555', 3);
+insert into emp(ename, empPhone, deptNo) values('liam', '01066666666', 3);
+insert into emp(ename, empPhone, deptNo) values('sophia', '01077777777', 3);
+
+insert into account(sysId, sysPw, empNo) values('aaa','111',1);
+insert into account(sysId, sysPw, empNo) values('bbb','111',2);
+insert into account(sysId, sysPw, empNo) values('ccc','111',3);
+insert into account(sysId, sysPw, empNo) values('ddd','111',4);
+insert into account(sysId, sysPw, empNo) values('eee','111',5);
+insert into account(sysId, sysPw, empNo) values('fff','111',6);
+insert into account(sysId, sysPw, empNo) values('ggg','111',7);
+
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_Z','L1', "2021-01-01", date_add("2021-01-01",interval 91 day), 5);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_A','L1', "2021-03-01", date_add("2021-03-01",interval 91 day), 5);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_B','L2', "2021-03-01", date_add("2021-03-01",interval 91 day), 6);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_C','L3', "2021-03-01", date_add("2021-03-01",interval 91 day), 7);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_A','L1', "2021-06-01", date_add("2021-06-01",interval 91 day), 5);
+
+insert into student(stuName, stuPhone, lecNo) values('olivia', '01012345678',1);
+insert into student(stuName, stuPhone, lecNo) values('ava', '01023456789',1);
+insert into student(stuName, stuPhone, lecNo) values('elijah', '01034567890',1);
+insert into student(stuName, stuPhone, lecNo) values('lsabella', '01045678901',1);
+insert into student(stuName, stuPhone, lecNo) values('oliver', '01056789012',1);
+
+insert into student(stuName, stuPhone, lecNo) values('mason', '26346',2);
+insert into student(stuName, stuPhone, lecNo) values('ella', '457679',2);
+insert into student(stuName, stuPhone, lecNo) values('mia', '4257856',2);
+insert into student(stuName, stuPhone, lecNo) values('james', '108594',2);
+insert into student(stuName, stuPhone, lecNo) values('camila', '039476293',2);
+
+insert into student(stuName, stuPhone, lecNo) values('aiden', '235',3);
+insert into student(stuName, stuPhone, lecNo) values('caden', '79',3);
+insert into student(stuName, stuPhone, lecNo) values('zoe', '467',3);
+insert into student(stuName, stuPhone, lecNo) values('aria', '379',3);
+insert into student(stuName, stuPhone, lecNo) values('ethan', '9999',3);
+
+insert into student(stuName, stuPhone, lecNo) values('luna', '29869',4);
+insert into student(stuName, stuPhone, lecNo) values('benjamin', '0976',4);
+insert into student(stuName, stuPhone, lecNo) values('carter', '964346',4);
+insert into student(stuName, stuPhone, lecNo) values('mila', '56489',4);
+insert into student(stuName, stuPhone, lecNo) values('avery', '349899',4);
+
+insert into student(stuName, stuPhone, lecNo) values('mateo', '123',5);
+insert into student(stuName, stuPhone, lecNo) values('lucas', '456',5);
+insert into student(stuName, stuPhone, lecNo) values('layla', '789',5);
+insert into student(stuName, stuPhone, lecNo) values('michael', '147',5);
+insert into student(stuName, stuPhone, lecNo) values('luca', '258',5);
+
+commit;
