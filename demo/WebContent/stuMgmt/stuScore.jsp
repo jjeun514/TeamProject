@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,11 +47,11 @@
 			color: black;
 		}
 		/*링크에 마우스 올렸을 때*/
-		#stuScore #link:hover{
+		#stuScore .link:hover{
 			color: black;
 			background-color: #f5f5ff;
 		}
-		.ok,.edit{
+		.ok{
 			width: 100%;
 			height: 100%;
 		}
@@ -66,35 +68,33 @@
 			text-align: center;
 		}
 </style>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/js/jquery-1.12.4.js"></script>
+
 <script type="text/javascript">
-$(function(){
-	
-	$('.ok').click(function(e){
-		
-		var name=$(':radio').attr('name');
-		console.log(name);
-		var checked=$('input[name=\"'+name+'\"]:checked').val();
-		$('#result').html(checked);
-		// 확인 버튼 한 번 누르면 버튼 비활성화
-		//$('.ok').prop("disabled",true);	
-	});
-});
 
 </script>
 </head>
+
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <h1>＜ 성적 관리 ＞</h1>
+<div>
+<h2 id="h2"> 안녕하세요  </h2>
+<button id="test">수정</button>
+</div>
+<form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
 <table id="topPart">
-<tr><td>
-<select>
-	<option>강의를 선택하시오</option>
-	<option>웹 개발자 양성 A</option>
-	<option>웹 개발자 양성 B</option>
-	<option>웹 개발자 양성 C</option>
-</select>
-</td></tr>
+<tr>
+	<td>
+		<select name="scoreList" onchange="this.form.submit();">
+			<option value="0">강의를 선택하시오</option>
+			<option value="1">웹 개발자 양성 A</option>
+			<option value="2">웹 개발자 양성 B</option>
+			<option value="3">웹 개발자 양성 C</option>
+		</select>
+	</td>
+</tr>
+</form>
 </table>
 	<table id="stuScore">
 		<thead>
@@ -107,40 +107,19 @@ $(function(){
 			</tr>
 		</thead>
 		
-		<tbody>
-		
-			<tr id="link">
-				<td>1101</td>
-				<td>권태민</td>
-				<td><input type="text" /></td>
-				<td><input type="text" /></td>
-				<td><input type="text" /></td>
-				<td id="okBtn">
-					<button class="ok">확인</button>
-				</td>	
-				<td id="editBtn">
-					<button class="edit">수정</button>
-				</td>	
-			</tr>
-		
-			<tr id="link">
-				<td>1102</td>
-				<td>권태만</td>
-				<td><input type="text" /></td>
-				<td><input type="text" /></td>
-				<td><input type="text" /></td>
-				<td id="okBtn">
-					<button class="ok">확인</button>
-				</td>	
-				<td id="editBtn">
-					<button class="edit">수정</button>
-				</td>	
-			</tr>
-		
-			
+ 		<tbody>
+			<c:forEach items="${allList}" var="bean">
+				<tr class="link">
+		<form action="${pageContext.request.contextPath}/stuMgmt/stuScoreInsert.bit" method="post">
+					
+					<td><input name="stuNo" type="text" value="${bean.stuNo }" readonly="readonly"/></td>
+					<td>${bean.stuName}</td>
+					<td><input class="inputScore" name="java" type="text" value="${bean.java }" /></td>
+					<td><input class="inputScore" name="web" type="text" value="${bean.web }" /></td>
+					<td><input class="inputScore" name="framework" type="text" value="${bean.framework }" /></td>
+					<td><button class="ok" type="submit">확인</button></td>		
+		</form>
+				</tr>
+			</c:forEach>	
 		</tbody>
 	</table>
-	
-<%@ include file="/templates/footer.jspf" %>
-</body>
-</html>

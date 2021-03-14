@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <style rel="stylesheet" type="text/css">
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap');
 *{
 	font-family: 'Noto Serif KR', serif;
 	margin: 0px auto;
@@ -74,7 +73,7 @@ table{
 }
 ul{
 	list-style: none;
-}
+} 
 ul>li{
 	border-bottom: solid 1px #bfcadb;
 }
@@ -86,11 +85,16 @@ ul>li{
 #sub11,#sub12,#sub21,#sub22,#sub23{
 	font-size: 13px;
 }
+
+#sub221,#sub222,#sub231,#sub232{
+	font-size: 11px;
+}
+
 #tmp{
 	height: 160px;
 }
 </style>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+
 </head>
 <body>
 <%  // 인증된 세션이 없는경우, 해당페이지를 볼 수 없게 함.
@@ -105,9 +109,9 @@ ul>li{
 		<%
 		String id=request.getParameter("idInput");
 		%>
-		<td id="id"><img src="/demo/imgs/user1.png"><%=session.getAttribute("signedUser")%></td>
-		<td id="home"><a href="/demo/home.jsp">홈</a></td>
-		<td id="logout"><a href="/demo/login.jsp">로그아웃</a></td>
+		<td id="id"><img src="/imgs/user1.png"><%=session.getAttribute("signedUser")%></td>
+		<td id="home"><a href="/home.jsp">홈</a></td>
+		<td id="logout"><a href="/login.jsp">로그아웃</a></td>
 	</tr>
 </table>
 
@@ -120,8 +124,18 @@ ul>li{
 			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
 			<li id="main2">학생관리</li>
 			<li id="sub21"><a href="/stuMgmt/stuList.jsp">수강생목록</a></li>
-			<li id="sub22"><a href="/stuMgmt/stuAtt.jsp">출결관리</a></li>
-			<li id="sub23"><a href="/stuMgmt/stuScore.jsp">성적관리</a></li>
+			
+			<li id="sub22">출결관리</li>
+			<li id="sub221"><a href="/demo/stuMgmt/stuAtt.jsp">└ 출결입력</a></li>
+			<li id="sub222"><a href="/demo/stuMgmt/stuAttList.jsp">└ 출결현황</a></li>
+			
+			<li id="sub23">성적관리</li>
+			<!-- <li id="sub231"><a href="/demo/stuMgmt/stuScore.jsp">└ 성적입력</a></li> -->
+ 			<li id="sub231"><a href="${pageContext.request.contextPath}/stuMgmt/stuScore.bit">└ 성적입력</a></li>
+			
+			<li id="sub232"><a href="/stuMgmt/stuScoreList.jsp">└ 성적현황</a></li>
+			
+			
 			<li id="tmp"></li>
 		</ul>
 		</td>
