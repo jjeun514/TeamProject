@@ -109,7 +109,7 @@ ul>li{
 		<%
 		String id=request.getParameter("idInput");
 		%>
-		<td id="id"><img src="/imgs/user1.png"><%=session.getAttribute("signedUser")%></td>
+		<td id="id"><img src="/imgs/user1.png"></td>
 		<td id="home"><a href="/home.jsp">홈</a></td>
 		<td id="logout"><a href="/login.jsp">로그아웃</a></td>
 	</tr>

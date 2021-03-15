@@ -65,19 +65,17 @@ img {
   -->
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-
-	</script>
+	
+</script>
 </head>
 
 <body>
-
-	<table>
-		<!-- 배경 이미지 -->
-		<tr>
-			<img src="imgs/main.jpg" />
-		</tr>
-
-		<form action="auth.jsp" method="post">
+	<form action="home.bit" method="post">
+		<table>
+			<!-- 배경 이미지 -->
+			<tr>
+				<img src="imgs/main.jpg" />
+			</tr>
 			<tr>
 				<td id="id">아이디</td>
 				<td><input type="text" name="idInput" id="idInput"></td>
@@ -87,17 +85,15 @@ img {
 					<button id="btn" type="submit">로그인</button>
 				</td>
 			</tr>
-
 			<tr>
 				<td id="pw">패스워드</td>
 				<td><input type="password" name="pwInput" id="pwInput"></td>
 			</tr>
 			<tr>
-			<button><a href="accFind.jsp">id/pw 찾기</button>
-			<button><a href="accAdd.jsp">회원가입</button>
+				<td><a href="accFind.jsp">id/pw 찾기</a></td>
+				<td><a href="accAdd.jsp">회원가입</a></td>
 			</tr>
-		</form>
-
-	</table>
+		</table>
+	</form>
 </body>
 </html>

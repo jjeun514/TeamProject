@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-	$(function() {
+	<!--$(function() {
 
 		$("button").click(function() {
 			alert();
 		});
 
-	});
+	});-->
 </script>
 </head>
 <body>

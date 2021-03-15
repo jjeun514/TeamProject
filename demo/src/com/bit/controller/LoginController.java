@@ -1,38 +1,38 @@
 package com.bit.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.test.model.Dao;
 
-@WebServlet("/home.com")
-public class LoginController extends HttpServlet {
- 
+@WebServlet("/home.bit")
+public class LoginController extends HttpServlet{
+	HttpSession session;
 	
-    public LoginController() {
-    }
-	
-    @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			
 		
-		String sysId=request.getParameter("id2");
-		System.out.println("id="+sysId);
-		String sysPw=request.getParameter("pw2");
-		System.out.println("pw="+sysPw);
-		System.out.println("run...");
-		
-		Dao dao=new Dao();
-		//dao.login(sysId, sysPw);
-		request.setAttribute("list", dao.login(sysId, sysPw));
-		
-		RequestDispatcher rd=null;
-		rd=request.getRequestDispatcher("home.jsp");
-		rd.forward(request, response);
-		
+			String sysId=req.getParameter("idInput");
+			String sysPw=req.getParameter("pwInput");
+			Dao dao=new Dao();
+
+			if(dao.login(sysId, sysPw)==null) {
+				resp.sendRedirect("login.jsp");
+				System.out.println("dao is null");
+			}else {
+				session.setAttribute("list", dao.login(sysId, sysPw));
+				System.out.println("dao is not null");
+				resp.sendRedirect("home.jsp");		
+		}
 	}
+	
 }

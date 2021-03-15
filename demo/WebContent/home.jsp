@@ -19,7 +19,7 @@
 	<body>
 	<%@ include file="templates/menu.jspf" %>
 	<h2>환영합니다!</h2>
-	<p><%="'"+session.getAttribute("signedUser")+"' " %>님으로 로그인되었습니다.</p>
+	<p><%//="'"+session.getAttribute("signedUser")+"' " %>님으로 로그인되었습니다.</p>
 	<%@ include file="templates/footer.jspf" %>
 	</body>
 	</html>

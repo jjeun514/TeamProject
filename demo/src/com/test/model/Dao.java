@@ -15,63 +15,65 @@ public class Dao {
 	Connection conn=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
-	
+
 	public Dao() {
 		try {
 			InitialContext initCon=new InitialContext();
 			dataSource=(DataSource)initCon.lookup(
-									"java:/comp/env/jdbc/maria");
-			
+					"java:/comp/env/jdbc/maria");
+
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<Dto> login(String sysId, String sysPw) {
 		String sql="select * from account where sysId=? and sysPw=?";
 		List<Dto> list=new ArrayList<Dto>();
-		
-		System.out.println("param:"+sysId);
-		System.out.println("param:"+sysPw);
-		
+
+		System.out.println("param id : "+sysId);
+		System.out.println("param pw : "+sysPw);
+
 		try {
 			conn=dataSource.getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,sysId);
 			pstmt.setString(2,sysPw);
 			rs=pstmt.executeQuery();
-			System.out.println(sql);
+			System.out.println("쿼리문을 확인하세요   "+sql);
 
 			if(rs.next()) {
 				Dto bean=new Dto();
-				String a=rs.getString("sysId");
-				String b=rs.getString("sysPw");
-				System.out.println("a:"+a);
-				System.out.println("b:"+b);
-				bean.setSysId(a);
-				bean.setSysPw(b);
+				bean.setSysId(rs.getString("sysId"));
+				bean.setSysPw(rs.getString("sysPw"));
 				bean.setEmpNo(rs.getInt("empNo"));
+				System.out.println("empNo 는??"+rs.getInt("empNo"));
 				list.add(bean);
+			}else {
+				System.out.println("null을 리턴합니다");
+				return null;
 			}
 			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			
-				try {
-					if(conn!=null)conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		System.out.println("list를 리턴합니다");
 		return list;
 	}
-	
+
 	// 로그인 시 아이디, 비밀번호 체크 메서드
 	public int loginCheck(String id, String pw) {
-		String dbPw="";	// DB에서 꺼낸 비밀번호 담고
+		String dbPw="";   // DB에서 꺼낸 비밀번호 담고
 		int x=-1;
-		
+
 		// 사용자가 입력한 아이디로 DB에서 비밀번호 조회
 		StringBuffer query=new StringBuffer();
 		query.append("select sysPw from account where sysId=?");
@@ -80,17 +82,17 @@ public class Dao {
 			pstmt=conn.prepareStatement(query.toString());
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
-			
+
 			// 사용자가 입력한 아이디의 비밀번호가 있을 경우
 			if(rs.next()) {
 				dbPw=rs.getString("pwInput");
 				if(dbPw.equals(pw)) {
-					x=1;	// db와 같을 때
+					x=1;   // db와 같을 때
 				}else {
-					x=0;	// 다를 때
+					x=0;   // 다를 때
 				}
 			}else {
-				x=-1;	// 해당 아이디가 없을 때
+				x=-1;   // 해당 아이디가 없을 때
 			}
 			return x;
 		} catch (SQLException e) {
@@ -105,5 +107,48 @@ public class Dao {
 		}
 		return x;
 	}
-	
+
+	public List<Dto> accAdd(String sysId, String sysPw, int empNo) {
+		String sql="insert into account value(?,?,?)";
+		List<Dto> list=new ArrayList<Dto>();
+
+		System.out.println("param:"+sysId);
+		System.out.println("param:"+sysPw);
+		System.out.println("param"+empNo);
+
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sysId);
+			pstmt.setString(2, sysPw);
+			pstmt.setInt(3, empNo);
+			rs=pstmt.executeQuery();
+
+			while(rs.next()) {
+				Dto bean=new Dto();
+				bean.setSysId(rs.getString(1));
+				bean.setSysPw(rs.getString(2));
+				bean.setEmpNo(rs.getInt(3));
+
+				list.add(bean);
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+
+	}
+
 }
