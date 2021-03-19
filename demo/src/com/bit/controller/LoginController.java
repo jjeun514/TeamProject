@@ -2,6 +2,7 @@ package com.bit.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.test.model.Dao;
+import com.test.model.Dto;
 
 @WebServlet("/home.bit")
 public class LoginController extends HttpServlet{
@@ -24,14 +26,18 @@ public class LoginController extends HttpServlet{
 			String sysId=req.getParameter("idInput");
 			String sysPw=req.getParameter("pwInput");
 			Dao dao=new Dao();
-
-			if(dao.login(sysId, sysPw)==null) {
+			
+			List<Dto> dto=dao.login(sysId, sysPw);
+			if(dto==null) {
 				resp.sendRedirect("login.jsp");
 				System.out.println("dao is null");
 			}else {
-				session.setAttribute("list", dao.login(sysId, sysPw));
+				req.setAttribute("list", dto);
 				System.out.println("dao is not null");
-				resp.sendRedirect("home.jsp");		
+				
+				RequestDispatcher rd;
+				rd=req.getRequestDispatcher("home.jsp");
+				rd.forward(req, resp);	
 		}
 	}
 	

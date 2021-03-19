@@ -24,13 +24,10 @@ public class Dto {
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
-	
 	@Override
 	public String toString() {
-		
-		
-		
-		return sysId;
-		
+		return "Dto [sysId=" + sysId + ", sysPw=" + sysPw + ", empNo=" + empNo + "]";
 	}
+	
+	
 }

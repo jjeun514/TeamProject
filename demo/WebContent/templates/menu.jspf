@@ -98,16 +98,12 @@ ul>li{
 </head>
 <body>
 <%  // 인증된 세션이 없는경우, 해당페이지를 볼 수 없게 함.
-    if (session.getAttribute("signedUser") == null) {
-    	session.invalidate();	// 세션 정보 삭제
-        response.sendRedirect("login.jsp"); // 로그인 페이지로 이동
-    }
 %>
 <table>
 	<tr id="top">
 		<td id="text">비트캠프 평양지점<br>LMS</td>
 		<%
-		String id=request.getParameter("idInput");
+		//String id=request.getParameter("idInput");
 		%>
 		<td id="id"><img src="/imgs/user1.png"></td>
 		<td id="home"><a href="/home.jsp">홈</a></td>
@@ -131,7 +127,6 @@ ul>li{
 			
 			<li id="sub23">성적관리</li>
 			<!-- <li id="sub231"><a href="/demo/stuMgmt/stuScore.jsp">└ 성적입력</a></li> -->
- 			<li id="sub231"><a href="${pageContext.request.contextPath}/stuMgmt/stuScore.bit">└ 성적입력</a></li>
 			
 			<li id="sub232"><a href="/stuMgmt/stuScoreList.jsp">└ 성적현황</a></li>
 			
