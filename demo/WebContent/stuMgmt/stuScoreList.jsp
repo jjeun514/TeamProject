@@ -24,20 +24,23 @@
 			cursor: pointer;
 			color: black;
 		}
-		#stuScore{
+		.Score{
 			width: 80%;
 			margin: auto;
 			text-align: center;
 			empty-cells: hide;
 		}
-		#stuScore th{
+		.Score{
+			margin-bottom: 5px;
+		}
+		.Score th{
 			background-color: #8b8bb5;
 			color: white;
 		}
-		#stuScore,#stuScore th,#stuScore td{
+		.Score,#stuScore th,#stuScore td{
 			border: solid 1px black;
 		}
-		#stuScore a{
+		.Score a{
 			/*셀 전체에 링크 걸리도록*/
 			display: block;
 			width: 100%;
@@ -47,7 +50,7 @@
 			color: black;
 		}
 		/*링크에 마우스 올렸을 때*/
-		#stuScore .link:hover{
+		.Score .link:hover{
 			color: black;
 			background-color: #f5f5ff;
 		}
@@ -76,14 +79,12 @@
 </head>
 
 <body>
-<%@ include file="../templates/menu.jspf" %>
+<%@ include file="/templates/menu.jspf" %>
 <h1>＜ 성적 관리 ＞</h1>
-
 <div>
 <h2 id="h2"> 안녕하세요  </h2>
 <button id="test">수정</button>
 </div>
-
 <form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
 <table id="topPart">
 <tr>
@@ -97,8 +98,11 @@
 	</td>
 </tr>
 </form>
+
 </table>
-	<table id="stuScore">
+<!--강의1 성적 목록  -->
+<c:forEach items="${lecture }" var="listA">
+<table class="Score">
 		<thead>
 			<tr>
 				<th>학번</th>
@@ -110,7 +114,7 @@
 		</thead>
 		
  		<tbody>
-			<c:forEach items="${allList}" var="bean">
+			<c:forEach items="${lecList0}" var="bean">
 				<tr class="link">
 		<form action="${pageContext.request.contextPath}/stuMgmt/stuScoreInsert.bit" method="post">
 					
@@ -119,13 +123,14 @@
 					<td><input class="inputScore" name="java" type="text" value="${bean.java }" /></td>
 					<td><input class="inputScore" name="web" type="text" value="${bean.web }" /></td>
 					<td><input class="inputScore" name="framework" type="text" value="${bean.framework }" /></td>
-					<td><button class="ok" type="submit">확인</button></td>		
+							
 		</form>
 				</tr>
 			</c:forEach>	
 		</tbody>
-	</table>
-	
-<%@ include file="../templates/footer.jspf" %>
-</body>
+</table>
+</c:forEach>
+
+		<%@ include file="../templates/footer.jspf" %>
+	</body>
 </html>

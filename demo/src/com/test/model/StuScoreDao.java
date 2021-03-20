@@ -1,5 +1,6 @@
 package com.test.model;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,27 @@ public class StuScoreDao {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public List<Integer> selectLecNo() {
+		String sql="select lecNo from lecture order by lecNo";
+		
+		List<Integer> listA=new ArrayList<>();
+		
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				listA.add(rs.getInt("lecNo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(listA);
+		return listA;
 	}
 
 	public List<StuScoreDto> selectAll(int lecNo) {
