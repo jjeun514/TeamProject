@@ -1,3 +1,4 @@
+<%@ page import="com.test.model.StuInfoDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,39 +68,40 @@ button{
 <%@ include file="/templates/menu.jspf" %>
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>수강생 정보</h1></td></tr>
+<% StuInfoDto detail = (StuInfoDto)request.getAttribute("detail");  %>
 	<tr>
 		<th>이름</th>
-		<td>권태민</td>
+		<td><%=detail.getStuName() %></td>
 	</tr>
 	<tr>
 		<th>전화번호</th>
-		<td>01046117304</td>
+		<td><%=detail.getStuPhone() %></td>
 	</tr>
 	<tr>
 		<th>강의명</th>
-		<td>웹 개발자 B</td>
+		<td>불러와야함</td>
 	</tr>
 	<tr>
 		<th>출석률</th>
-		<td>50</td>
+		<td>계산해야 함</td>
 	</tr>
 	<tr>
 		<th>자바</th>
-		<td>85</td>
+		<td><%=detail.getJava() %></td>
 	</tr>
 	<tr>
 		<th>웹</th>
-		<td>99</td>
+		<td><%=detail.getWeb() %></td>
 	</tr>
 	<tr>
 		<th>프레임워크</th>
-		<td>100</td>
+		<td><%=detail.getFramework() %></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button><a href="stuEdit.jsp">수정</a></button>
-			<button>삭제</button>
-			<button>뒤로</button>
+			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">수정</a></button>
+			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">삭제</button>
+			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">뒤로</button>
 		</td>
 	</tr>
 </table>

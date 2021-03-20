@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.model.StuInfoDao;
 
-@WebServlet("/stuList.bit")
+@WebServlet("/stuMgmt/stuList.bit")
 public class StuInfoCotroller extends HttpServlet {
 
 	public StuInfoCotroller() {}
@@ -26,7 +26,7 @@ public class StuInfoCotroller extends HttpServlet {
 		StuInfoDao dao = new StuInfoDao();
 		req.setAttribute("selectLec", dao.stuList(lecNo));
 	
-		RequestDispatcher rd = req.getRequestDispatcher("stuMgmt/stuList.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("./stuList.jsp");
 		rd.forward(req, resp);
 	}
 	
