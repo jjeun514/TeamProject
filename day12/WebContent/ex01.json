@@ -1,6 +1,0 @@
-{"root":[
-	{"key1":"val1","key2":true,"key3":1234,"key4":null}
-	,{"key1":"val2","key2":false,"key3":2222,"key4":null}
-	,{"key1":"val3","key2":true,"key3":3333,"key4":null}
-	,{"key1":"val4","key2":true,"key3":4444,"key4":null}
-]}
