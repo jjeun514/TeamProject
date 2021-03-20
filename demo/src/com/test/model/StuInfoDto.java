@@ -4,6 +4,7 @@ public class StuInfoDto {
 
 	private int stuNo, lecNo, java, web, framework;
 	private String stuName, stuPhone;
+	
 	public int getStuNo() {
 		return stuNo;
 	}

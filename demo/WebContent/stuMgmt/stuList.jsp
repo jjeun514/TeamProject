@@ -1,6 +1,7 @@
 	<%@page import="java.util.*, com.test.model.StuInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -48,7 +49,7 @@
 		/*링크에 마우스 올렸을 때*/
 		#stuTable #link:hover{
 			color: blue;
-			background-color: #f5f5ff;
+			background-color: #f5f5ff; 
 			cursor: pointer;
 		}
 		h1{
@@ -71,7 +72,7 @@
 	<h1>＜ 수강생 목록 ＞</h1>
 	<h3>강의명</h3>
 	<h3>To Do : 항목별 앵커태그, 강의 동적 처리, 출석률 계산, 수강생 등록, 수강생 개별 정보</h3>
-	<form action="/stuList.bit" method="post">
+	<form action="${pageContext.request.contextPath }/stuMgmt/stuList.bit" method="post">
 		<table id="topPart">
 			
 			<tr><td><select name="selectLec" onchange="this.form.submit();">
@@ -104,13 +105,13 @@
 				for (StuInfoDto stuInfo: list){
 			%>
 				<tr>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuNo() %></a></td>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuName() %></a></td>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuPhone() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuNo() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuName() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuPhone() %></a></td>
 					<td>출석률</td>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getJava() %></a></td>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getWeb() %></a></td>
-					<td><a href = "stuDetail.jsp?deptno=<%=stuInfo.getStuNo() %>"><%=stuInfo.getFramework() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getJava() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getWeb() %></a></td>
+					<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getFramework() %></a></td>
 				</tr>				
 			<%}} %>
 			</tbody>

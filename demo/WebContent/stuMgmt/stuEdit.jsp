@@ -1,3 +1,4 @@
+<%@page import="com.test.model.StuInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -60,56 +61,62 @@ button{
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<table id="conTable">
-<tr><td colspan="2" id="subject"><h1>수강생 정보 수정</h1></td></tr>
-	<tr>
-		<th>이름</th>
-		<td><input type="text" /></td>
-	</tr>
-	<tr>
-		<th>전화번호</th>
-		<td>	
-		<input type="text" />
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2"> 이 밑으로 변경 불가</td>
-		
-	</tr>
+
+	<table id="conTable">
+	<tr><td colspan="2" id="subject"><h1>수강생 정보 수정</h1></td></tr>
+	<% StuInfoDto edit = (StuInfoDto)request.getAttribute("detail");  %>
 	
-	<tr>
-		<th>강의명</th>
-		<td>
-			웹개발자B
-		</td>
-	</tr>
-	<tr>
-		<th>출석률</th>
-		<td>50%</td>
-	</tr>
-	<tr>
-		<td colspan="2"> 성적</td>
+		<tr>
+			<th>학번</th>
+			<td><input type="text" name = "stuName" value="<%=edit.getStuNo()%>"/></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name = "stuName" value="<%=edit.getStuName()%>"/></td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td>	
+			<input type="text" name = "stuPhone" value="<%=edit.getStuPhone()%>"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"> 이 밑으로 변경 불가</td>
+			
+		</tr>
 		
-	</tr>
-	<tr>
-		<th>java</th>
-		<td>55</td>
-	</tr>
-	<tr>
-		<th>web</th>
-		<td>99</td>
-	</tr>
-	<tr>
-		<th>Framework</th>
-		<td>100</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<button>수정</button>
-			<button>뒤로</button>
-		</td>
-	</tr>
-</table>
+		<tr>
+			<th>강의명</th>
+			<td>불러와야 함</td>
+		</tr>
+		<tr>
+			<th>출석률</th>
+			<td>계산해야 함</td>
+		</tr>
+		<tr>
+			<td colspan="2"> 성적</td>
+			
+		</tr>
+		<tr>
+			<th>java</th>
+			<td><%=edit.getJava() %></td>
+		</tr>
+		<tr>
+			<th>web</th>
+			<td><%=edit.getWeb() %></td>
+		</tr>
+		<tr>
+			<th>Framework</th>
+			<td><%=edit.getFramework() %></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button type="submit">수정</button>
+				<button type="reset">뒤로</button>
+			</td>
+		</tr>
+	</table>
+
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
