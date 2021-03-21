@@ -63,12 +63,26 @@ public class LecDao {
 		이렇게 하면 안됨 student count하는 부분은 테이블 조인하지 말고 따로 빼자 일단
 	    */
 		
-		// 강의번호, 강의명, 강사, 강의장, 시작일, 종강일 (lecture, emp)
+		/* 강의번호, 강의명, 강사, 강의장, 시작일, 종강일 (lecture, emp)
 		String sql="select lecNo, lecName, ename, lecRoom, lecStartDate, lecFinishDate "
 				+ "from lecture left outer join emp on lecture.empNo=emp.empNo";
-		
+		*/
+		/*
+		 * 강의번호 별 학생 수 카운트
+		 * select lecture.lecNo, count(*) from lecture left outer join student on lecture.lecNo=student.lecNo group by lecNo;
+		 */
+
 		// 특정 강의 수강생 수 (student) - 이건 따로 빼자
 		String CntSql="select count(*) from student where lecNo=?";
+		
+		/*
+		String sql="select lecture.lecNo, lecName, ename, lecRoom, lecStartDate, lecFinishDate, count(*) "
+				 + "from lecture left outer join emp on lecture.empNo=emp.empNo "
+				 + "right outer join student on lecture.lecNo=student.lecNo group by lecNo";
+		*/
+		String sql="select lecture.lecNo, lecName, ename, lecRoom, lecStartDate, lecFinishDate, count(stuName) "
+				+ "from lecture left outer join emp on lecture.empNo=emp.empNo "
+				+ "left outer join student on lecture.lecNo=student.lecNo group by lecNo";
 		
 		try {
 			conn = dataSource.getConnection();
@@ -116,6 +130,7 @@ public class LecDao {
 				bean.setLecRoom(rs.getString("lecRoom"));	// 강의장
 				bean.setLecStartDate(rs.getString("lecStartDate"));	// 수강 시작일
 				bean.setLecFinishDate(rs.getString("lecFinishDate"));	// 수강 종료일
+				bean.setTotalStu(rs.getInt("count(stuName)"));	// 수강생 수
 				list.add(bean);
 			}
 		} catch (SQLException e) {
@@ -137,7 +152,8 @@ public class LecDao {
 	public List<LecDto> totalStu() throws SQLException{
 		List<LecDto> list=new ArrayList<LecDto>();
 		// 특정 강의 수강생 수 (student)
-		String sql="select count(*) from student where lecNo=?";
+		String sql="select lecNo from lecture ";
+		String sql2="select count(*) from student where lecNo=?";
 		
 		try {
 			conn = dataSource.getConnection();
@@ -305,7 +321,7 @@ public class LecDao {
 				rs=pstmt.executeQuery();
 				if(rs.next()) {
 					bean.setLecNo(rs.getInt("lecNo"));
-					bean.setTotalStu(rs.getInt("count"));
+					bean.setTotalStu(rs.getInt("count(*)"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
