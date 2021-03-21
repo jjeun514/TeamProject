@@ -124,8 +124,8 @@ input{
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button type="button" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
-			<button type="button" onclick="location='lecDel.bit?lecNo=${bean.lecNo}'">삭제</button>
+			<button type="button" onclick="location='lecEdit.bit?lecNo=<%=No %>'">수정</button>
+			<button type="button" onclick="location='lecDel.bit?lecNo=<%=No %>'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
