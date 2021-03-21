@@ -28,7 +28,7 @@ foreign key (deptNo) references dept(deptNo)
 create table account (
 sysId varchar(20) primary key,
 sysPw varchar(20) not null,
-empNo int(4) not null,
+empNo int(4) not null unique,
 foreign key (empNo) references emp(empNo)
 );
 

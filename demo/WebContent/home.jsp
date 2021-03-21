@@ -24,12 +24,16 @@
 	<%@ page import="java.util.ArrayList" %>
 	<% 
 	 List<Dto> a=(List<Dto>)request.getAttribute("list");
-	session.setAttribute("list", a);
 	Dto dto=a.get(0);
+	session.setAttribute("sysId", dto.getSysId());
+	session.setAttribute("sysPw", dto.getSysPw());
+	session.setAttribute("empNo", dto.getEmpNo());
+	
+	
 	
 	%>
 	<h2>환영합니다!</h2>
-	<p><%="'"+dto.getSysId()+"' " %>님으로 로그인되었습니다.</p>
+	<p><%="'"+session.getAttribute("sysId")+"' " %>님으로 로그인되었습니다.</p>
 	<%@ include file="templates/footer.jspf" %>
 	</body>
 	</html>
