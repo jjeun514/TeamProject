@@ -92,35 +92,50 @@ $(document).ready(function(){
 	$('span').hide();	// msg 숨긴 상태로 시작 
 	$('form').submit(function(){
 		// 값이 입력되지 않은채로 버튼을 누르는 경우 페이지가 넘어가지 않도록
-		if($('input').val()=='')$('span').show();
-		if($('input').val()!='')
+		
+		// 날짜 계산 (개강일이 종강일보다 늦을 수 없음)
+		var startDate=$('#startDate').val();
+		var startDateArr=startDate.split('-');
+		var start=(startDateArr[0]+startDateArr[1]+startDateArr[2]);
+		
+		var endDate=$('#endDate').val();
+		var endDateArr=endDate.split('-');
+		var end=(endDateArr[0]+endDateArr[1]+endDateArr[2]);
+		
 		// 강의명
 		if($('form input').eq(0).val()==''){
 			$('#msg1').show();	// msg 출력
-			$('form input').eq(0).focus();
+			// 강의장
+			if($('form input').eq(3).val()==''){
+				$('#msg2').show();	// msg 출력
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
+				return false;
+			}else{
+				$('#msg2').hide();
+			}
 			return false;
 		}else{
 			$('#msg1').hide();
-		}
-		// 강의장
-		if($('form input').eq(3).val()==''){
-			$('#msg2').show();	// msg 출력
-			$('form input').eq(3).focus();
-			return false;
-		}else{
-			$('#msg2').hide();
-			if($('form input').eq(0).val()==''){
-				$('#msg1').show();	// msg 출력
-				$('form input').eq(0).focus();
+			// 강의장
+			if($('form input').eq(3).val()==''){
+				$('#msg2').show();	// msg 출력
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
 				return false;
 			}else{
-				$('#msg1').hide();
+				$('#msg2').hide();
 			}
-		}
-		if($('#startDate')>=$('#EndDate')){
-			$('#msg4').show();	// msg 출력
-			$('form input').eq(1).focus();
-			return false;
 		}
 	});
 });
@@ -141,7 +156,6 @@ $(document).ready(function(){
 	*/
 	cal.add(Calendar.MONTH,3);
 	String end=df.format(cal.getTime());
-	
 %>
 <form action="newLec.bit" method="post">
 <table id="conTable">
