@@ -1,7 +1,9 @@
+<%@page import="com.test.model.StuScoreDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,20 +26,23 @@
 			cursor: pointer;
 			color: black;
 		}
-		#stuScore{
+		.Score{
 			width: 80%;
 			margin: auto;
 			text-align: center;
 			empty-cells: hide;
 		}
-		#stuScore th{
+		.Score{
+			margin-bottom: 5px;
+		}
+		.Score th{
 			background-color: #8b8bb5;
 			color: white;
 		}
-		#stuScore,#stuScore th,#stuScore td{
+		.Score,#stuScore th,#stuScore td{
 			border: solid 1px black;
 		}
-		#stuScore a{
+		.Score a{
 			/*셀 전체에 링크 걸리도록*/
 			display: block;
 			width: 100%;
@@ -47,7 +52,7 @@
 			color: black;
 		}
 		/*링크에 마우스 올렸을 때*/
-		#stuScore .link:hover{
+		.Score .link:hover{
 			color: black;
 			background-color: #f5f5ff;
 		}
@@ -76,14 +81,11 @@
 </head>
 
 <body>
-<%@ include file="../templates/menu.jspf" %>
+<%@ include file="/templates/menu.jspf" %>
 <h1>＜ 성적 관리 ＞</h1>
-
 <div>
-<h2 id="h2"> 안녕하세요  </h2>
-<button id="test">수정</button>
-</div>
 
+</div>
 <form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
 <table id="topPart">
 <tr>
@@ -97,8 +99,12 @@
 	</td>
 </tr>
 </form>
+
 </table>
-	<table id="stuScore">
+<!--강의1 성적 목록  -->
+<%int cnt=0; %>
+<c:forEach items="${lecture }" var="listA">
+<table class="Score">
 		<thead>
 			<tr>
 				<th>학번</th>
@@ -110,22 +116,26 @@
 		</thead>
 		
  		<tbody>
-			<c:forEach items="${allList}" var="bean">
+			<%List<StuScoreDto> lecList=null; 
+				lecList=(List<StuScoreDto>)request.getAttribute("lecList"+cnt);
+				if(lecList!=null){
+					for(StuScoreDto bean:lecList){
+			%>
 				<tr class="link">
-		<form action="${pageContext.request.contextPath}/stuMgmt/stuScoreInsert.bit" method="post">
-					
-					<td><input name="stuNo" type="text" value="${bean.stuNo }" readonly="readonly"/></td>
-					<td>${bean.stuName}</td>
-					<td><input class="inputScore" name="java" type="text" value="${bean.java }" /></td>
-					<td><input class="inputScore" name="web" type="text" value="${bean.web }" /></td>
-					<td><input class="inputScore" name="framework" type="text" value="${bean.framework }" /></td>
-					<td><button class="ok" type="submit">확인</button></td>		
-		</form>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getStuNo() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getStuName()%></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getJava() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getWeb() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getFramework()%></a></td>
 				</tr>
-			</c:forEach>	
+			<% 	}
+			}
+			cnt++;
+			%>
 		</tbody>
-	</table>
-	
-<%@ include file="../templates/footer.jspf" %>
-</body>
+</table>
+</c:forEach>
+
+		<%@ include file="../templates/footer.jspf" %>
+	</body>
 </html>

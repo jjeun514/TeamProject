@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@
 	text-align: center;
 	line-height: 50px;
 }
-#sub11{
+#sub12{
 	background-color: white;
 	border-right: solid 3px darkblue;
 	color: #103163;
@@ -56,56 +58,78 @@ button{
 	margin-right: 20px;
 	margin-left: 20px;
 }
+a,a:active,a:visited{
+	text-decoration: none;
+	color: black;
+}
+a:hover,button:hover{
+	color: blue;
+	cursor: pointer;
+}
+input{
+	text-align: center;
+}
+#lecNo{
+	border: none;
+}
+#lecStartDate,#lecFinishDate{
+	width: 80px;
+}
 </style>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+
+
+</script>
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
+<%
+	LecDto bean=(LecDto)request.getAttribute("bean");
+	request.setCharacterEncoding("utf-8");
+%>
+<form action="lecEdit.bit" method="post">
 <table id="conTable">
-<tr><td colspan="2" id="subject"><h1>강의 정보 수정</h1></td></tr>
-<!-- 수정할 정보들 전부 input
-	 수정 후 확인 버튼 누르면 lecDetail.jsp로 이동 -->
+<tr><td colspan="2" id="subject"><h1>강의 정보</h1></td></tr>
 	<tr>
-		<th>강의명</th>
-		<td><input type="text" name= "lecture" id="lecture"></td>
+		<th>No</th>
+		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly"></td>
 	</tr>
 	<tr>
-		<th>교육기간</th>
-		<td><input type="date" value="2022-01-01" name= "date" id="date">
-		~ <input type="date" value="2022-01-01" name= "date" id="date"></td>
+		<th>강의명</th>
+		<td><input type="text" value="${bean.lecName }"name="lecName" id="lecName"></td>
+	</tr>
+	<tr>
+		<th>강사</th>
+		<td><select type="selectBox" name="lecturer" id="lecturer">
+		<c:forEach items="${lecturer }" var="name">
+			<option selected="${bean.ename}">${name.ename}</option>
+		</c:forEach></select></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
 		<td>
 		<div>
-  			<input type="radio" id="L1" name="classroom" value="L1"
-        	 checked>
- 			<label for="L1">L1</label>
- 			<input type="radio" id="L2" name="classroom" value="L2">
- 			<label for="L2">L2</label>
-  			<input type="radio" id="L3" name="classroom" value="L3">
-  			<label for="L3">L3</label>
+  			<p><input type="text" value="${bean.lecRoom }"name="lecRoom" id="lecRoom"></p>
 		</div>
 		</td>
 	</tr>
 	<tr>
-		<th>강사</th>
-		<td><select>
-		<option>엄진영</option>
-		<option>이현주</option>
-		<option>임경균</option>
-		</select></td>
+		<th>교육기간</th>
+		<td><input type="text" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate"> ~ <input type="text" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate"></td>
 	</tr>
 	<tr>
-		<th>정원</th>
-		<td><input type="text" value="30" name= "max" id="max">명</td>
+		<th>수강생</th>
+		<td>명</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button>수정</button>
-			<button>뒤로</button>
+			<button type="submit" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
+			<button type="button" onclick="location='lecDetail.bit?lecNo=${bean.lecNo}'">취소</button>
 		</td>
 	</tr>
 </table>
+</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
