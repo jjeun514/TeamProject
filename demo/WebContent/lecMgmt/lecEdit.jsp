@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,8 +102,8 @@ input{
 	<tr>
 		<th>강사</th>
 		<td><select type="selectBox" name="lecturer" id="lecturer">
-		<c:forEach items="${lecturer }" var="bean">
-			<option value="${bean.ename}">${bean.ename}</option>
+		<c:forEach items="${lecturer }" var="name">
+			<option selected="${bean.ename}">${name.ename}</option>
 		</c:forEach></select></td>
 	</tr>
 	<tr>
