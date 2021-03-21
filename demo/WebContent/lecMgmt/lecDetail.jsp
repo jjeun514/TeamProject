@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +57,14 @@ button{
 	margin-right: 20px;
 	margin-left: 20px;
 }
+a,a:active,a:visited{
+	text-decoration: none;
+	color: black;
+}
+a:hover,button:hover{
+	color: blue;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -65,40 +74,49 @@ button{
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
+<%
+	LecDto bean=(LecDto)request.getAttribute("bean");
+%>
+<form action="lecEdit.bit" method="post">
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 정보</h1></td></tr>
 	<tr>
-		<th>강의명</th>
-		<td><p>test</p></td>
+		<th>No</th>
+		<td><%=bean.getLecNo() %></td>
 	</tr>
 	<tr>
-		<th>교육기간</th>
-		<td><p>test</p></td>
+		<th>강의명</th>
+		<td><%=bean.getLecName() %></td>
+	</tr>
+	<tr>
+		<th>강사</th>
+		<td><%=bean.getEname() %></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
 		<td>
 		<div>
-  			<p>test</p>
+  			<p><%=bean.getLecRoom() %></p>
 		</div>
 		</td>
 	</tr>
 	<tr>
-		<th>강사</th>
-		<td>test</td>
+		<th>교육기간</th>
+		<td><%=bean.getLecStartDate() %> ~ <%=bean.getLecFinishDate() %></td>
 	</tr>
 	<tr>
-		<th>정원</th>
-		<td>10명</td>
+		<th>수강생</th>
+		<td>명</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button><a href="lecEdit.jsp">수정</a></button>
-			<button>삭제</button>
-			<button>뒤로</button>
+			<button><a href="${pageContext.request.contextPath }/lecEdit.bit?lecNo=<%=bean.getLecNo()%>">수정</a></button>
+			<button type="button" onclick="location='lecDel.bit'">삭제</button>
+			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
 </table>
+</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
