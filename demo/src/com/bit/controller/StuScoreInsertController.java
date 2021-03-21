@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.model.StuScoreDao;
 
 @WebServlet("/stuMgmt/stuScoreInsert.bit")
-public class stuScoreInsertController extends HttpServlet {
+public class StuScoreInsertController extends HttpServlet {
 
 	
 	
