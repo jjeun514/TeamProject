@@ -192,7 +192,7 @@ public class LecDao {
 		public LecDto cntStu(int lecNo) {
 			LecDto bean=new LecDto();
 			String sql="select lecture.lecNo, count(stuName) "
-					+ "from lecture left outer join student on lecture.lecNo=student.lecNo group by lecNo "
+					+ "from lecture left outer join student on lecture.lecNo=student.lecNo "
 					+ "where lecture.lecNo=?";
 			
 			try {
