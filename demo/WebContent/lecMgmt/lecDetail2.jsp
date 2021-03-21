@@ -91,6 +91,9 @@ input{
 	String lecFinishDate=request.getParameter("lecFinishDate");
 	String lecRoom=request.getParameter("lecRoom");
 	String lecturer=request.getParameter("lecturer");
+	
+	String totalStu=request.getParameter("count(*)");
+	request.setAttribute("count", totalStu);
 %>
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 상세페이지</h1></td></tr>
@@ -120,7 +123,7 @@ input{
 	</tr>
 	<tr>
 		<th>수강생</th>
-		<td>명</td>
+		<td><input type="text" value="${cnt.totalStu }"name="lecRoom" id="lecRoom" readonly="readonly" disabled="disabled">명</td>
 	</tr>
 	<tr>
 		<td colspan="2">

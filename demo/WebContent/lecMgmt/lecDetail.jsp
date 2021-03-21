@@ -65,6 +65,17 @@ a:hover,button:hover{
 	color: blue;
 	cursor: pointer;
 }
+input{
+	text-align: center;
+	text-decoration: none;
+	border: none;
+}
+#lecStartDate,#lecFinishDate{
+	width: 80px;
+}
+#totalStu{
+	background-color: white;
+}
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -76,47 +87,52 @@ a:hover,button:hover{
 <%@ include file="/templates/menu.jspf" %>
 <%
 	LecDto bean=(LecDto)request.getAttribute("bean");
+
+	String lecturer=request.getParameter("lecturer");
+	request.setAttribute("lecturer", lecturer);
+	
+	LecDto bean2=(LecDto)request.getAttribute("cnt");
+	String totalStu=request.getParameter("count(*)");
+	request.setAttribute("count", totalStu);
 %>
-<form action="lecEdit.bit" method="post">
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 정보</h1></td></tr>
 	<tr>
 		<th>No</th>
-		<td><%=bean.getLecNo() %></td>
+		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강의명</th>
-		<td><%=bean.getLecName() %></td>
+		<td><input type="text" value="${bean.lecName }"name="lecName" id="lecName" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강사</th>
-		<td><%=bean.getEname() %></td>
+		<td><input type="text" value="${bean.ename }"name="lecturer" id="lecturer" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
 		<td>
 		<div>
-  			<p><%=bean.getLecRoom() %></p>
+  			<p><input type="text" value="${bean.lecRoom }"name="lecRoom" id="lecRoom" readonly="readonly"></p>
 		</div>
 		</td>
 	</tr>
 	<tr>
 		<th>교육기간</th>
-		<td><%=bean.getLecStartDate() %> ~ <%=bean.getLecFinishDate() %></td>
+		<td><input type="text" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="text" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>수강생</th>
-		<td>명</td>
+		<td><input type="text" value="${cnt.totalStu }"name="totalStu" id="totalStu" readonly="readonly" disabled="disabled">명</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button><a href="${pageContext.request.contextPath }/lecEdit.bit?lecNo=<%=bean.getLecNo()%>">수정</a></button>
-			<button type="button" onclick="location='lecDel.bit'">삭제</button>
+			<button type="button" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
+			<button type="button" onclick="location='lecDel.bit?lecNo=${bean.lecNo}'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
 </table>
-</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
