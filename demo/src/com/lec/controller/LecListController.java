@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bit.lec.model.LecDao;
+import com.bit.lec.model.LecDto;
 
 @WebServlet("/lecList.bit")
 public class LecListController extends HttpServlet {
