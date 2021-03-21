@@ -1,6 +1,7 @@
-<%@page import="java.text.SimpleDateFormat, java.util.*, java.text.*"%>
+<%@ page import="java.text.SimpleDateFormat, java.util.*, java.text.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,6 +75,16 @@ input:click{
 	font-size: 12px;
 	text-align: left;
 }
+input{
+	width: 300px;
+}
+#startDate,#endDate{
+	width: 100px;
+	text-align: center;
+}
+#instructor{
+	color: black;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="../css/jquery.bxslider.css">
 <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
@@ -116,15 +127,21 @@ $(document).ready(function(){
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <%
-/* 교육기간 시작일 선택 시, 수료일은 3개월 뒤로 자동 계산 */
-Calendar cal=Calendar.getInstance();
-cal.setTime(new Date());
-DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-String start=df.format(cal.getTime());
-cal.add(Calendar.MONTH,3);
-String end=df.format(cal.getTime());
+/* 교육기간 시작일 선택 시, 종강일은 3개월 뒤로 자동 계산
+   (시작일의 default는 오늘 날짜로 뜨도록 해놨음)*/
+	Calendar cal=Calendar.getInstance();
+	cal.setTime(new Date());
+	DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+	String start=df.format(cal.getTime());
+	/* 종강일 3개월 뒤는 DB에서 계산하도록 함수 입력되어 있음
+	date_add("2021-01-01",interval 91 day)
+	          ──────────start date 으로 부터 91일 후
+	*/
+	cal.add(Calendar.MONTH,3);
+	String end=df.format(cal.getTime());
+	
 %>
-<form action="newLec.jsp" method="post">
+<form action="newLec.bit" method="post">
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 개설</h1></td></tr>
 <!-- 강의장 이름, 강사 이름 input
@@ -138,8 +155,8 @@ String end=df.format(cal.getTime());
 	  -->
 	<tr>
 		<th>강의명</th>
-		<td><input type="text" name="lecture" size=31 maxlength=50 id="lecture">
-		<br><span id="msg1">※필수 - 강의명 입력(최대 50자)</span></td>
+		<td><input type="text" name="lecture" size=31 maxlength=50 id="lecture" placeholder="강의명 입력(최대: 한글 16자, 영문 50자)">
+		<br><span id="msg1">※필수 - 강의명 입력(최대: 한글 16자, 영문 50자)</span></td>
 		<!-- lecName(varchar:50) - not null -->
 	</tr>
 	<tr>
@@ -150,14 +167,18 @@ String end=df.format(cal.getTime());
 	<tr>
 		<th>강의장</th>
 		<!-- lecRoom(varchar:5) - not null -->
-		<td><input type="text" name="classroom" size=31 maxlength=5 id="classroom">
-		<br><span id="msg2">※필수 - 강의명 입력(최대 5자)</span></td>
+		<td><input type="text" name="classroom" size=31 maxlength=5 id="classroom" placeholder="강의장 입력(최대: 영문 5자)">
+		<br><span id="msg2">※필수 - 강의장 입력(최대: 영문 5자)</span></td>
 	</tr>
 	<tr>
 		<th>강사</th>
 		<!-- ename(varchar:15) - not null -->
-		<td><input type="text" name="instructor" size=31 maxlength=15 id="instructor">
-		<br><span id="msg3">※필수 - 강사명 입력</span></td>
+		<td><select type="selectBox" name="instructor" id="instructor">
+		<c:forEach items="${instructor }" var="bean">
+			<option value="${bean.ename}">${bean.ename}</option>
+		<br><span id="msg3">※필수 - 강사명 입력</span>
+		
+		</c:forEach></select></td>
 	</tr>
 	<tr>
 		<th>정원</th>
@@ -166,7 +187,7 @@ String end=df.format(cal.getTime());
 	<tr>
 		<td colspan="2">
 			<button>등록</button>
-			<button type="button">뒤로</button>
+			<button type="button" onclick="location='lecList.bit'">목록</button>
 		</td>
 	</tr>
 </table>
