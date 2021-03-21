@@ -54,8 +54,7 @@ public class LecEditController extends HttpServlet {
 		dao.updateOne(lecNo, lecName, lecturer, lecRoom, lecStartDate, lecFinishDate, empNo);
 
 		RequestDispatcher rd=null;
-//		rd=req.getRequestDispatcher("/lecMgmt/lecList.jsp");	// 리스트가 안 뜸 ㅠㅠ
-		rd=req.getRequestDispatcher("/lecMgmt/redirect.jsp");	// 리스트가 안 뜸 ㅠㅠ
+		rd=req.getRequestDispatcher("/lecMgmt/lecList.jsp");	// 리스트가 안 뜸 ㅠㅠ
 		rd.forward(req, resp);
 	}
 }
