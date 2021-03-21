@@ -125,7 +125,7 @@ input{
 	<tr>
 		<td colspan="2">
 			<button type="submit" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
-			<button type="button" onclick="location='lecDetail.bit'">취소</button>
+			<button type="button" onclick="location='lecDetail.bit?lecNo=${bean.lecNo}'">취소</button>
 		</td>
 	</tr>
 </table>
