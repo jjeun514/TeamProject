@@ -203,7 +203,7 @@ public class LecDao {
 				rs=pstmt.executeQuery();
 				if(rs.next()) {
 					bean.setLecNo(rs.getInt("lecNo"));
-					bean.setTotalStu(rs.getInt("count(*)"));
+					bean.setTotalStu(rs.getInt("count(stuName)"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
