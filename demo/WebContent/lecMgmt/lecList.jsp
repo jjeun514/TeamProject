@@ -72,6 +72,11 @@
 	
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
+	<%
+	LecDto bean2=(LecDto)request.getAttribute("cnt");
+	String totalStu=request.getParameter("count(*)");
+	request.setAttribute("count", totalStu);
+	%>
 	<h1>＜ 강의 목록 ＞</h1>
 	<table id="lecTable">
 	<thead>
@@ -95,7 +100,7 @@
 			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecRoom}</a></td>	<!-- 강의장 -->
 			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecStartDate}&nbsp;~&nbsp;${bean.lecFinishDate}</a></td>	<!-- 시작일 ~ 종강일 -->
 		<!-- 수강생 (30명 정원) -->
-			<td><a href="lecDetail.jsp">/30 &nbsp;</a></td>
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.totalStu }/30 &nbsp;명</a></td>
 		</tr>
 	</c:forEach>
 	</tbody>
