@@ -1,6 +1,7 @@
 package com.bit.lec.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,11 @@ public class LecEditController extends HttpServlet {
 		LecDao dao=new LecDao();
 		LecDto bean=dao.getOne(lecNo);
 		req.setAttribute("bean", bean);
+		try {
+			req.setAttribute("lecturer", dao.lecturerList());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		RequestDispatcher rd=null;
 		rd=req.getRequestDispatcher("/lecMgmt/lecEdit.jsp");
@@ -54,7 +60,14 @@ public class LecEditController extends HttpServlet {
 		dao.updateOne(lecNo, lecName, lecturer, lecRoom, lecStartDate, lecFinishDate, empNo);
 
 		RequestDispatcher rd=null;
-		rd=req.getRequestDispatcher("/lecMgmt/lecList.jsp");	// 리스트가 안 뜸 ㅠㅠ
+		req.setAttribute("lecNo", lecNo);
+		req.setAttribute("lecName", lecName);
+		req.setAttribute("lecStartDate", lecStartDate);
+		req.setAttribute("lecFinishDate", lecFinishDate);
+		req.setAttribute("lecRoom", lecRoom);
+		req.setAttribute("lecturer", lecturer);
+		
+		rd=req.getRequestDispatcher("/lecMgmt/lecDetail2.jsp");
 		rd.forward(req, resp);
 	}
 }
