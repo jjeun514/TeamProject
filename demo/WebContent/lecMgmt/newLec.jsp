@@ -69,16 +69,17 @@ input:click{
 	background-color: #f2f7ff;
 	color: black;
 }
-#msg1,#msg2,#msg3{
+#msg1,#msg2,#msg3,#msg4{
 	color: red;
 	font-size: 12px;
 	text-align: left;
 }
 input{
 	width: 300px;
+	text-align: center;
 }
 #startDate,#endDate{
-	width: 100px;
+	width: 120px;
 	text-align: center;
 }
 #instructor{
@@ -115,6 +116,11 @@ $(document).ready(function(){
 			}else{
 				$('#msg1').hide();
 			}
+		}
+		if($('#startDate')>=$('#EndDate')){
+			$('#msg4').show();	// msg 출력
+			$('form input').eq(1).focus();
+			return false;
 		}
 	});
 });
@@ -158,7 +164,8 @@ $(document).ready(function(){
 	<tr>
 		<th>교육기간</th>
 		<td><input type="date" value="<%= start %>" name="startDate" id="startDate">
-		~ <input type="date" value="<%= end %>" name="endDate" id="endDate"></td>
+		~ <input type="date" value="<%= end %>" name="endDate" id="endDate">
+		<br><span id="msg4">※개강일이 종강일보다 늦을 수 없습니다.</span></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
