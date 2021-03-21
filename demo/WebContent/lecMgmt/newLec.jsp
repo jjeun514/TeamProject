@@ -59,7 +59,6 @@ button{
 	margin-left: 20px;
 }
 #lecture,#classroom,#instructor{
-	color: #c2c7cf;
 	text-align: center;
 }
 input:hover{
@@ -86,9 +85,7 @@ input{
 	color: black;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="../css/jquery.bxslider.css">
-<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('span').hide();	// msg 숨긴 상태로 시작 
@@ -111,14 +108,13 @@ $(document).ready(function(){
 			return false;
 		}else{
 			$('#msg2').hide();
-		}
-		// 강사
-		if($('form input').eq(4).val()==''){
-			$('#msg3').show();	// msg 출력
-			$('form input').eq(4).focus();
-			return false;
-		}else{
-			$('#msg3').hide();
+			if($('form input').eq(0).val()==''){
+				$('#msg1').show();	// msg 출력
+				$('form input').eq(0).focus();
+				return false;
+			}else{
+				$('#msg1').hide();
+			}
 		}
 	});
 });
