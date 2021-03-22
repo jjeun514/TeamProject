@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@ input{
 	border: none;
 }
 #lecStartDate,#lecFinishDate{
-	width: 80px;
+	width: 120px;
 }
 #totalStu{
 	background-color: white;
@@ -79,8 +80,34 @@ input{
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-
-
+$(function(){
+	$(document.getElementById('editBtn')).click(function(){
+		$(document.getElementById('title')).html('<h4>강의 수정페이지</h4>');
+		$("[readonly=readonly]").not(':eq(0)').not(':eq(6)').removeProp('readonly');
+		$(document.getElementById('lecName')).css('border','black 1px solid');
+		$(document.getElementById('lecturer')).css('border','black 1px solid');
+		$(document.getElementById('lecRoom')).css('border','black 1px solid');
+		$(document.getElementById('lecStartDate')).css('border','black 1px solid');
+		$(document.getElementById('lecFinishDate')).css('border','black 1px solid');
+		// 강사는 text input에서 select로 바뀌고 전체 강사 중 선택할 수 있도록 함
+		$(document.getElementById('lecturer')).replaceWith(
+			'<select name="lecturer" id="lecturer">'+
+				'<c:forEach items="${name }" var="name">'+
+				'<c:if test="${bean.ename eq name.ename }">'+
+				'<option value="${name.lecNo }" selected="selected">${name.ename }</option>'+
+				'</c:if>'+
+				'<c:if test="${bean.ename ne name.ename }">'+
+				'<option value="${name.lecNo }">${name.ename }</option>'+
+				'</c:if>'+
+				'</c:forEach>'+
+			'</select>');
+		$(document.getElementById('editBtn')).replaceWith(
+				'<button id="btn" type="submit" onclick="location='+
+				'lecEdit.bit?lecNo=${bean.lecNo}'+'">확인</button>'		
+			);
+		return false;
+	});
+});
 </script>
 </head>
 <body>
@@ -92,11 +119,12 @@ input{
 	request.setAttribute("lecturer", lecturer);
 	
 	LecDto bean2=(LecDto)request.getAttribute("cnt");
-	String totalStu=request.getParameter("count(*)");
+	String totalStu=request.getParameter("count(stuName)");
 	request.setAttribute("count", totalStu);
 %>
 <table id="conTable">
-<tr><td colspan="2" id="subject"><h1>강의 정보</h1></td></tr>
+<tr><td colspan="2" id="subject"><h1 id="title">강의 상세페이지</h1></td></tr>
+<form action="lecEdit.bit" method="post">
 	<tr>
 		<th>No</th>
 		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly"></td>
@@ -119,7 +147,7 @@ input{
 	</tr>
 	<tr>
 		<th>교육기간</th>
-		<td><input type="text" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="text" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
+		<td><input type="date" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="date" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>수강생</th>
@@ -127,7 +155,8 @@ input{
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button type="button" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
+			<button id="editBtn">수정</button>
+</form>
 			<button type="button" onclick="location='lecDel.bit?lecNo=${bean.lecNo}'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
