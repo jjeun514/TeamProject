@@ -23,6 +23,12 @@ public class LecDetailController extends HttpServlet {
 		LecDao dao=new LecDao();
 		LecDto bean=dao.getOne(lecNo);
 		req.setAttribute("bean", bean);
+		try {
+			req.setAttribute("name", dao.selectIns());
+			System.out.println("[LecDetailController(doGet)] lecList(): "+dao.lecList());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		LecDto totalStu=dao.cntStu(lecNo);
 		req.setAttribute("cnt", totalStu);
 		
