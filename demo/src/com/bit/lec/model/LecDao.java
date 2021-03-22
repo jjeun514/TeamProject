@@ -314,7 +314,7 @@ public class LecDao {
 	// 문제점: lecture는 삭제되지만, student는 fk인 lecNo를
 	//		   그대로 갖고 있게 된다.
 	public void fkSetting01() {
-		String sql="SET foreign_key_checks = 0;";
+		String sql="SET foreign_key_checks = 0";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -332,7 +332,7 @@ public class LecDao {
 		System.out.println("삭제 가능하도록!");
 	}
 	public void fkSetting02() {
-		String sql="SET foreign_key_checks = 1;";
+		String sql="SET foreign_key_checks = 1";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
