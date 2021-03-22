@@ -36,7 +36,7 @@ public class LecEditController extends HttpServlet {
 		}
 		
 		RequestDispatcher rd=null;
-		rd=req.getRequestDispatcher("/lecMgmt/lecEdit.jsp");
+		rd=req.getRequestDispatcher("/lecMgmt/lecDetail.jsp");
 		rd.forward(req, resp);
 	}
 	
@@ -79,7 +79,7 @@ public class LecEditController extends HttpServlet {
 		req.setAttribute("lecRoom", lecRoom);
 		req.setAttribute("lecturer", lecturer);
 		int totalStu=dao.stu(lecNo);
-		req.setAttribute("cnt", totalStu);
+		req.setAttribute("totalStu", totalStu);
 		
 		rd=req.getRequestDispatcher("/lecMgmt/lecDetail2.jsp");
 		rd.forward(req, resp);
