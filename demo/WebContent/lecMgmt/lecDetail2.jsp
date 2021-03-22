@@ -71,7 +71,10 @@ input{
 	border: none;
 }
 #lecStartDate,#lecFinishDate{
-	width: 80px;
+	width: 120px;
+}
+#totalStu{
+	background-color: white;
 }
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
@@ -82,7 +85,7 @@ input{
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<%
+<%	System.out.println("lecDetail2.jsp");
 	LecDto bean=(LecDto)request.getAttribute("bean");
 	int No=Integer.parseInt(request.getParameter("lecNo"));
 		No=Integer.parseInt(request.getParameter("lecNo"));
@@ -92,8 +95,11 @@ input{
 	String lecRoom=request.getParameter("lecRoom");
 	String lecturer=request.getParameter("lecturer");
 	
-	String totalStu=request.getParameter("count(*)");
+	String totalStu=request.getParameter("count(stuName)");
 	request.setAttribute("count", totalStu);
+	
+	Object cnt=request.getAttribute("totalStu");
+	System.out.println("(detail2)cnt: "+cnt);
 %>
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 상세페이지</h1></td></tr>
@@ -123,11 +129,11 @@ input{
 	</tr>
 	<tr>
 		<th>수강생</th>
-		<td><input type="text" value="${cnt.totalStu }"name="lecRoom" id="lecRoom" readonly="readonly" disabled="disabled">명</td>
+		<td><input type="text" value="<%=cnt%>"name="totalStu" id="totalStu" readonly="readonly" disabled="disabled">명</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button type="button" onclick="location='lecEdit.bit?lecNo=<%=No %>'">수정</button>
+			<button type="button" onclick="location='lecDetail.bit?lecNo=<%=No %>'">수정</button>
 			<button type="button" onclick="location='lecDel.bit?lecNo=<%=No %>'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>

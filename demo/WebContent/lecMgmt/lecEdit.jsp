@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+<%@ page import="java.util.*,com.bit.lec.model.LecDto,com.bit.lec.model.LecDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -73,27 +73,39 @@ input{
 	border: none;
 }
 #lecStartDate,#lecFinishDate{
-	width: 80px;
+	width: 120px;
+}
+input{
+	background-color: white;
+	border: 1px solid black;
+}
+#totalStu{
+	background-color: white;
+	border: none;
 }
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
-
 </script>
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<%
+<%	System.out.println("lecEdit.jsp");
 	LecDto bean=(LecDto)request.getAttribute("bean");
 	request.setCharacterEncoding("utf-8");
+	
+	String lecturer=request.getParameter("ins");
+	System.out.println("강사?"+lecturer);
+	
+	Object cnt=request.getAttribute("totalStu");
 %>
 <form action="lecEdit.bit" method="post">
 <table id="conTable">
-<tr><td colspan="2" id="subject"><h1>강의 정보</h1></td></tr>
+<tr><td colspan="2" id="subject"><h1>강의 수정</h1></td></tr>
 	<tr>
 		<th>No</th>
-		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly"></td>
+		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly" disabled="disabled"></td>
 	</tr>
 	<tr>
 		<th>강의명</th>
@@ -120,7 +132,7 @@ input{
 	</tr>
 	<tr>
 		<th>수강생</th>
-		<td>명</td>
+		<td><input type="text" value="<%=cnt%>"name="totalStu" id="totalStu" readonly="readonly" disabled="disabled">명</td>
 	</tr>
 	<tr>
 		<td colspan="2">

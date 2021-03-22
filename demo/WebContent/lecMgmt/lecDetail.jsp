@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+<%@ page import="java.util.*,com.bit.lec.model.LecDto,com.bit.lec.model.LecDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -74,13 +74,14 @@ input{
 #lecStartDate,#lecFinishDate{
 	width: 120px;
 }
-#totalStu{
+#cnt1,#cnt2{
 	background-color: white;
 }
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 $(function(){
+	$(document.getElementById('btn')).hide();
 	$(document.getElementById('editBtn')).click(function(){
 		$(document.getElementById('title')).html('<h4>강의 수정페이지</h4>');
 		$("[readonly=readonly]").not(':eq(0)').not(':eq(6)').removeProp('readonly');
@@ -94,17 +95,18 @@ $(function(){
 			'<select name="lecturer" id="lecturer">'+
 				'<c:forEach items="${name }" var="name">'+
 				'<c:if test="${bean.ename eq name.ename }">'+
-				'<option value="${name.lecNo }" selected="selected">${name.ename }</option>'+
+				'<option value="${name.ename }" selected="selected">${name.ename }</option>'+
 				'</c:if>'+
 				'<c:if test="${bean.ename ne name.ename }">'+
-				'<option value="${name.lecNo }">${name.ename }</option>'+
+				'<option value="${name.ename }">${name.ename }</option>'+
 				'</c:if>'+
 				'</c:forEach>'+
 			'</select>');
-		$(document.getElementById('editBtn')).replaceWith(
-				'<button id="btn" type="submit" onclick="location='+
-				'lecEdit.bit?lecNo=${bean.lecNo}'+'">확인</button>'		
-			);
+		$(document.getElementById('btn')).show();
+		$(document.getElementById('btn')).click(function(){
+			$(document.getElementById('cnt1')).remove();
+		});
+		$(document.getElementById('editBtn')).hide();
 		return false;
 	});
 });
@@ -112,19 +114,19 @@ $(function(){
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<%
+<%	System.out.println("lecDetail.jsp");
 	LecDto bean=(LecDto)request.getAttribute("bean");
 
 	String lecturer=request.getParameter("lecturer");
 	request.setAttribute("lecturer", lecturer);
 	
-	LecDto bean2=(LecDto)request.getAttribute("cnt");
-	String totalStu=request.getParameter("count(stuName)");
-	request.setAttribute("count", totalStu);
+	System.out.println("totalStu②"+request.getAttribute("totalStu"));
+	Object cnt=request.getAttribute("totalStu");
+	System.out.println("(detail1)cnt: "+cnt);
 %>
+<form action="lecEdit.bit" method="post">
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1 id="title">강의 상세페이지</h1></td></tr>
-<form action="lecEdit.bit" method="post">
 	<tr>
 		<th>No</th>
 		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly"></td>
@@ -147,21 +149,22 @@ $(function(){
 	</tr>
 	<tr>
 		<th>교육기간</th>
-		<td><input type="date" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="date" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
+		<td><input type="text" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="text" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>수강생</th>
-		<td><input type="text" value="${cnt.totalStu }"name="totalStu" id="totalStu" readonly="readonly" disabled="disabled">명</td>
+		<td><input id="cnt1" type="text" value="${totalStu.totalStu }"name="totalStu" readonly="readonly" disabled="disabled">명</td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<button id="editBtn">수정</button>
-</form>
+			<button id="btn" type="submit" onclick="location='lecDetail.bit?lecNo=${bean.lecNo}'">확인</button>
 			<button type="button" onclick="location='lecDel.bit?lecNo=${bean.lecNo}'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
 </table>
+</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
