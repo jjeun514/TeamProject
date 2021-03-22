@@ -311,6 +311,8 @@ public class LecDao {
 	}
 	
 	// FK 삭제 가능하게 했다가 삭제 후, 다시 안되게 설정
+	// 문제점: lecture는 삭제되지만, student는 fk인 lecNo를
+	//		   그대로 갖고 있게 된다.
 	public void fkSetting01() {
 		String sql="SET foreign_key_checks = 0;";
 		try {
