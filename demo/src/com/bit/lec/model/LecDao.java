@@ -310,6 +310,44 @@ public class LecDao {
 		return -1;
 	}
 	
+	// FK 삭제 가능하게 했다가 삭제 후, 다시 안되게 설정
+	public void fkSetting01() {
+		String sql="SET foreign_key_checks = 0;";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("삭제 가능하도록!");
+	}
+	public void fkSetting02() {
+		String sql="SET foreign_key_checks = 1;";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("삭제 불가능하도록!");
+	}
+	
 	// 삭제
 	public void deleteOne(int lecNo) {
 		String sql="delete from lecture where lecNo=?";
