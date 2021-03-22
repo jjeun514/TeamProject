@@ -64,6 +64,38 @@ public class LecDao {
 		return list;
 	}
 	
+	// 강사 중복 제거 강의정보 불러오기(lecNo,ename
+	public List<LecDto> selectIns() throws SQLException{
+		List<LecDto> list=new ArrayList<LecDto>();
+		// 강사 이름 중복 제거
+		String sql="select lecture.lecNo, ename from lecture "
+				+ "right outer join emp on lecture.empNo=emp.empNo "
+				+ "where deptNo=3 group by ename";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				LecDto bean = new LecDto();
+				bean.setLecNo(rs.getInt("lecNo"));					// 강의번호
+				bean.setEname(rs.getString("ename"));				// 강사
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("[LecDao(selectIns)] list: "+list);
+		return list;
+	}
+	
 	// 강사 목록
 	public List<LecDto> lecturerList() throws SQLException{
 		List<LecDto> instructor=new ArrayList<LecDto>();
