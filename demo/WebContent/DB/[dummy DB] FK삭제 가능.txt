@@ -1,0 +1,173 @@
+/*MariaDB 문법*/
+
+-- 기존 데이터베이스 삭제
+drop database project;
+
+-- 데이터베이스 생성
+create database project;
+
+-- 데이터베이스 선택
+use project;
+
+# 위 명령어는 본인 환경에 따라 선택하여 사용하시면 됩니다.
+
+-- 기존 테이블 삭제
+drop table attendance;
+drop table score;
+drop table student;
+drop table lecture;
+drop table account;
+drop table emp;
+drop table dept;
+
+-- 부서 테이블 생성
+create table dept (
+deptNo int(2) auto_increment primary key,
+dname varchar(15) not null
+);
+
+-- 사원 테이블 생성
+create table emp (
+empNo int(4) auto_increment primary key,
+ename varchar(15) not null,
+empPhone varchar(11) unique,
+deptNo int(2),
+foreign key (deptNo) references dept(deptNo)
+on delete set null
+on update cascade
+);
+
+-- 시스템 계정 테이블 생성
+create table account (
+sysId varchar(20) primary key,
+sysPw varchar(20) not null,
+empNo int(4) unique,
+foreign key (empNo) references emp(empNo)
+on delete set null
+on update cascade
+);
+
+-- 강의 테이블 생성
+create table lecture (
+lecNo int(2)  auto_increment primary key,
+lecName varchar(50) not null,
+lecRoom varchar(5) not null,
+lecStartDate date,
+lecFinishDate date,
+empNo int(4),
+foreign key (empNo) references emp(empNo)
+on delete set null
+on update cascade
+);
+
+-- 수강생 테이블 생성
+create table student (
+stuNo int(6) auto_increment primary key,
+stuName varchar(15) not null,
+stuPhone varchar(11) unique,
+lecNo int(2),
+foreign key (lecNo) references lecture(lecNo)
+on delete set null
+on update cascade
+);
+
+-- 성적 테이블 생성
+create table score (
+stuNo int(6),
+java int(3) default 0 check(java between 0 and 100),
+web int(3) default 0 check(web between 0 and 100),
+framework int(3) default 0 check(framework between 0 and 100),
+foreign key (stuNo) references student(stuNo)
+on delete set null
+on update cascade
+);
+
+-- 출석 테이블 생성
+create table attendance (
+stuNo int(6),
+stuAtt int(2),
+stuLeave int(2),
+stuLate int(2),
+stuAbsent int(2),
+foreign key (stuNo) references student(stuNo)
+on delete set null
+on update cascade
+);
+
+# 더미데이터
+
+-- 부서
+insert into dept(dname) values('sales');
+insert into dept(dname) values('admin');
+insert into dept(dname) values('lecturer');
+
+-- 사원
+insert into emp(ename, empPhone, deptNo) values('smith', '01011111111', 1);
+insert into emp(ename, empPhone, deptNo) values('adams', '01022222222', 1);
+insert into emp(ename, empPhone, deptNo) values('roy', '01033333333', 2);
+insert into emp(ename, empPhone, deptNo) values('noah', '01044444444', 2);
+insert into emp(ename, empPhone, deptNo) values('emma', '01055555555', 3);
+insert into emp(ename, empPhone, deptNo) values('liam', '01066666666', 3);
+insert into emp(ename, empPhone, deptNo) values('sophia', '01077777777', 3);
+
+-- 계정
+insert into account(sysId, sysPw, empNo) values('aaa','111',1);
+insert into account(sysId, sysPw, empNo) values('bbb','111',2);
+insert into account(sysId, sysPw, empNo) values('ccc','111',3);
+insert into account(sysId, sysPw, empNo) values('ddd','111',4);
+insert into account(sysId, sysPw, empNo) values('eee','111',5);
+insert into account(sysId, sysPw, empNo) values('fff','111',6);
+insert into account(sysId, sysPw, empNo) values('ggg','111',7);
+
+-- 강의
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_Z','L1', "2021-01-01", date_add("2021-01-01",interval 91 day), 5);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_A','L1', "2021-03-01", date_add("2021-03-01",interval 91 day), 5);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_B','L2', "2021-03-01", date_add("2021-03-01",interval 91 day), 6);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_C','L3', "2021-03-01", date_add("2021-03-01",interval 91 day), 7);
+insert into lecture(lecName, lecRoom, lecStartDate, lecFinishDate, empNo) values ('programming_A','L1', "2021-06-01", date_add("2021-06-01",interval 91 day), 5);
+
+-- 학생
+insert into student(stuName, stuPhone, lecNo) values('olivia', '01012345678',1);
+insert into student(stuName, stuPhone, lecNo) values('ava', '01023456789',1);
+insert into student(stuName, stuPhone, lecNo) values('elijah', '01034567890',1);
+insert into student(stuName, stuPhone, lecNo) values('lsabella', '01045678901',1);
+insert into student(stuName, stuPhone, lecNo) values('oliver', '01056789012',1);
+insert into student(stuName, stuPhone, lecNo) values('mason', '26346',2);
+insert into student(stuName, stuPhone, lecNo) values('ella', '457679',2);
+insert into student(stuName, stuPhone, lecNo) values('mia', '4257856',2);
+insert into student(stuName, stuPhone, lecNo) values('james', '108594',2);
+insert into student(stuName, stuPhone, lecNo) values('camila', '039476293',2);
+insert into student(stuName, stuPhone, lecNo) values('aiden', '235',3);
+insert into student(stuName, stuPhone, lecNo) values('caden', '79',3);
+insert into student(stuName, stuPhone, lecNo) values('zoe', '467',3);
+insert into student(stuName, stuPhone, lecNo) values('aria', '379',3);
+insert into student(stuName, stuPhone, lecNo) values('ethan', '9999',3);
+insert into student(stuName, stuPhone, lecNo) values('luna', '29869',4);
+insert into student(stuName, stuPhone, lecNo) values('benjamin', '0976',4);
+insert into student(stuName, stuPhone, lecNo) values('carter', '964346',4);
+insert into student(stuName, stuPhone, lecNo) values('mila', '56489',4);
+insert into student(stuName, stuPhone, lecNo) values('avery', '349899',4);
+insert into student(stuName, stuPhone, lecNo) values('mateo', '123',5);
+insert into student(stuName, stuPhone, lecNo) values('lucas', '456',5);
+insert into student(stuName, stuPhone, lecNo) values('layla', '789',5);
+insert into student(stuName, stuPhone, lecNo) values('michael', '147',5);
+insert into student(stuName, stuPhone, lecNo) values('luca', '258',5);
+
+commit;
+
+# 데이터 삽입 확인 명령
+
+-- 테이블 확인
+show tables;
+
+-- 각 테이블 제약조건 확인
+select CONSTRAINT_SCHEMA, TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE from information_schema.table_constraints where CONSTRAINT_SCHEMA='project';
+
+-- 각 테이블 레코드 확인
+select * from dept;
+select * from emp;
+select * from account;
+select * from lecture;
+select * from student;
+select * from score;
+select * from attendance;

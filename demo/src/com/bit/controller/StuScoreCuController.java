@@ -21,10 +21,10 @@ public class StuScoreCuController extends HttpServlet {
 		
 		StuScoreDao stuScoreDao=new StuScoreDao();
 		List<Integer> listA =stuScoreDao.selectLecNo();
-		System.out.println(listA.toString());
-		System.out.println("강의명1 : "+listA.get(0));
-		System.out.println("강의명2 : "+listA.get(1));
-		System.out.println("강의명3 : "+listA.get(2));
+//		System.out.println(listA.toString());
+//		System.out.println("강의명1 : "+listA.get(0));
+//		System.out.println("강의명2 : "+listA.get(1));
+//		System.out.println("강의명3 : "+listA.get(2));
 		req.setAttribute("lecture", listA);
 		
 		StuScoreDao scoreDao=new StuScoreDao();

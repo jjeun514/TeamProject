@@ -1,7 +1,9 @@
+<%@page import="com.test.model.StuScoreDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,8 +84,7 @@
 <%@ include file="/templates/menu.jspf" %>
 <h1>＜ 성적 관리 ＞</h1>
 <div>
-<h2 id="h2"> 안녕하세요  </h2>
-<button id="test">수정</button>
+
 </div>
 <form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
 <table id="topPart">
@@ -101,6 +102,7 @@
 
 </table>
 <!--강의1 성적 목록  -->
+<%int cnt=0; %>
 <c:forEach items="${lecture }" var="listA">
 <table class="Score">
 		<thead>
@@ -114,19 +116,22 @@
 		</thead>
 		
  		<tbody>
-			<c:forEach items="${lecList0}" var="bean">
+			<%List<StuScoreDto> lecList=null; 
+				lecList=(List<StuScoreDto>)request.getAttribute("lecList"+cnt);
+				if(lecList!=null){
+					for(StuScoreDto bean:lecList){
+			%>
 				<tr class="link">
-		<form action="${pageContext.request.contextPath}/stuMgmt/stuScoreInsert.bit" method="post">
-					
-					<td><input name="stuNo" type="text" value="${bean.stuNo }" readonly="readonly"/></td>
-					<td>${bean.stuName}</td>
-					<td><input class="inputScore" name="java" type="text" value="${bean.java }" /></td>
-					<td><input class="inputScore" name="web" type="text" value="${bean.web }" /></td>
-					<td><input class="inputScore" name="framework" type="text" value="${bean.framework }" /></td>
-							
-		</form>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getStuNo() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getStuName()%></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getJava() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getWeb() %></a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=<%=bean.getStuNo() %>"><%=bean.getFramework()%></a></td>
 				</tr>
-			</c:forEach>	
+			<% 	}
+			}
+			cnt++;
+			%>
 		</tbody>
 </table>
 </c:forEach>

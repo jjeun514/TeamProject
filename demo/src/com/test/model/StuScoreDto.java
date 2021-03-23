@@ -5,6 +5,17 @@ public class StuScoreDto {
 	private int stuNo,lecNo,java,web,framework;
 	private String stuName,setPhone;
 	
+	public StuScoreDto() {
+		
+	}
+	
+	public StuScoreDto(int stuNo, int java, int web, int framework) {
+		super();
+		this.stuNo = stuNo;
+		this.java = java;
+		this.web = web;
+		this.framework = framework;
+	}
 	public int getStuNo() {
 		return stuNo;
 	}

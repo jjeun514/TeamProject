@@ -1,6 +1,7 @@
-
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
+	<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -38,51 +39,70 @@
 	}
 	/*링크에 마우스 올렸을 때*/
 	#lecTable #link:hover,#lecTable #link:active,#lecTable #link:visited{
-		color: blue;
 		background-color: #f5f5ff;
 		cursor: pointer;
+	}
+	#link:hover{
+		color: blue;
 	}
 	h1{
 		text-align: center;
 		height: 80px;
 	}
+	
+	#no{
+		width: 70px;
+	}
+	#instructor{
+		width: 100px;
+	}
+	#classroom{
+		width: 70px;
+	}
+	#tilde{
+		width: 5px;
+	}
+	#totalStu{
+		width: 70px;
+	}
+	
 	</style>
 	
 	</head>
 	
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
+	<%
+	LecDto bean2=(LecDto)request.getAttribute("cnt");
+	String totalStu=request.getParameter("count(*)");
+	request.setAttribute("count", totalStu);
+	%>
 	<h1>＜ 강의 목록 ＞</h1>
 	<table id="lecTable">
 	<thead>
 		<tr>
-			<th>강의번호</th>
+			<th id="no">No</th>
 			<th>강의명</th>
-			<th>강사</th>
-			<th>강의장</th>
+			<th id="instructor">강사</th>
+			<th id="classroom">강의장</th>
 			<th>교육기간</th>
-			<th>수강생</th>
+			<th id="totalStu">수강생</th>
 		</tr>
 	</thead>
 	<tbody>
-	<!-- 반복문 돌려서 DB에서 값 꺼내와야함 -->
+	<c:forEach items="${list }" var="bean">
+	<!-- 반복문 돌려서 DB에서 값 꺼내와야함 (부분 반복)-->
 		<tr id="link">
-			<td><a href="lecDetail.jsp">11</a></td>
-			<td><a href="lecDetail.jsp">웹개발자A</a></td>
-			<td><a href="lecDetail.jsp">임현경</a></td>
-			<td><a href="lecDetail.jsp">11</a></td>
-			<td><a href="lecDetail.jsp">21.1.5</a></td>
-			<td><a href="lecDetail.jsp">30명</a></td>
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecNo}</a></td>	<!-- No -->
+		<!-- DB: 강의명, 강사, 강의장, 시작일 ~ 종강일 (반복문)-->
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecName}</a></td>	<!-- 강의명 -->
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.ename}</a></td>	<!-- 강사 -->
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecRoom}</a></td>	<!-- 강의장 -->
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.lecStartDate}&nbsp;~&nbsp;${bean.lecFinishDate}</a></td>	<!-- 시작일 ~ 종강일 -->
+		<!-- 수강생 (30명 정원) -->
+			<td><a href="${pageContext.request.contextPath }/lecDetail.bit?lecNo=${bean.lecNo}">${bean.totalStu }/30 &nbsp;명</a></td>
 		</tr>
-		
-		<tr id="link">
-			<td><a href="lecDetail.jsp">22</a></td>
-			<td><a href="lecDetail.jsp">웹개발자B</a></td>
-			<td><a href="lecDetail.jsp">임경균</a></td>
-			<td><a href="lecDetail.jsp">12</a></td>
-			<td><a href="lecDetail.jsp">21.2.1</a></td>
-			<td><a href="lecDetail.jsp">24명</a></td>
-		</tr>
+	</c:forEach>
 	</tbody>
 	</table>
 	<%@ include file="../templates/footer.jspf" %>

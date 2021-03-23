@@ -1,6 +1,7 @@
-<%@page import="java.text.SimpleDateFormat, java.util.*, java.text.*"%>
+<%@ page import="java.text.SimpleDateFormat, java.util.*, java.text.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,6 @@ button{
 	margin-left: 20px;
 }
 #lecture,#classroom,#instructor{
-	color: #c2c7cf;
 	text-align: center;
 }
 input:hover{
@@ -69,45 +69,73 @@ input:click{
 	background-color: #f2f7ff;
 	color: black;
 }
-#msg1,#msg2,#msg3{
+#msg1,#msg2,#msg3,#msg4{
 	color: red;
 	font-size: 12px;
 	text-align: left;
 }
+input{
+	width: 300px;
+	text-align: center;
+}
+#startDate,#endDate{
+	width: 120px;
+	text-align: center;
+}
+#instructor{
+	color: black;
+}
 </style>
-<link rel="stylesheet" type="text/css" href="../css/jquery.bxslider.css">
-<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('span').hide();	// msg 숨긴 상태로 시작 
 	$('form').submit(function(){
 		// 값이 입력되지 않은채로 버튼을 누르는 경우 페이지가 넘어가지 않도록
-		if($('input').val()=='')$('span').show();
-		if($('input').val()!='')
+		
+		// 날짜 계산 (개강일이 종강일보다 늦을 수 없음)
+		var startDate=$('#startDate').val();
+		var startDateArr=startDate.split('-');
+		var start=(startDateArr[0]+startDateArr[1]+startDateArr[2]);
+		
+		var endDate=$('#endDate').val();
+		var endDateArr=endDate.split('-');
+		var end=(endDateArr[0]+endDateArr[1]+endDateArr[2]);
+		
 		// 강의명
 		if($('form input').eq(0).val()==''){
 			$('#msg1').show();	// msg 출력
-			$('form input').eq(0).focus();
+			// 강의장
+			if($('form input').eq(3).val()==''){
+				$('#msg2').show();	// msg 출력
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
+				return false;
+			}else{
+				$('#msg2').hide();
+			}
 			return false;
 		}else{
 			$('#msg1').hide();
-		}
-		// 강의장
-		if($('form input').eq(3).val()==''){
-			$('#msg2').show();	// msg 출력
-			$('form input').eq(3).focus();
-			return false;
-		}else{
-			$('#msg2').hide();
-		}
-		// 강사
-		if($('form input').eq(4).val()==''){
-			$('#msg3').show();	// msg 출력
-			$('form input').eq(4).focus();
-			return false;
-		}else{
-			$('#msg3').hide();
+			// 강의장
+			if($('form input').eq(3).val()==''){
+				$('#msg2').show();	// msg 출력
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
+				return false;
+			}else{
+				$('#msg2').hide();
+			}
 		}
 	});
 });
@@ -116,15 +144,20 @@ $(document).ready(function(){
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <%
-/* 교육기간 시작일 선택 시, 수료일은 3개월 뒤로 자동 계산 */
-Calendar cal=Calendar.getInstance();
-cal.setTime(new Date());
-DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-String start=df.format(cal.getTime());
-cal.add(Calendar.MONTH,3);
-String end=df.format(cal.getTime());
+/* 교육기간 시작일 선택 시, 종강일은 3개월 뒤로 자동 계산
+   (시작일의 default는 오늘 날짜로 뜨도록 해놨음)*/
+	Calendar cal=Calendar.getInstance();
+	cal.setTime(new Date());
+	DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+	String start=df.format(cal.getTime());
+	/* 종강일 3개월 뒤는 DB에서 계산하도록 함수 입력되어 있음
+	date_add("2021-01-01",interval 91 day)
+	          ──────────start date 으로 부터 91일 후
+	*/
+	cal.add(Calendar.MONTH,3);
+	String end=df.format(cal.getTime());
 %>
-<form action="newLec.jsp" method="post">
+<form action="newLec.bit" method="post">
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>강의 개설</h1></td></tr>
 <!-- 강의장 이름, 강사 이름 input
@@ -138,26 +171,31 @@ String end=df.format(cal.getTime());
 	  -->
 	<tr>
 		<th>강의명</th>
-		<td><input type="text" name="lecture" size=31 maxlength=50 id="lecture">
-		<br><span id="msg1">※필수 - 강의명 입력(최대 50자)</span></td>
+		<td><input type="text" name="lecture" size=31 maxlength=50 id="lecture" placeholder="강의명 입력(최대: 한글 16자, 영문 50자)">
+		<br><span id="msg1">※필수 - 강의명 입력(최대: 한글 16자, 영문 50자)</span></td>
 		<!-- lecName(varchar:50) - not null -->
 	</tr>
 	<tr>
 		<th>교육기간</th>
 		<td><input type="date" value="<%= start %>" name="startDate" id="startDate">
-		~ <input type="date" value="<%= end %>" name="endDate" id="endDate"></td>
+		~ <input type="date" value="<%= end %>" name="endDate" id="endDate">
+		<br><span id="msg4">※개강일이 종강일보다 늦을 수 없습니다.</span></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
 		<!-- lecRoom(varchar:5) - not null -->
-		<td><input type="text" name="classroom" size=31 maxlength=5 id="classroom">
-		<br><span id="msg2">※필수 - 강의명 입력(최대 5자)</span></td>
+		<td><input type="text" name="classroom" size=31 maxlength=5 id="classroom" placeholder="강의장 입력(최대: 영문 5자)">
+		<br><span id="msg2">※필수 - 강의장 입력(최대: 영문 5자)</span></td>
 	</tr>
 	<tr>
 		<th>강사</th>
 		<!-- ename(varchar:15) - not null -->
-		<td><input type="text" name="instructor" size=31 maxlength=15 id="instructor">
-		<br><span id="msg3">※필수 - 강사명 입력</span></td>
+		<td><select type="selectBox" name="instructor" id="instructor">
+		<c:forEach items="${instructor }" var="bean">
+			<option value="${bean.ename}">${bean.ename}</option>
+		<br><span id="msg3">※필수 - 강사명 입력</span>
+		
+		</c:forEach></select></td>
 	</tr>
 	<tr>
 		<th>정원</th>
@@ -166,7 +204,7 @@ String end=df.format(cal.getTime());
 	<tr>
 		<td colspan="2">
 			<button>등록</button>
-			<button type="button">뒤로</button>
+			<button type="button" onclick="location='lecList.bit'">목록</button>
 		</td>
 	</tr>
 </table>

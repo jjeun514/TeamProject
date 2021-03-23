@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.bit.lec.model.LecDto,com.bit.lec.model.LecDao"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*,com.bit.lec.model.LecDto"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,67 +67,65 @@ a:hover,button:hover{
 }
 input{
 	text-align: center;
-}
-#lecNo{
+	text-decoration: none;
 	border: none;
 }
 #lecStartDate,#lecFinishDate{
 	width: 120px;
 }
-input{
-	background-color: white;
-	border: 1px solid black;
-}
 #totalStu{
 	background-color: white;
-	border: none;
 }
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
+
 </script>
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<%	System.out.println("lecEdit.jsp");
+<%	System.out.println("lecDetail2.jsp");
 	LecDto bean=(LecDto)request.getAttribute("bean");
-	request.setCharacterEncoding("utf-8");
+	int No=Integer.parseInt(request.getParameter("lecNo"));
+		No=Integer.parseInt(request.getParameter("lecNo"));
+	String lecName=request.getParameter("lecName");
+	String lecStartDate=request.getParameter("lecStartDate");
+	String lecFinishDate=request.getParameter("lecFinishDate");
+	String lecRoom=request.getParameter("lecRoom");
+	String lecturer=request.getParameter("lecturer");
 	
-	String lecturer=request.getParameter("ins");
-	System.out.println("강사?"+lecturer);
+	String totalStu=request.getParameter("count(stuName)");
+	request.setAttribute("count", totalStu);
 	
 	Object cnt=request.getAttribute("totalStu");
+	System.out.println("(detail2)cnt: "+cnt);
 %>
-<form action="lecEdit.bit" method="post">
 <table id="conTable">
-<tr><td colspan="2" id="subject"><h1>강의 수정</h1></td></tr>
+<tr><td colspan="2" id="subject"><h1>강의 상세페이지</h1></td></tr>
 	<tr>
 		<th>No</th>
-		<td><input type="text" value="${bean.lecNo }" name="lecNo" id="lecNo" readonly="readonly" disabled="disabled"></td>
+		<td><input type="text" value="<%=No %>" name="lecNo" id="lecNo" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강의명</th>
-		<td><input type="text" value="${bean.lecName }"name="lecName" id="lecName"></td>
+		<td><input type="text" value="<%=lecName %>"name="lecName" id="lecName" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강사</th>
-		<td><select type="selectBox" name="lecturer" id="lecturer">
-		<c:forEach items="${lecturer }" var="name">
-			<option selected="${bean.ename}">${name.ename}</option>
-		</c:forEach></select></td>
+		<td><input type="text" value="<%=lecturer %>"name="lecturer" id="lecturer" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>강의장</th>
 		<td>
 		<div>
-  			<p><input type="text" value="${bean.lecRoom }"name="lecRoom" id="lecRoom"></p>
+  			<p><input type="text" value="<%=lecRoom %>"name="lecRoom" id="lecRoom" readonly="readonly"></p>
 		</div>
 		</td>
 	</tr>
 	<tr>
 		<th>교육기간</th>
-		<td><input type="text" value="${bean.lecStartDate }"name="lecStartDate" id="lecStartDate"> ~ <input type="text" value="${bean.lecFinishDate }"name="lecFinishDate" id="lecFinishDate"></td>
+		<td><input type="text" value="<%=lecStartDate %>"name="lecStartDate" id="lecStartDate" readonly="readonly"> ~ <input type="text" value="<%=lecFinishDate %>"name="lecFinishDate" id="lecFinishDate" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th>수강생</th>
@@ -136,12 +133,12 @@ input{
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button type="submit" onclick="location='lecEdit.bit?lecNo=${bean.lecNo}'">수정</button>
-			<button type="button" onclick="location='lecDetail.bit?lecNo=${bean.lecNo}'">취소</button>
+			<button type="button" onclick="location='lecDetail.bit?lecNo=<%=No %>'">수정</button>
+			<button type="button" onclick="location='lecDel.bit?lecNo=<%=No %>'">삭제</button>
+			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
 </table>
-</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>

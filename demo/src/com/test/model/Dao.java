@@ -150,5 +150,27 @@ public class Dao {
 		return list;
 
 	}
+	
+	public int accAddCheck(String sysId) {
+		String sql="select * from account where sysID=?";
+
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,sysId);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}else {
+				return 0;
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
 
 }
