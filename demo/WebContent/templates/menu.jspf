@@ -119,7 +119,7 @@ ul>li{
 			<li id="sub11"><a href="/demo/lecMgmt/newLec.jsp">강의개설</a></li>
 			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
 			<li id="main2">학생관리</li>
-			<li id="sub21"><a href="/demo/stuMgmt/stuList.jsp">수강생목록</a></li>
+			<li id="sub21"><a href="/demo/stuMgmt/stuPage.bit">수강생목록</a></li>
 			
 			<li id="sub22">출결관리</li>
 			<li id="sub221"><a href="/demo/stuMgmt/stuAtt.jsp">└ 출결입력</a></li>

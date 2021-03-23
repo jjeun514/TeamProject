@@ -66,6 +66,7 @@ button{
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
+
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>수강생 정보</h1></td></tr>
 <% StuInfoDto detail = (StuInfoDto)request.getAttribute("detail");  %>
@@ -99,9 +100,9 @@ button{
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">수정</a></button>
-			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">삭제</button>
-			<button><a href="stuEdit.bit?stuNo=<%=detail.getStuNo()%>">뒤로</button>
+			<button><a href = "stuEdit.bit?stuNo=<%=detail.getStuNo()%>">수정</a></button>
+			<button><a href = "stuDelete.bit?stuNo=<%=detail.getStuNo()%>">삭제</a></button>
+			<button><a href = "stuPage.bit">뒤로</a></button>
 		</td>
 	</tr>
 </table>

@@ -33,6 +33,7 @@ public class StuInfoDao {
 		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
 		query += " from student stu left outer join score score";
 		query += " on stu.stuNo = score.stuNo where stu.lecNo = ?";
+		query += " order by stu.stuNo, stu.lecNo";
 		System.out.println(query);
 		
 		try {
@@ -54,6 +55,39 @@ public class StuInfoDao {
 				list.add(stuInfo);
 			}
 			System.out.println("리스트 add 후"+list.size());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	public List<StuInfoDto> lecList() {
+		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
+
+		String query = "select lecNo from lecture order by lecNo";
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			StuInfoDto lecList = null;
+			
+			while(rs.next()) {
+				lecList = new StuInfoDto();
+				lecList.setLecNo(rs.getInt("lecNo"));
+				list.add(lecList);
+			}
+			System.out.println("강의 리스트 add 후"+list.size());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

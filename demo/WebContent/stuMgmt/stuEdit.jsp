@@ -1,4 +1,4 @@
-<%@page import="com.test.model.StuInfoDto"%>
+<%@ page import="com.test.model.StuInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,13 +62,15 @@ button{
 <body>
 <%@ include file="/templates/menu.jspf" %>
 
+	<% StuInfoDto edit = (StuInfoDto)request.getAttribute("detail");  %>
+<form action="${pageContext.request.contextPath }/stuMgmt/stuEditSubmit.bit">
 	<table id="conTable">
 	<tr><td colspan="2" id="subject"><h1>수강생 정보 수정</h1></td></tr>
-	<% StuInfoDto edit = (StuInfoDto)request.getAttribute("detail");  %>
+
 	
 		<tr>
 			<th>학번</th>
-			<td><input type="text" name = "stuName" value="<%=edit.getStuNo()%>"/></td>
+			<td><input type="text" name = "stuNo" value="<%=edit.getStuNo()%>"/></td>
 		</tr>
 		<tr>
 			<th>이름</th>
@@ -112,11 +114,11 @@ button{
 		<tr>
 			<td colspan="2">
 				<button type="submit">수정</button>
-				<button type="reset">뒤로</button>
+				<button><a href = "stuDetail.bit?stuNo=<%=edit.getStuNo()%>">뒤로</a></button>
 			</td>
 		</tr>
 	</table>
-
+</form>
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>

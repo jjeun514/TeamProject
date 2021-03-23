@@ -1,6 +1,7 @@
 package com.bit.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,26 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.model.StuDetailDao;
 import com.test.model.StuEditDao;
+import com.test.model.StuInfoDao;
 import com.test.model.StuInfoDto;
 
-@WebServlet("/stuMgmt/stuEditSubmit.bit")
-public class StuEditController extends HttpServlet {
+@WebServlet("/stuMgmt/stuEdit.bit")
+public class StuEditPageController extends HttpServlet {
 
-	public StuEditController() {}
+	public StuEditPageController() {}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String stuName = req.getParameter("stuName");
-		String stuPhone = req.getParameter("stuPhone");
 		int stuNo = Integer.parseInt(req.getParameter("stuNo"));
-		System.out.println("수정된 수강생 번호 : " + stuNo);
+		System.out.println("수정 페이지에 사용할 수강생 번호 : " + stuNo);
 		
-		StuEditDao dao = new StuEditDao();
+		StuDetailDao dao = new StuDetailDao();
 		
-		dao.stuEdit(stuName, stuPhone, stuNo);
+		StuInfoDto detail = dao.stuDetailInfo(stuNo);
+		req.setAttribute("detail", detail);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./stuDetail.bit?stuNo="+stuNo);
+		RequestDispatcher rd = req.getRequestDispatcher("./stuEdit.jsp");
 		rd.forward(req, resp);
 	}
 	

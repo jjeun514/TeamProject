@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.model.StuDetailDao;
+import com.test.model.StuInfoDao;
 import com.test.model.StuInfoDto;
 
 @WebServlet("/stuMgmt/stuDetail.bit")
@@ -27,6 +28,9 @@ public class StuDetailController extends HttpServlet {
 		
 		StuInfoDto detail = dao.stuDetailInfo(stuNo);
 		req.setAttribute("detail", detail);
+		
+		StuInfoDao lec = new StuInfoDao();
+		req.setAttribute("lec", lec.lecList());
 		
 		RequestDispatcher rd = req.getRequestDispatcher("./stuDetail.jsp");
 		rd.forward(req, resp);

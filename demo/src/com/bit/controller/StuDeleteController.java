@@ -9,28 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.model.StuDeleteDao;
 import com.test.model.StuDetailDao;
-import com.test.model.StuEditDao;
 import com.test.model.StuInfoDto;
 
-@WebServlet("/stuMgmt/stuEditSubmit.bit")
-public class StuEditController extends HttpServlet {
+@WebServlet("/stuMgmt/stuDelete.bit")
+public class StuDeleteController extends HttpServlet {
 
-	public StuEditController() {}
+	public StuDeleteController() {}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String stuName = req.getParameter("stuName");
-		String stuPhone = req.getParameter("stuPhone");
 		int stuNo = Integer.parseInt(req.getParameter("stuNo"));
-		System.out.println("수정된 수강생 번호 : " + stuNo);
+		System.out.println("삭제할 수강생 번호 : " + stuNo);
 		
-		StuEditDao dao = new StuEditDao();
+		StuDeleteDao dao = new StuDeleteDao();
 		
-		dao.stuEdit(stuName, stuPhone, stuNo);
+		dao.stuDelete(stuNo);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./stuDetail.bit?stuNo="+stuNo);
+		RequestDispatcher rd = req.getRequestDispatcher("./stuList.jsp"); // 삭제 후 해당 강의의 리스트로 돌아가야 함
 		rd.forward(req, resp);
 	}
 	

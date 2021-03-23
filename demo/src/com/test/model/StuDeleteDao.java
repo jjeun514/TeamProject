@@ -2,21 +2,17 @@ package com.test.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class StuDetailDao {
+public class StuDeleteDao {
 	javax.sql.DataSource dataSource;
 	Connection conn=null;
 	PreparedStatement pstmt=null;
-	ResultSet rs=null;
 	
-	public StuDetailDao() {
+	public StuDeleteDao() {
 		try {
 			InitialContext initCon=new InitialContext();
 			dataSource=(DataSource)initCon.lookup("java:/comp/env/jdbc/maria");
@@ -27,29 +23,34 @@ public class StuDetailDao {
 	}
 	
 	// 수강생 목록
-	public StuInfoDto stuDetailInfo(int stuNo) {
+	public void stuDelete(int stuNo) {
 		
 		StuInfoDto stuInfo = new StuInfoDto();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
-		query += " from student stu left outer join score score";
-		query += " on stu.stuNo = score.stuNo where stu.stuNo = ?";
-		System.out.println(query);
+		String stuQuery = "delete from student where stuNo=?";
+		String scoreQuery = "delete from score where stuNo=?";
+		String attQeury = "delete from attendance where stuNo=?";
+		
+		
+		System.out.println(stuQuery);
+		System.out.println(scoreQuery);
+		System.out.println(attQeury);
 		
 		try {
 			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(scoreQuery);
 			pstmt.setInt(1, stuNo);
-			rs = pstmt.executeQuery();
-						
-			if(rs.next()) {
-				stuInfo.setStuNo(rs.getInt("stuNo"));
-				stuInfo.setStuName(rs.getString("stuName"));
-				stuInfo.setStuPhone(rs.getString("stuPhone"));
-				stuInfo.setJava(rs.getInt("java"));
-				stuInfo.setWeb(rs.getInt("web"));
-				stuInfo.setFramework(rs.getInt("framework"));
-			}
+			pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(attQeury);
+			pstmt.setInt(1, stuNo);
+			pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(stuQuery);
+			pstmt.setInt(1, stuNo);
+			pstmt.executeQuery();
+			
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,7 +62,5 @@ public class StuDetailDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return stuInfo;
 	}
 }
