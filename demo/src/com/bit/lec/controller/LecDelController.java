@@ -23,9 +23,9 @@ public class LecDelController extends HttpServlet {
 
 		int lecNo=Integer.parseInt(req.getParameter("lecNo"));
 		System.out.println("lecNo(del): "+lecNo);
-		dao.fkSetting01();
+		//dao.fkSetting01();
 		dao.deleteOne(lecNo);
-		dao.fkSetting02();
+		//dao.fkSetting02();
 		
 		RequestDispatcher rd=null;
 		rd=req.getRequestDispatcher("lecList.bit");
