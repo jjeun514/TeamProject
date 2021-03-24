@@ -70,7 +70,7 @@ button{
 	
 		<tr>
 			<th>학번</th>
-			<td><input type="text" name = "stuNo" value="<%=edit.getStuNo()%>"/></td>
+			<td><%=edit.getStuNo()%></td>
 		</tr>
 		<tr>
 			<th>이름</th>
@@ -89,7 +89,7 @@ button{
 		
 		<tr>
 			<th>강의명</th>
-			<td>불러와야 함</td>
+			<td><%=edit.getLecName() %></td>
 		</tr>
 		<tr>
 			<th>출석률</th>

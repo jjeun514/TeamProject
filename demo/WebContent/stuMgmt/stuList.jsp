@@ -78,11 +78,11 @@
 				<tr><td><select name="selectLec" onchange="this.form.submit();">
 					<option>강의를 선택하시오</option>
 				<%List<StuInfoDto> lecList = null;
-					lecList = (List<StuInfoDto>)request.getAttribute("lecNo");
+					lecList = (List<StuInfoDto>)request.getAttribute("lecInfoList");
 					if (lecList!=null){
 						for(StuInfoDto bean : lecList) {
 				%>
-					<option value="<%=bean.getLecNo()%>"><%=bean.getLecNo() %></option>
+					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
 				<%}}%>
 				</select>
 					

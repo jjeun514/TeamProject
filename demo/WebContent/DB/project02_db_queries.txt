@@ -76,9 +76,9 @@ foreign key (stuNo) references student(stuNo)
 create table attendance (
 stuNo int(6) not null,
 stuAtt int(2),
-stuLeave int(2),
 stuLate int(2),
 stuAbsent int(2),
+attTotal int(2),
 foreign key (stuNo) references student(stuNo)
 );
 

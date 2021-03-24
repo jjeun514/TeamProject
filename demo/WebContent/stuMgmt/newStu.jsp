@@ -82,7 +82,7 @@ button{
 					if (lecList!=null){
 						for(StuInfoDto bean : lecList) {
 				%>
-					<option value="<%=bean.getLecNo()%>"><%=bean.getLecNo() %></option>
+					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
 				<%}}%>
 
 				</select>
@@ -90,7 +90,7 @@ button{
 		</tr>
 		<tr>
 			<th>교육기간</th>
-			<td>lecStartDate</td>불러와야 함<td>lecFinishDate</td>
+			<td>lecStartDate</td><br/><td>lecFinishDate</td>
 		</tr>
 		<tr>
 			<th>강의장</th>
@@ -100,8 +100,13 @@ button{
 			<td  colspan="2">수강생정보</td>
 		</tr>
 		<tr>
-			<td>수강생 번호 : <input type = "text" name = "stuNo" value = "번호"/></td>
-			<td>수강생 이름 : <input type="text" name = "stuName"/></td><br/>
+			<%List<StuInfoDto> stuNo = null;
+			stuNo = (List<StuInfoDto>)request.getAttribute("maxStuNo");
+			if (stuNo!=null){
+				for(StuInfoDto No : stuNo) {
+			%>
+			<td>수강생 번호 : <input type = "text" name = "stuNo" value = "<%=No.getStuNo() %>" readonly = "readonly"/></td><br/><%}} %>
+						<td>수강생 이름 : <input type="text" name = "stuName"/></td><br/>
 			<td>전화 : <input type="text" name = "stuPhone"/></td>
 		</tr>
 		<tr>

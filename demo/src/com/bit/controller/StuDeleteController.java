@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.model.StuDeleteDao;
 import com.test.model.StuDetailDao;
+import com.test.model.StuInfoDao;
 import com.test.model.StuInfoDto;
 
 @WebServlet("/stuMgmt/stuDelete.bit")
@@ -28,7 +29,10 @@ public class StuDeleteController extends HttpServlet {
 		
 		dao.stuDelete(stuNo);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./stuList.jsp"); // 삭제 후 해당 강의의 리스트로 돌아가야 함
+		StuInfoDao lec = new StuInfoDao();
+		req.setAttribute("lec", lec.lecInfoList());
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/stuMgmt/stuPage.bit");
 		rd.forward(req, resp);
 	}
 	

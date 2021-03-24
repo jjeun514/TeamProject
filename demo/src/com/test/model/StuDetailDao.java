@@ -31,9 +31,10 @@ public class StuDetailDao {
 		
 		StuInfoDto stuInfo = new StuInfoDto();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
-		query += " from student stu left outer join score score";
-		query += " on stu.stuNo = score.stuNo where stu.stuNo = ?";
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, lec.lecName, score.java, score.web, score.framework";
+		query += " from student stu left outer join lecture lec on stu.lecNo = lec.lecNo";
+		query += " left outer join score score on stu.stuNo = score.stuNo";
+		query += " where stu.stuNo = ?";
 		System.out.println(query);
 		
 		try {
@@ -46,6 +47,7 @@ public class StuDetailDao {
 				stuInfo.setStuNo(rs.getInt("stuNo"));
 				stuInfo.setStuName(rs.getString("stuName"));
 				stuInfo.setStuPhone(rs.getString("stuPhone"));
+				stuInfo.setLecName(rs.getString("lecName"));
 				stuInfo.setJava(rs.getInt("java"));
 				stuInfo.setWeb(rs.getInt("web"));
 				stuInfo.setFramework(rs.getInt("framework"));

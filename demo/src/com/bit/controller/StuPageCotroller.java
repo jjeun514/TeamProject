@@ -19,11 +19,10 @@ public class StuPageCotroller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// 수강생목록 화면에서 강의 선택을 위한 강의 정보 추출
 		StuInfoDao dao = new StuInfoDao();
-		req.setAttribute("lecNo", dao.lecList());
+		req.setAttribute("lecInfoList", dao.lecInfoList());
 		
-		
-	
 		RequestDispatcher rd = req.getRequestDispatcher("./stuList.jsp");
 		rd.forward(req, resp);
 	}

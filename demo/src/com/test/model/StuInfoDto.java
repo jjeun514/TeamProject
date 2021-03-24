@@ -2,8 +2,8 @@ package com.test.model;
 
 public class StuInfoDto {
 
-	private int stuNo, lecNo, java, web, framework;
-	private String stuName, stuPhone;
+	private int stuNo, lecNo, java, web, framework, stuAtt, stuLate, stuAbsent, attTotal;
+	private String stuName, stuPhone, lecName;
 	
 	public int getStuNo() {
 		return stuNo;
@@ -47,5 +47,37 @@ public class StuInfoDto {
 	public void setStuPhone(String stuPhone) {
 		this.stuPhone = stuPhone;
 	}
+	public String getLecName() {
+		return lecName;
+	}
+	public void setLecName(String lecName) {
+		this.lecName = lecName;
+	}
+	public int getStuAtt() {
+		return stuAtt;
+	}
+	public void setStuAtt(int stuAtt) {
+		this.stuAtt = stuAtt;
+	}
+	public int getStuLate() {
+		return stuLate;
+	}
+	public void setStuLate(int stuLate) {
+		this.stuLate = stuLate;
+	}
+	public int getStuAbsent() {
+		return stuAbsent;
+	}
+	public void setStuAbsent(int stuAbsent) {
+		this.stuAbsent = stuAbsent;
+	}
+	public int getAttTotal() {
+		return attTotal;
+	}
+	public void setAttTotal(int attTotal) {
+		this.attTotal = attTotal;
+	}
+	
+	
 	
 }

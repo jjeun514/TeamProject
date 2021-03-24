@@ -80,7 +80,7 @@ button{
 	</tr>
 	<tr>
 		<th>강의명</th>
-		<td>불러와야함</td>
+		<td><%=detail.getLecName() %></td>
 	</tr>
 	<tr>
 		<th>출석률</th>

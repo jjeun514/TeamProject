@@ -1,3 +1,4 @@
+<%@page import="com.test.model.StuInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -75,18 +76,24 @@ $(function(){
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <h1>＜ 출결 관리 ＞</h1>
-<table id="topPart">
-<tr><td>
-<select>
-	<option>강의를 선택하시오</option>
-	<option>웹 개발자 양성 A</option>
-	<option>웹 개발자 양성 B</option>
-	<option>웹 개발자 양성 C</option>
-</select>
-</td></tr>
-</table>
+	<form action="${pageContext.request.contextPath }/stuMgmt/stuAttList.bit" method = "post">
+			<table id="topPart">
+				<tr><td><select name="selectLec" onchange="this.form.submit();">
+					<option>강의를 선택하시오</option>
+				<%List<StuInfoDto> lecList = null;
+					lecList = (List<StuInfoDto>)request.getAttribute("lecInfoList");
+					if (lecList!=null){
+						for(StuInfoDto bean : lecList) {
+				%>
+					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
+				<%}}%>
+				</select>
+			</table>
+		</form>
+		
 	<table id="stuAtt">
 		<thead>
+		
 			<tr>
 				<th>학번</th>
 				<th>이름</th>
@@ -101,20 +108,20 @@ $(function(){
 		
 		<tbody>
 		
+			<%
+			List<StuInfoDto> list = null;
+			list = (List<StuInfoDto>)request.getAttribute("stuAttList");
+			if ( list != null ) {
+				for (StuInfoDto stuAtt: list){
+			%>
 			<tr id="link">
-				<td>1101</td>
-				<td>권태민</td>
-				<td>01046117304</td>
+				<td><%=stuAtt.getStuNo() %></td>
+				<td><%=stuAtt.getStuName() %></td>
+				<td><%=stuAtt.getStuPhone() %></td>
 				
-				<td>
-				<input type="radio" name="attendance" value="att">
-				출석</td>
-				<td>
-				<input type="radio" name="attendance" value="late">
-				지각</td>
-				<td>
-				<input type="radio" name="attendance" value="abs">
-				결석</td>
+				<td><input type="radio" name="stuAtt" value="stuAtt">출석</td>
+				<td><input type="radio" name="stuLate" value="stuLate">지각</td>
+				<td><input type="radio" name="stuAbsent" value="stuAbsent">결석</td>
 				
 				<td id="result">
 				</td>
@@ -125,32 +132,7 @@ $(function(){
 					<button class="edit">수정</button>
 				</td>	
 			</tr>
-		
-			<tr id="link">
-				<td>1102</td>
-				<td>권태만</td>
-				<td>01046117306</td>
-				
-				<td>
-				<input type="radio" name="attendance" value="att">
-				출석</td>
-				<td>
-				<input type="radio" name="attendance" value="late">
-				지각</td>
-				<td>
-				<input type="radio" name="attendance" value="abs">
-				결석</td>
-				
-				<td id="result">
-				</td>
-				<td id="okBtn">
-					<button class="ok">확인</button>
-				</td>	
-				<td id="editBtn">
-					<button class="edit">수정</button>
-				</td>	
-			</tr>
-			
+			<%}} %>
 		</tbody>
 	</table>
 	

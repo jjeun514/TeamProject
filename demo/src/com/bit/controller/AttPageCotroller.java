@@ -9,22 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.test.model.NewStuDao;
 import com.test.model.StuInfoDao;
 
-@WebServlet("/stuMgmt/newStuPage.bit")
-public class NewStuPageController extends HttpServlet {
+@WebServlet("/stuMgmt/stuAtt.bit")
+public class AttPageCotroller extends HttpServlet {
 
+	public AttPageCotroller() {}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("stuAtt 컨트롤러 도착");
+		
+		// 수강생목록 화면에서 강의 선택을 위한 강의 정보 추출
 		StuInfoDao dao = new StuInfoDao();
-		req.setAttribute("lecNo", dao.lecInfoList());
-		req.setAttribute("maxStuNo", dao.maxStuNo());
+		req.setAttribute("lecInfoList", dao.lecInfoList());
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./newStu.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("./stuAtt.jsp");
 		rd.forward(req, resp);
-		
 	}
 	
 }

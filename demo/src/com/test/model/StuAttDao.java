@@ -10,13 +10,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class StuInfoDao {
+public class StuAttDao {
 	javax.sql.DataSource dataSource;
 	Connection conn=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
 	
-	public StuInfoDao() {
+	public StuAttDao() {
 		try {
 			InitialContext initCon=new InitialContext();
 			dataSource=(DataSource)initCon.lookup("java:/comp/env/jdbc/maria");
@@ -27,13 +27,13 @@ public class StuInfoDao {
 	}
 	
 	// 수강생 목록
-	public List<StuInfoDto> stuList(int lecNo) {
+	public List<StuInfoDto> stuAttList(int lecNo) {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
-		query += " from student stu left outer join score score";
-		query += " on stu.stuNo = score.stuNo where stu.lecNo = ?";
-		query += " order by stu.stuNo, stu.lecNo";
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, att.stuAtt, att.stuLate, att.stuAbsent, att.attTotal,";
+		query += " lec.lecNo from student stu left outer join attendance att";
+		query += " on stu.stuNo=att.stuNo left outer join lecture lec on stu.lecNo=lec.lecNo";
+		query += " where stu.lecNo =? order by stu.lecNo,stu.stuNo;";
 		System.out.println(query);
 		
 		try {
@@ -42,19 +42,21 @@ public class StuInfoDao {
 			pstmt.setInt(1, lecNo);
 			rs = pstmt.executeQuery();
 			
-			StuInfoDto stuInfo = null;
+			StuInfoDto stuList = null;
 			
 			while(rs.next()) {
-				stuInfo = new StuInfoDto();
-				stuInfo.setStuNo(rs.getInt("stuNo"));
-				stuInfo.setStuName(rs.getString("stuName"));
-				stuInfo.setStuPhone(rs.getString("stuPhone"));
-				stuInfo.setJava(rs.getInt("java"));
-				stuInfo.setWeb(rs.getInt("web"));
-				stuInfo.setFramework(rs.getInt("framework"));
-				list.add(stuInfo);
+				stuList = new StuInfoDto();
+				stuList.setStuNo(rs.getInt("stuNo"));
+				stuList.setStuName(rs.getString("stuName"));
+				stuList.setStuPhone(rs.getString("stuPhone"));
+				stuList.setStuAtt(rs.getInt("stuAtt"));
+				stuList.setStuLate(rs.getInt("stuLate"));
+				stuList.setStuAbsent(rs.getInt("stuAbsent"));
+				stuList.setAttTotal(rs.getInt("attTotal"));
+				stuList.setLecNo(rs.getInt("lecNo"));
+				list.add(stuList);
 			}
-			System.out.println("리스트 add 후"+list.size());
+			System.out.println("출석 리스트 add 후"+list.size());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,35 +106,4 @@ public class StuInfoDao {
 		return list;
 	}
 	
-	public List<StuInfoDto> maxStuNo() {
-		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
-
-		String query = "select max(stuNo)+1 as maxStuNo from student";
-		
-		try {
-			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(query);
-			rs = pstmt.executeQuery();
-			
-			StuInfoDto lecList = null;
-			
-			while(rs.next()) {
-				lecList = new StuInfoDto();
-				lecList.setStuNo(rs.getInt("maxStuNo"));
-				list.add(lecList);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt!=null)pstmt.close();
-				if(conn!=null)conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
 }
