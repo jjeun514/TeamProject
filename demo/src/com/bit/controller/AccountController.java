@@ -1,6 +1,7 @@
 package com.bit.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 
@@ -66,6 +67,7 @@ public class AccountController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		//try{
 		Dao dao=new Dao();
 		String sysId=req.getParameter("sysId");
 		String sysPw=req.getParameter("sysPw");
@@ -73,9 +75,32 @@ public class AccountController extends HttpServlet {
 		int empNo=Integer.parseInt(req.getParameter("empNo"));
 
 		dao.accAdd(sysId, sysPw, empNo);
-
 		resp.sendRedirect("login.jsp");
-
+		
+		
+	//	}catch (Exception e) {
+	//		resp.setContentType("text/html; charset=UTF-8");
+	//		PrintWriter out=resp.getWriter();
+	//		out.println("<script>alert('사원번호를 확인하세요.'); location.href='/demo/login.jsp';</script>");
+	//		out.flush();
+	//	}
+		
+		//emp넘버가 중복되서 sql 익셉션일경우 accountController에서 error라는 객체가 넘어옴
+		
+		/*
+		if(dao.accAdd(sysId, sysPw, empNo).isEmpty()) {
+			System.out.println(dao.accAdd(sysId, sysPw, empNo));
+			System.out.println("emp넘버에 문제가 있을경우");
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out=resp.getWriter();
+			out.println("<script>alert('사원번호를 확인하세요.'); location.href='/demo/login.jsp';</script>");
+			out.flush();
+		}
+		else {
+		dao.accAdd(sysId, sysPw, empNo);
+		resp.sendRedirect("login.jsp");
+		}
+		*/
 	}
 
 

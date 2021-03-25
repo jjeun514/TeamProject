@@ -111,6 +111,7 @@ public class Dao {
 	public List<Dto> accAdd(String sysId, String sysPw, int empNo) {
 		String sql="insert into account value(?,?,?)";
 		List<Dto> list=new ArrayList<Dto>();
+		List<Dto> error=new ArrayList<Dto>();
 
 		System.out.println("param:"+sysId);
 		System.out.println("param:"+sysPw);
@@ -135,8 +136,10 @@ public class Dao {
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			//System.out.println("sql 익셉션이 일어날 경우");
+			//return error;
 		}finally {
 			try {
 				if(rs!=null)rs.close();

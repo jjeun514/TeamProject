@@ -5,11 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style rel="stylesheet" type="text/css">
+
+#test { 
+ position:   absolute;
+    top:        76px;
+    left:       265px;
+    width:      71px;
+    height:     24px;
+}
+</style>
+
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
 
 $(function(){
+	
 	
 	$('button[type="button"]').click(function() {
 		var sysId=$('#sysId').val();
@@ -44,17 +56,20 @@ $(function(){
 	});
 
     $('#PwConform').keyup(function(){
-    	 var pw=$('#sysPw').val();
-    	 var pwck=$('#PwConform').val();
+   	 var pw=$('#sysPw').val();
+	 var pwck=$('#PwConform').val();
+
         if(pw != pwck){
           $('#pwSame').html('비밀번호 일치하지 않음');
           $('#pwSame').attr('color', 'red');
         } else{
           $('#pwSame').html('비밀번호 일치함');
           $('#pwSame').attr('color', 'blue');
+  		  $('button[type="submit"]').attr("disabled", false);
         }
     });
-    $('button[type="submit"]').attr("disabled", false);
+    
+
 });
 
 	//$(function() {
@@ -85,7 +100,7 @@ $(function(){
 			<tr>
 				<td><label>id (email)</label></td>
 				<td><input type="text" id="sysId" name="sysId"></td>
-				<td><button type="button">중복체크</button></td>
+				<td><button id="test" type="button">중복체크</button></td>
 			</tr>
 			<tr>
 				<td><label>pw</label></td>

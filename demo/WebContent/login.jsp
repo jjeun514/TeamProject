@@ -78,7 +78,7 @@ img {
 			</tr>
 			<tr>
 				<td id="id">아이디</td>
-				<td><input type="text" name="idInput" id="idInput" value="aaa"></td>
+				<td><input type="text" name="idInput" id="idInput" ></td>
 
 				<td rowspan="2">
 					<!-- 보통 button의 default type은 submit인데, 브라우저마다 다를 수 있어서 명시하는게 좋음 -->
@@ -87,7 +87,7 @@ img {
 			</tr>
 			<tr>
 				<td id="pw">패스워드</td>
-				<td><input type="password" name="pwInput" id="pwInput" value="111"></td>
+				<td><input type="password" name="pwInput" id="pwInput"></td>
 			</tr>
 			<tr>
 				<td><a href="accFind.jsp">id/pw 찾기</a></td>
