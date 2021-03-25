@@ -60,55 +60,32 @@
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-$(function(){
-	$('.ok').click(function(e){
-		var name=$(':radio').attr('name');
-		console.log(name);
-		var checked=$('input[name=\"'+name+'\"]:checked').val();
-		$('#result').html(checked);
-		// 확인 버튼 한 번 누르면 버튼 비활성화
-		//$('.ok').prop("disabled",true);	
-	});
-});
 
-function lecChoice() {
-	// alert("java scaript call");
-	document.stuAttFormName.action = "/demo/stuMgmt/stuAttList.bit";
-	document.stuAttFormName.submit();
-}
-
-function attChoice() {
-
-	document.stuAttFormName.action = "/demo/stuMgmt/stuAttInsert.bit";
-	document.stuAttFormName.submit();
-	
-	// 여기서 입력 버튼 눌렀을 때 입력결과 td에 값을 변경시켜줘야 함.
-}
 
 </script>
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <h1>＜ 출결 관리 ＞</h1>
-	<form name = "stuAttFormName" method = "post">
+	<form action="${pageContext.request.contextPath }/stuMgmt/stuAttStatus.bit" method = "post">
 			<table id="topPart">
-				<tr><td><select name="selectLec" onchange="lecChoice()">
+				<tr><td><select name="selectLec" onchange="this.form.submit();">
 					<option>강의를 선택하시오</option>
 				<%List<StuInfoDto> lecList = null;
-					lecList = (List<StuInfoDto>)request.getAttribute("lecInfoList");
+					lecList = (List<StuInfoDto>)request.getAttribute("lecNo");
 					if (lecList!=null){
 						for(StuInfoDto bean : lecList) {
 				%>
 					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
 				<%}}%>
 				</select>
-<button><a href="${pageContext.request.contextPath }/stuMgmt/stuAttList.bit" id="addBtn">목록</a></button>
 			</table>
+		</form>
+		
 	<table id="stuAtt">
 		<thead>
 		
 			<tr>
-				<th><input type = "hidden"/></th>
 				<th>학번</th>
 				<th>이름</th>
 				<th>전화</th>
@@ -120,7 +97,6 @@ function attChoice() {
 			</tr>
 		</thead>
 		
-		
 		<tbody>
 		
 			<%
@@ -130,26 +106,27 @@ function attChoice() {
 				for (StuInfoDto stuAtt: list){
 			%>
 			<tr id="link">
-				<td><input type = "hidden" name = "stuNo" value = "<%=stuAtt.getStuNo() %>"/></td>
 				<td><%=stuAtt.getStuNo() %></td>
 				<td><%=stuAtt.getStuName() %></td>
 				<td><%=stuAtt.getStuPhone() %></td>
 				
-				
-				<td><input type="radio" name="stuAtt" value="1">출석</td>
-				<td><input type="radio" name="stuLate" value="1">지각</td>
-				<td><input type="radio" name="stuAbsent" value="1">결석</td>
-				<td>미입력</td>
+				<td><input type="radio" name="stuAtt" value="stuAtt">출석</td>
+				<td><input type="radio" name="stuLate" value="stuLate">지각</td>
+				<td><input type="radio" name="stuAbsent" value="stuAbsent">결석</td>
 				
 				<td id="result">
 				</td>
 				<td>
-					<input type = "button" class="ok" onclick = "attChoice();" value = "입 력"/>
+					<button class="ok">확인</button>
+				</td>	
+				<td>
+					<button class="edit">수정</button>
+				</td>	
 			</tr>
 			<%}} %>
 		</tbody>
 	</table>
-</form>
+	
 <%@ include file="/templates/footer.jspf" %>
 </body>
 </html>
