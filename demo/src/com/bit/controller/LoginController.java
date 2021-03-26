@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet{
 				RequestDispatcher rd;
 				rd=req.getRequestDispatcher("home.jsp");
 				rd.forward(req, resp);	
-				log.info("id : " + sysId);
+				log.info(sysId+"님이 입장하셨습니다.");
 		}
 	}
 	

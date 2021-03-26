@@ -102,13 +102,15 @@ ul>li{
 $(function(){
 
 	$('#logout').click(function(){
+		location.href='/demo/logout.bit';
+		
 		//세션무효화
-		alert('로그아웃 되었습니다.');
-		session.removeAttribute("sysId");
-		session.removeAttribute("sysPw");
-		session.removeAttribute("empNo");
-		location.href='application.getContextPath()/login.jsp';
-		request.getSession().invalidate();
+		//session.removeAttribute("sysId");
+		//session.removeAttribute("sysPw");
+		//session.removeAttribute("empNo");
+		//alert('로그아웃 되었습니다.');
+		//location.href='application.getContextPath()/login.jsp';
+		//request.getSession().invalidate();
 	});
 });
 	
