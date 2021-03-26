@@ -137,11 +137,10 @@ public class StuAttDao {
 	public List<StuInfoDto> stuAttStatusList(int lecNo) {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, count(att.stuAtt) as stuAtt, count(att.stuLate) as att.stuLate, ";
-		query += " count(att.stuAbsent) as stuAbsent, count(att.attTotal) as attTotal,";
-		query += " lec.lecNo from student stu left outer join attendance att";
-		query += " on stu.stuNo=att.stuNo left outer join lecture lec on stu.lecNo=lec.lecNo";
-		query += " where stu.lecNo =? order by stu.lecNo,stu.stuNo";
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, count(att.stuAtt) as stuAtt, count(att.stuLate) as stuLate,";
+		query += " count(att.stuAbsent) as stuAbsent, count(att.attTotal) as attTotal, lec.lecNo";
+		query += " from student stu left outer join attendance att on stu.stuNo=att.stuNo";
+		query += " left outer join lecture lec on stu.lecNo=lec.lecNo where stu.lecNo =? group by stu.stuNo";
 		System.out.println(query);
 		
 		try {

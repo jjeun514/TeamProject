@@ -73,7 +73,7 @@
 	<h1>＜ 출결 현황 ＞</h1>
 	<h3>강의명</h3>
 	
-	<form action="${pageContext.request.contextPath }/stuMgmt/stuList.bit" method="post">
+	<form action="${pageContext.request.contextPath }/stuMgmt/stuAttStatus.bit" method="post">
 			<table id="topPart">
 				<tr><td><select name="selectLec" onchange="this.form.submit();">
 					<option>강의를 선택하시오</option>
@@ -86,7 +86,6 @@
 				<%}}%>
 				</select>
 					
-				<button><a href="${pageContext.request.contextPath }/stuMgmt/newStuPage.bit" id="addBtn">수강생 등록</a></button></td></tr>
 			</table>
 					
 				<table id="stuTable">
