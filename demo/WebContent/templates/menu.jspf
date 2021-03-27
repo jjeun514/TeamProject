@@ -146,8 +146,8 @@ if(session.getAttribute("sysId")==null){
 		<td id="leftMenu">
 		<ul>
 			<li id="main1">강의관리</li>
-			<li id="sub11"><a href="/demo/lecMgmt/newLec.jsp">강의개설</a></li>
-			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
+			<li id="sub11"><a href="${pageContext.request.contextPath }/newLec.bit">강의개설</a></li>
+			<li id="sub12"><a href="${pageContext.request.contextPath }/lecList.bit">강의목록</a></li>
 			<li id="main2">학생관리</li>
 			<li id="sub21"><a href="/demo/stuMgmt/stuPage.bit">수강생목록</a></li>
 			
