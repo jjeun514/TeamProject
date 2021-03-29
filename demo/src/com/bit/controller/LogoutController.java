@@ -1,6 +1,7 @@
 package com.bit.controller;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -28,6 +29,23 @@ public class LogoutController extends HttpServlet {
 		PrintWriter out=resp.getWriter();
 		out.println("<script>alert('로그아웃 되었습니다'); location.href='/demo/login.jsp';</script>");
 
+=======
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/logout.bit")
+public class LogoutController extends HttpServlet {
+	HttpSession session;
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("logout get...");
+		System.out.println(session.getAttribute("sysId"));
+>>>>>>> refs/remotes/origin/final
 	}
 	
 	@Override
