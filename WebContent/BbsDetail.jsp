@@ -1,3 +1,4 @@
+<%@page import="com.bit.model.AdDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,6 +39,14 @@
 }
 
 
+h1{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.form-group{
+	margin: 50px auto;
+}
 </style>
 </head>
 <body>
@@ -63,45 +72,57 @@
 <div class="container">
 	<div class="row">
 	  <!--본문 시작  -->
-	 <c:forEach items="${list }" var="bean"> 
-	  <div class="col-xs-4">
-		  <table class="table">
-		  	<tr>
-		  		<td>
-		  			<a href="/advertising/adBbsDetail.bit?lecNo=${bean.lecNo }">
-		  				<img src="imgs/lectureA.png" alt="...">
-		  			</a>
-		  		</td>
-		  	</tr>
-		  	<tr>
-		  		<td>
-		  			<a href="/advertising/adBbsDetail.bit?lecNo=${bean.lecNo }">
-		  				${bean.lecName }	
-		  			</a>
-		  		</td>
-		  	</tr>
-		  	<tr>
-		  		<td></td>
-		  	</tr>
-		  	<tr>
-		  		<td>개강일 | ${bean.lecStartDate }</td>
-		  	</tr>
-		  	<tr>
-		  		<td>교육기간 | ${bean.lecStartDate } ~ ${bean.lecFinishDate }</td>
-		  	</tr>
-		  	
-		  </table>
 
-  	  </div>
-  	</c:forEach>  
+<div class="col-sm-12">
+	<h1>강의정보</h1>
+</div>
+
+<form class="form-horizontal" action="/advertising/adDelete.bit" method="post">
+  
+  <%AdDto bean=(AdDto)request.getAttribute("detail"); %>
+  
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">강의명</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="" value="<%=bean.getLecName() %>"  readonly="readonly" style="text-align: center;">
+    </div>
+    <label for="" class="col-sm-2"></label>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">강의일정</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="" value="<%=bean.getLecStartDate() %>" readonly="readonly" style="text-align: center">
+    </div>
+    <label for="" class="col-sm-1" style="text-align: center">~</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="" value="<%=bean.getLecFinishDate() %>" readonly="readonly" style="text-align: center">
+    </div>
+    <label for="" class="col-sm-2"></label>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">면접문의</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="" value="010-1234-1234" readonly="readonly" style="text-align: center;">
+    </div>
+    <label for="" class="col-sm-2"></label>
+  </div>
+  
+  <input type="hidden" class="form-control" id="" name="adLecNo"  value="<%=bean.getLecNo()%>">
+  
+  <div class="col-sm-9"></div>
+  <button class="btn btn-danger col-sm-1" >삭 제</button>
+  <div class="col-sm-2"></div>
+</form>	
+	 
+
 	
-<div class="col-sm-11"></div>
-<a href="/advertising/add.bit" class="btn btn-primary col-sm-1" role="button">입 력</a>
+
 
 	  <!--본문 끝  -->
 	</div>
 </div>
-
 
 	<!--footer  -->
 	<div class="row">
