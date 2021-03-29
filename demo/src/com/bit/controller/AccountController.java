@@ -75,7 +75,10 @@ public class AccountController extends HttpServlet {
 		int empNo=Integer.parseInt(req.getParameter("empNo"));
 
 		dao.accAdd(sysId, sysPw, empNo);
-		resp.sendRedirect("login.jsp");
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out=resp.getWriter();
+		out.println("<script>alert('회원가입이 완료되었습니다.'); location.href='/demo/login.jsp';</script>");
+		//resp.sendRedirect("login.jsp");
 		
 		
 	//	}catch (Exception e) {

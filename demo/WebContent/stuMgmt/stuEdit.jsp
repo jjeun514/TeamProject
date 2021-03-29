@@ -71,6 +71,8 @@ button{
 		<tr>
 			<th>학번</th>
 			<td><%=edit.getStuNo()%></td>
+			<td><input type="hidden" name = "stuNo" value = "<%=edit.getStuNo()%>"/></td>
+			
 		</tr>
 		<tr>
 			<th>이름</th>

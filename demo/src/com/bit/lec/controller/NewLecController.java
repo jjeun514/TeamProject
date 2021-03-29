@@ -16,6 +16,7 @@ import com.bit.lec.model.LecDao;
 public class NewLecController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		LecDao dao=new LecDao();
 		try {
 			req.setAttribute("instructor", dao.lecturerList());

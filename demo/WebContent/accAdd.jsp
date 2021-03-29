@@ -7,9 +7,16 @@
 <title>Insert title here</title>
 <style rel="stylesheet" type="text/css">
 
-#test { 
+#idTest { 
  position:   absolute;
     top:        76px;
+    left:       265px;
+    width:      71px;
+    height:     24px;
+}
+#empNoTest { 
+ position:   absolute;
+    top:        156px;
     left:       265px;
     width:      71px;
     height:     24px;
@@ -19,11 +26,10 @@
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
-
 $(function(){
 	
 	
-	$('button[type="button"]').click(function() {
+	$('#idTest').click(function() {
 		var sysId=$('#sysId').val();
 		
 		$.ajax({
@@ -45,7 +51,6 @@ $(function(){
 		            alert("중복체크 성공!");
 		            $('#sysPw').attr("disabled", false);
 		            $('#PwConform').attr("disabled", false);
-		            $('#empNo').attr("disabled", false);
 		            
 	            }
 	        },
@@ -65,10 +70,38 @@ $(function(){
         } else{
           $('#pwSame').html('비밀번호 일치함');
           $('#pwSame').attr('color', 'blue');
-  		  $('button[type="submit"]').attr("disabled", false);
+          $('#empNo').attr("disabled", false);
+          $('#empNoTest').attr("disabled", false);
+  		 
         }
     });
     
+    $('#empNoTest').click(function() {
+		var empNo=$('#empNo').val();
+		
+		$.ajax({
+			url :"${pageContext.request.contextPath}/empCheck.bit?empNo="+empNo,
+			type : "get",
+			dataType:"text", //받을때의 데이터 타입 ->controller에서 application/? 이부분과 매치
+			//data:{"sysId":sysId},      <-- 이렇게 보내든 위처럼 보내든 상관 없음
+			success: function(empNoCheck){
+				var empNoCheck=empNoCheck;
+				if(empNoCheck=="0"){
+	            alert("사원번호를 입력하세요.");
+	            }else if(empNoCheck=="1"){
+		            alert("사원번호를 확인하세요.");
+	            }else if(empNoCheck=="2"){
+		            alert("없는 사원번호입니다.");
+	            }else if(empNoCheck=="3"){
+		            alert("사용가능한 사원번호입니다.");
+		            $('button[type="submit"]').attr("disabled", false);
+	            }
+	        },
+	        error: function(xhr) {
+	            alert('에러입니다.');
+	        }  
+		});
+	});
 
 });
 
@@ -90,7 +123,7 @@ $(function(){
 
 		//$('button[type="submit"]').attr("disabled", false);
 	//});
-</script>
+	</script>
 </head>
 <body>
 	<h2>회원가입</h2>
@@ -100,7 +133,7 @@ $(function(){
 			<tr>
 				<td><label>id (email)</label></td>
 				<td><input type="text" id="sysId" name="sysId"></td>
-				<td><button id="test" type="button">중복체크</button></td>
+				<td><button id="idTest" type="button">중복체크</button></td>
 			</tr>
 			<tr>
 				<td><label>pw</label></td>
@@ -115,6 +148,7 @@ $(function(){
 			<tr>
 				<td><label>empNo</label></td>
 				<td><input type="text" id="empNo" name="empNo" disabled="disabled"></td>
+				<td><button id="empNoTest" type="button" disabled="disabled">사번확인</button></td>
 			</tr>
 			<tr>
 				<td><button type="submit" disabled="disabled">가입</button></td>

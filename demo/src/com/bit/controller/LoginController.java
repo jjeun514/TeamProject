@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet{
 			Dao dao=new Dao();
 			
 			List<Dto> dto=dao.login(sysId, sysPw);
+			
 			if(dto==null) {
 				//java 에서 alert 창
 				resp.setContentType("text/html; charset=UTF-8");
@@ -44,7 +45,7 @@ public class LoginController extends HttpServlet{
 				RequestDispatcher rd;
 				rd=req.getRequestDispatcher("home.jsp");
 				rd.forward(req, resp);	
-				log.info("id : " + sysId);
+				log.info(sysId+"님이 입장하셨습니다.");
 		}
 	}
 	

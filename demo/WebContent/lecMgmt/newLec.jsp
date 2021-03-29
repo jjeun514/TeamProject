@@ -118,6 +118,13 @@ $(document).ready(function(){
 				return false;
 			}else{
 				$('#msg2').hide();
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
 			}
 			return false;
 		}else{
@@ -135,6 +142,13 @@ $(document).ready(function(){
 				return false;
 			}else{
 				$('#msg2').hide();
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
 			}
 		}
 	});

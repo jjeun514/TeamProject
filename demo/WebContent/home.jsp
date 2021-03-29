@@ -20,18 +20,18 @@
 	
 	</head>
 	<body>
-	<%@ include file="templates/menu.jspf" %>
-	<%@ page import="java.util.ArrayList" %>
 	<% 
-	 List<Dto> a=(List<Dto>)request.getAttribute("list");
-	Dto dto=a.get(0);
+	List<Dto> information=(List<Dto>)request.getAttribute("list");
+	Dto dto=information.get(0);	
+
 	session.setAttribute("sysId", dto.getSysId());
 	session.setAttribute("sysPw", dto.getSysPw());
 	session.setAttribute("empNo", dto.getEmpNo());
-	
-	
+	session.setAttribute("deptno", dto.getDeptno());
 	
 	%>
+	<%@ include file="templates/menu.jspf" %>
+	<%@ page import="java.util.ArrayList" %>
 	<h2>환영합니다!</h2>
 	<p><%="'"+session.getAttribute("sysId")+"' " %>님으로 로그인되었습니다.</p>
 	<%@ include file="templates/footer.jspf" %>

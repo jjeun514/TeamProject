@@ -33,7 +33,7 @@ public class StuAttDao {
 		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, att.stuAtt, att.stuLate, att.stuAbsent, att.attTotal,";
 		query += " lec.lecNo from student stu left outer join attendance att";
 		query += " on stu.stuNo=att.stuNo left outer join lecture lec on stu.lecNo=lec.lecNo";
-		query += " where stu.lecNo =? order by stu.lecNo,stu.stuNo;";
+		query += " where stu.lecNo =? order by stu.lecNo,stu.stuNo";
 		System.out.println(query);
 		
 		try {
@@ -91,6 +91,79 @@ public class StuAttDao {
 				list.add(lecList);
 			}
 			System.out.println("강의 리스트 add 후 : "+list.size());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	public void stuAttInsert(int stuNo, int stuAtt, int stuLate, int stuAbsent) {
+
+		StuInfoDto stuAttInsert = new StuInfoDto();
+		
+		String query = "insert into attendance(stuNo, stuAtt, stuLate, stuAbsent) values(?,?,?,?)";
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, stuNo);
+			pstmt.setInt(2, stuAtt);
+			pstmt.setInt(3, stuLate);
+			pstmt.setInt(4, stuAbsent);
+			pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public List<StuInfoDto> stuAttStatusList(int lecNo) {
+		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
+		
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, count(att.stuAtt) as stuAtt, count(att.stuLate) as stuLate,";
+		query += " count(att.stuAbsent) as stuAbsent, count(att.attTotal) as attTotal, lec.lecNo";
+		query += " from student stu left outer join attendance att on stu.stuNo=att.stuNo";
+		query += " left outer join lecture lec on stu.lecNo=lec.lecNo where stu.lecNo =? group by stu.stuNo";
+		System.out.println(query);
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, lecNo);
+			rs = pstmt.executeQuery();
+			
+			StuInfoDto stuList = null;
+			
+			while(rs.next()) {
+				stuList = new StuInfoDto();
+				stuList.setStuNo(rs.getInt("stuNo"));
+				stuList.setStuName(rs.getString("stuName"));
+				stuList.setStuPhone(rs.getString("stuPhone"));
+				stuList.setStuAtt(rs.getInt("stuAtt"));
+				stuList.setStuLate(rs.getInt("stuLate"));
+				stuList.setStuAbsent(rs.getInt("stuAbsent"));
+				stuList.setAttTotal(rs.getInt("attTotal"));
+				stuList.setLecNo(rs.getInt("lecNo"));
+				list.add(stuList);
+			}
+			System.out.println("출석 리스트 add 후"+list.size());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

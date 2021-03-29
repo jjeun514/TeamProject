@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 public class Dao {
 	javax.sql.DataSource dataSource;
 	Connection conn=null;
-	PreparedStatement pstmt=null;
+	PreparedStatement pstmt,pstmt1=null;
 	ResultSet rs=null;
 
 	public Dao() {
@@ -29,6 +29,7 @@ public class Dao {
 
 	public List<Dto> login(String sysId, String sysPw) {
 		String sql="select * from account where sysId=? and sysPw=?";
+		String sql2="select deptno from emp where empno=?";
 		List<Dto> list=new ArrayList<Dto>();
 
 		System.out.println("param id : "+sysId);
@@ -41,9 +42,9 @@ public class Dao {
 			pstmt.setString(2,sysPw);
 			rs=pstmt.executeQuery();
 			System.out.println("쿼리문을 확인하세요   "+sql);
+			Dto bean=new Dto();
 
 			if(rs.next()) {
-				Dto bean=new Dto();
 				bean.setSysId(rs.getString("sysId"));
 				bean.setSysPw(rs.getString("sysPw"));
 				bean.setEmpNo(rs.getInt("empNo"));
@@ -53,6 +54,18 @@ public class Dao {
 				System.out.println("null을 리턴합니다");
 				return null;
 			}
+			Dto a=list.get(0);
+			
+			pstmt1=conn.prepareStatement(sql2);
+			pstmt1.setInt(1, a.getEmpNo());
+			rs=pstmt1.executeQuery();
+			
+			if(rs.next()) {
+				bean.setDeptno(rs.getInt("deptno"));
+				System.out.println("로그인 시 deptno 담기 위해 "+bean);
+				list.add(bean);
+			}
+			
 			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -161,6 +174,49 @@ public class Dao {
 			conn=dataSource.getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,sysId);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}else {
+				return 0;
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int empNoCheck(String empNo) {
+		String sql="select * from account where empNo=?";
+
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,empNo);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}else {
+				return 0;
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int empNoCheck2(String empNo) {
+		String sql="select * from emp where empNo=?";
+
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,empNo);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
