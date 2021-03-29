@@ -73,6 +73,22 @@
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
 	<%
+	//권한 체크
+	int deptNo=(Integer) session.getAttribute("deptno");
+	System.out.println("[lecList.jsp] dpetno: "+deptNo);
+	/*
+		강의 목록 열람: 영업/행정/강사 모두 권한 있음
+		deptno: 영업 1, 행정 2, 강사 3
+	*/
+	if(deptNo!=1 && deptNo!=2 && deptNo!=3){
+			System.out.println("영업/행정/강사가 아닌경우");
+			response.setContentType("text/html; charset=UTF-8");
+		    out.println("<script>alert('권한이 없습니다.'); location.href='javascript:history.back()';</script>");
+		    out.flush();
+		// 로그인이 되어 있지 않은 경우 (영업, 행정, 강사가 아닌경우)
+		// 컨트롤러에서 처리
+	}
+	
 	LecDto bean2=(LecDto)request.getAttribute("cnt");
 	String totalStu=request.getParameter("count(*)");
 	request.setAttribute("count", totalStu);
