@@ -80,11 +80,15 @@ input{
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <%
-//권한 체크
+// 권한 체크
+// deptno 1~3을 제외한 비로그인 유저는 Controller단에서 잡아내고
+// 1~3 내 권한은 이 페이지에서 버튼단위로 나뉘기 때문에
+// jquery로 잡아주기
 int deptNo=(Integer) session.getAttribute("deptno");
 System.out.println("[lecDetail.jsp] dpetno: "+deptNo);
 /*
-	강의 수정: 행정만 권한 있음
+	강의 열람: 모두 권한
+	강의 수정/삭제: 행정만 권한 있음
 	deptno: 영업 1, 행정 2, 강사 3
 */
 %>

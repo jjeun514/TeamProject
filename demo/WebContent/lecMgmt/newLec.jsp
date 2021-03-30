@@ -158,25 +158,6 @@ $(document).ready(function(){
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <%
-//권한 체크
-int deptNo=(Integer) session.getAttribute("deptno");
-System.out.println("[newLec.jsp] dpetno: "+deptNo);
-/*
-	강의 개설: 행정만 권한 있음
-	deptno: 영업 1, 행정 2, 강사 3
-*/
-if(deptNo!=2){
-	if(deptNo==1 | deptNo==3){
-		// 영업, 강사일 경우 팝업창만 띄워야함
-		System.out.println("영업/강사");
-		response.setContentType("text/html; charset=UTF-8");
-	    out.println("<script>alert('권한이 없습니다.'); location.href='javascript:history.back()';</script>");
-	    out.flush();
-	}
-	// 로그인이 되어 있지 않은 경우 (영업, 행정, 강사가 아닌경우)
-	// 컨트롤러에서 처리
-}
-
 // 강사의 deptNo=3
 session.getAttribute("empNo");
 
