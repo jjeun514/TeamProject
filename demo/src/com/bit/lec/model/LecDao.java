@@ -309,7 +309,7 @@ public class LecDao {
 		}
 		return -1;
 	}
-/*	
+	
 	// FK 삭제 가능하게 했다가 삭제 후, 다시 안되게 설정
 	// 문제점: lecture는 삭제되지만, student는 fk인 lecNo를
 	//		   그대로 갖고 있게 된다.
@@ -349,57 +349,7 @@ public class LecDao {
 		}
 		System.out.println("삭제 불가능하도록!");
 	}
-*/
-/* DB 스키마에서 종속관계를 제어할 수도 있는데,
- * 이렇게 되면, null을 허용해야하며, 종속관계에 있는
- * 데이터를 강제로 삭제하게 되므로 위험할 수 있음
-
--- 강의 테이블 생성
-create table lecture (
-lecNo int(2)  auto_increment primary key,
-lecName varchar(50) not null,
-lecRoom varchar(5) not null,
-lecStartDate date,
-lecFinishDate date,
-empNo int(4),
-foreign key (empNo) references emp(empNo)
-on delete set null
-on update cascade
-);
-
--- 수강생 테이블 생성
-create table student (
-stuNo int(6) auto_increment primary key,
-stuName varchar(15) not null,
-stuPhone varchar(11) unique,
-lecNo int(2),
-foreign key (lecNo) references lecture(lecNo)
-on delete set null
-on update cascade
-);
-
--- 성적 테이블 생성
-create table score (
-stuNo int(6),
-java int(3) default 0 check(java between 0 and 100),
-web int(3) default 0 check(web between 0 and 100),
-framework int(3) default 0 check(framework between 0 and 100),
-foreign key (stuNo) references student(stuNo)
-on delete set null
-on update cascade
-);
-
--- 출석 테이블 생성
-create table attendance (
-stuNo int(6),
-stuAtt int(2),
-stuLeave int(2),
-stuLate int(2),
-stuAbsent int(2),
-foreign key (stuNo) references student(stuNo)
-on delete set null
-on update cascade
-);
+/*	
 	// 삭제
 	public void deleteOne(int lecNo) {
 		String sql="delete from lecture where lecNo=?";
@@ -421,15 +371,6 @@ on update cascade
 		}
 	}
 */
-	
-/*
-	종속관계에 있는 하위 데이터를 먼저 지우고 lecture 지우기
-	delete from score where stuNo=;
-	delete from attendance where stuNo=;
-	delete from student where lecNo=;
-	delete from lecture where lecNo=;
-	lecNo로 stuNo를 추출하는 작업을 먼저 해야함
- */
 	// 삭제
 	public void deleteOne(int lecNo) {
 		/* 
@@ -450,18 +391,18 @@ on update cascade
 		String joinSql = "delete sco, att from student stu left outer join score sco on stu.stuNo=sco.stuNo left outer join attendance att on stu.stuNo=att.stuNo where lecNo=?";
 		String student = "delete from student where lecNo=?";
 		String lecture= "delete from lecture where lecNo=?";
-			
+				
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(joinSql);
 			pstmt.setInt(1, lecNo);
 			pstmt.executeUpdate();
-			
+				
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(student);
 			pstmt.setInt(1, lecNo);
 			pstmt.executeUpdate();
-			
+				
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(lecture);
 			pstmt.setInt(1, lecNo);
