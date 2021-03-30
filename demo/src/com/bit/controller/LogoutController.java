@@ -24,12 +24,6 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
 		System.out.println("logout get...");
-		System.out.println(req.getAttribute("sysId"));
-		}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("logout post...");
 		session=req.getSession();
 		System.out.println(session.getAttribute("sysId"));
 		session.removeAttribute("sysId");
@@ -40,6 +34,13 @@ public class LogoutController extends HttpServlet {
 		System.out.println("여기를 타나");
 		PrintWriter out=resp.getWriter();
 		out.println("<script>alert('로그아웃 되었습니다'); location.href='/demo/login.jsp';</script>");
+		
+		}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("logout post...");
+
 
 	}
 

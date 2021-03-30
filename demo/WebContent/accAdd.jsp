@@ -35,8 +35,7 @@ $(function(){
 		$.ajax({
 			url :"${pageContext.request.contextPath}/accAdd.bit?sysId="+sysId,
 			type : "get",
-			dataType:"text", //받을때의 데이터 타입 ->controller에서 application/? 이부분과 매치
-			//data:{"sysId":sysId},      <-- 이렇게 보내든 위처럼 보내든 상관 없음
+			dataType:"text", 
 			success: function(idCheck){
 				var idCheck=idCheck;
 				if(idCheck=="0"){
@@ -82,12 +81,11 @@ $(function(){
 		$.ajax({
 			url :"${pageContext.request.contextPath}/empCheck.bit?empNo="+empNo,
 			type : "get",
-			dataType:"text", //받을때의 데이터 타입 ->controller에서 application/? 이부분과 매치
-			//data:{"sysId":sysId},      <-- 이렇게 보내든 위처럼 보내든 상관 없음
+			dataType:"text", 
 			success: function(empNoCheck){
 				var empNoCheck=empNoCheck;
 				if(empNoCheck=="0"){
-	            alert("사원번호를 입력하세요.");
+	           		 alert("사원번호를 입력하세요.");
 	            }else if(empNoCheck=="1"){
 		            alert("사원번호를 확인하세요.");
 	            }else if(empNoCheck=="2"){
@@ -105,24 +103,6 @@ $(function(){
 
 });
 
-	//$(function() {
-
-	//	var pw = $('#sysPw').val();
-	//	var pwck = $('#PwConform').val();
-	//	var empNo = $('#empNo').val();
-
-	//	if (pw != null && pwck != null) {
-	//		if (pw == pwck) {
-	//			$('#pwSame').html("비밀번호가 일치합니다.")
-	//			$('#pwSame').style.color = 'blue';
-	//		} else {
-	//			$('#pwSame').html("비밀번호가 일치하지 않습니다.")
-	//			$('#pwSame').style.color = 'red';
-	//		}
-	//	}
-
-		//$('button[type="submit"]').attr("disabled", false);
-	//});
 	</script>
 </head>
 <body>

@@ -37,13 +37,6 @@ public class LecListController extends HttpServlet {
 			강의 열람: 모두 권한 있음
 			deptno: 영업 1, 행정 2, 강사 3
 		*/
-		if(deptNo==0) {
-			System.out.println("[LecListController] 로그인 안됨(deptNo: 0)");
-			resp.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = resp.getWriter();
-			out.println("<script>alert('로그인을 해주세요.'); location.href='/demo/';</script>");
-			out.flush();
-		}
 		
 		LecDao dao=new LecDao();
 		try {
