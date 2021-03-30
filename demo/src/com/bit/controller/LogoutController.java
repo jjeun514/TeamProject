@@ -17,6 +17,19 @@ public class LogoutController extends HttpServlet {
 		System.out.println("logout get...");
 		System.out.println(req.getAttribute("sysId"));
 		}
+		System.out.println(session.getAttribute("sysId"));
+		session.removeAttribute("sysId");
+		session.removeAttribute("sysPw");
+		session.removeAttribute("empNo");
+		session.removeAttribute("deptno");
+		session.invalidate();
+		System.out.println("여기를 타나");
+		PrintWriter out=resp.getWriter();
+		out.println("<script>alert('로그아웃 되었습니다'); location.href='/demo/login.jsp';</script>");
+
+	}
+		System.out.println(req.getAttribute("sysId"));
+		}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

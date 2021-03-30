@@ -117,26 +117,22 @@ $(function(){
 </script>
 </head>
 <body>
-
-<%  
-String sysId;
-if(session.getAttribute("sysId")==null){
-	sysId="";
-}else{
-	sysId=(String)session.getAttribute("sysId");
-}
-
-%>
 <table>
 	<tr id="top">
 		<td id="text">비트캠프 평양지점<br>LMS</td>
 		<%
+	
+
 		
-		
+		if((String)session.getAttribute("sysId")==null){
+			session.invalidate();
+			response.sendRedirect("login.jsp");
+
+		}
 		%>
 
-		<td id="id"><img src="<%=application.getContextPath()%>/imgs/user3.png"><%=sysId %></td>
-		<td id="logout"><a href="#">로그아웃</a></td>
+		<td id="id"><img src="<%=application.getContextPath()%>/imgs/user3.png"><%=session.getAttribute("deptno") %></td>
+		<td id="logout"><a href="${pageContext.request.contextPath }/logout.bit">로그아웃</a></td>
 
 	</tr>
 </table>
@@ -146,8 +142,8 @@ if(session.getAttribute("sysId")==null){
 		<td id="leftMenu">
 		<ul>
 			<li id="main1">강의관리</li>
-			<li id="sub11"><a href="/demo/lecMgmt/newLec.jsp">강의개설</a></li>
-			<li id="sub12"><a href="/demo/lecMgmt/lecList.jsp">강의목록</a></li>
+			<li id="sub11"><a href="${pageContext.request.contextPath }/newLec.bit">강의개설</a></li>
+			<li id="sub12"><a href="${pageContext.request.contextPath }/lecList.bit">강의목록</a></li>
 			<li id="main2">학생관리</li>
 			<li id="sub21"><a href="/demo/stuMgmt/stuPage.bit">수강생목록</a></li>
 			

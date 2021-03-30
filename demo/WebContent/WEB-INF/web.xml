@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>project02</display-name>
-  <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>project02</display-name>
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page><!--404에러처리 #문서를 찾을 수 없을때-->
+		<error-code>404</error-code>
+		<location>/error/404errorPage.jsp</location>
+	</error-page>
+
+	<error-page><!--500에러처리 #서버 내부 오류-->
+		<error-code>500</error-code>
+		<location>/error/500errorPage.jsp</location>
+	</error-page>
+
+	<error-page><!--405에러처리 #요청된 메서드 허용 안됨 -->
+		<error-code>405</error-code>
+		<location>/error/405errorPage.jsp</location>
+	</error-page>
+
+	<error-page><!--NullPointerException 에러처리 #해당 예외 허용 안됨-->
+		<exception-type>java.lang.NullPointerException</exception-type>
+		<location>/error/404errorPage.jsp</location>
+	</error-page>
 </web-app>

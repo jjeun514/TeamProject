@@ -78,9 +78,34 @@ input{
 }
 </style>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<%
+//권한 체크
+int deptNo=(Integer) session.getAttribute("deptno");
+System.out.println("[lecDetail.jsp] dpetno: "+deptNo);
+/*
+	강의 수정: 행정만 권한 있음
+	deptno: 영업 1, 행정 2, 강사 3
+*/
+%>
 <script type="text/javascript">
-
-
+$(function(){
+	$(document.getElementById('eBtn')).click(function(){
+		var deptNo='<%=deptNo%>';
+		console.log(deptNo);
+		if(deptNo!=2){
+			alert('권한이 없습니다.');
+		   	location.href='javascript:history.back()';
+		}
+	});
+	$(document.getElementById('dBtn')).click(function(){
+		var deptNo='<%=deptNo%>';
+		console.log(deptNo);
+		if(deptNo!=2){
+			alert('권한이 없습니다.');
+		   	location.href='javascript:history.back()';
+		}
+	});
+});
 </script>
 </head>
 <body>
@@ -133,8 +158,8 @@ input{
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button type="button" onclick="location='lecDetail.bit?lecNo=<%=No %>'">수정</button>
-			<button type="button" onclick="location='lecDel.bit?lecNo=<%=No %>'">삭제</button>
+			<button id="eBtn" type="button" onclick="location='lecDetail.bit?lecNo=<%=No %>'">수정</button>
+			<button id="dBtn" type="button" onclick="location='lecDel.bit?lecNo=<%=No %>'">삭제</button>
 			<button type="button" onclick="location='lecList.bit'">뒤로</button>
 		</td>
 	</tr>
