@@ -15,8 +15,8 @@ public class LogoutController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("logout get...");
-		System.out.println(session.getAttribute("sysId"));
-	}
+		System.out.println(req.getAttribute("sysId"));
+		}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
