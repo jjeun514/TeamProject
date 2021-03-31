@@ -58,7 +58,7 @@
 			text-align: center;
 		}
 </style>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
 
@@ -93,7 +93,8 @@
 				<th>출석</th>
 				<th>지각</th>
 				<th>결석</th>
-				<th>출석률</th>
+				<th>총 수업일수</th>
+				<th>출결입력</th>
 			</tr>
 		</thead>
 		

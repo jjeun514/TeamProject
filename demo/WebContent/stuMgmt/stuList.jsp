@@ -65,6 +65,8 @@
 	<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 	<script type="text/javascript">
 		
+	
+	
 	</script>
 	
 	</head>
@@ -73,12 +75,12 @@
 	<h1>＜ 수강생 목록 ＞</h1>
 	<h3>강의명</h3>
 	
-	<form action="${pageContext.request.contextPath }/stuMgmt/stuList.bit" method="post">
+	<form action="${pageContext.request.contextPath }/stuMgmt/stuList.bit">
 			<table id="topPart">
 				<tr><td><select name="selectLec" onchange="this.form.submit();">
 					<option>강의를 선택하시오</option>
 				<%List<StuInfoDto> lecList = null;
-					lecList = (List<StuInfoDto>)request.getAttribute("lecInfoList");
+					lecList = (List<StuInfoDto>)request.getAttribute("allLecList");
 					if (lecList!=null){
 						for(StuInfoDto bean : lecList) {
 				%>
@@ -95,6 +97,7 @@
 							<th>학번</th>
 							<th>이름</th>
 							<th>전화번호</th>
+						
 							<th>출석률</th>
 							<th>자바</th>
 							<th>웹</th>
@@ -104,16 +107,17 @@
 					
 					<tbody>
 					<%
-					List<StuInfoDto> list = null;
-					list = (List<StuInfoDto>)request.getAttribute("selectLec");
-					if ( list != null ) {
-						for (StuInfoDto stuInfo: list){
+					List<StuInfoDto> stuList = null;
+					stuList = (List<StuInfoDto>)request.getAttribute("selectStu");
+					if ( stuList != null ) {
+						for (StuInfoDto stuInfo : stuList){
+							
 					%>
 						<tr>
 							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuNo() %></a></td>
 							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuName() %></a></td>
-							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuPhone() %></a></td>
-							<td>출석률</td>
+							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getStuPhone() %></a></td>							
+							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getAttTotal() %>%</td>
 							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getJava() %></a></td>
 							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getWeb() %></a></td>
 							<td><a href = "stuDetail.bit?stuNo=<%=stuInfo.getStuNo() %>"><%=stuInfo.getFramework() %></a></td>

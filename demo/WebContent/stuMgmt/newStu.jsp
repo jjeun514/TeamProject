@@ -63,56 +63,75 @@ button{
 
 <script type="text/javascript">
 
+function lecChoice() {
+	// alert("java scaript call");
+	document.newStuFormName.action = "/demo/stuMgmt/selectLecForNew.bit";
+	document.newStuFormName.submit();
+}
+
+function newStu() {
+	document.newStuFormName.action = "/demo/stuMgmt/newStu.bit";
+	document.newStuFormName.submit();
+}
 
 </script>
 
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<form action="${pageContext.request.contextPath }/stuMgmt/newStu.bit">
+<form name = "newStuFormName">
 	<table id="conTable">
 	<tr><td colspan="2" id="subject"><h1>수강생 등록</h1></td></tr>
 		<tr>
 			<th>강의명</th>
 			<td>
-				<select name="lecNo"">
+				<select name="selectLec" onchange="lecChoice()">
 					<option>강의를 선택하시오</option>
 				<%List<StuInfoDto> lecList = null;
-					lecList = (List<StuInfoDto>)request.getAttribute("lecNo");
+					lecList = (List<StuInfoDto>)request.getAttribute("allLecList");
 					if (lecList!=null){
 						for(StuInfoDto bean : lecList) {
 				%>
 					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
-				<%}}%>
-
+			<%}}%>
 				</select>
 			</td>
 		</tr>
+		
 		<tr>
 			<th>교육기간</th>
-			<td>lecStartDate</td><br/><td>lecFinishDate</td>
+			<%List<StuInfoDto> lecInfo = null;
+			lecInfo = (List<StuInfoDto>)request.getAttribute("selectOneLec");
+					if (lecInfo!=null){
+						for(StuInfoDto oneLec : lecInfo) {
+		%>
+			<td><%=oneLec.getLecStartDate() %></td><td><%=oneLec.getLecFinishDate() %></td>
 		</tr>
-		<tr>
+		<input type = "hidden" name = "lecNo" value = "<%=oneLec.getLecNo()%>"/>
+		<!-- <tr>
 			<th>강의장</th>
-			<td>불러와야 함</td>
-		</tr>
+			<td></td>
+		</tr> -->
+					<%}}%>
 		<tr>
 			<td  colspan="2">수강생정보</td>
 		</tr>
+
 		<tr>
 			<%List<StuInfoDto> stuNo = null;
 			stuNo = (List<StuInfoDto>)request.getAttribute("maxStuNo");
 			if (stuNo!=null){
 				for(StuInfoDto No : stuNo) {
 			%>
-			<td>수강생 번호 : <input type = "text" name = "stuNo" value = "<%=No.getStuNo() %>" readonly = "readonly"/></td><br/><%}} %>
-						<td>수강생 이름 : <input type="text" name = "stuName"/></td><br/>
+			<td>수강생 번호 : <input type = "text" name = "stuNo" value = "<%=No.getStuNo() %>" readonly = "readonly"/></td><%}} %>
+			<td>수강생 이름 : <input type="text" name = "stuName"/></td>
 			<td>전화 : <input type="text" name = "stuPhone"/></td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<button type = "submit">확인</button>
-				<button type = "reset">취소</button>
+				<input type = "button" onclick = "newStu();" value = "등 록"/>
+				<input type = "reset" value = "작성취소"/>
+				<input type = "button" value = "뒤로" onclick="location.href='stuPage.bit'"/>
 			</td>
 		</tr>
 		

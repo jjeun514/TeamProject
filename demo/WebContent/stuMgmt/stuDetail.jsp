@@ -69,7 +69,7 @@ button{
 
 <table id="conTable">
 <tr><td colspan="2" id="subject"><h1>수강생 정보</h1></td></tr>
-<% StuInfoDto detail = (StuInfoDto)request.getAttribute("detail");  %>
+<% StuInfoDto detail = (StuInfoDto)request.getAttribute("stuDatail");  %>
 	<tr>
 		<th>이름</th>
 		<td><%=detail.getStuName() %></td>
@@ -80,11 +80,11 @@ button{
 	</tr>
 	<tr>
 		<th>강의명</th>
-		<td><%=detail.getLecName() %></td>
+		<td><%=detail.getLecName() %><input type = "hidden" name = "lecNo" value = "<%=detail.getLecNo() %>"></td>
 	</tr>
 	<tr>
 		<th>출석률</th>
-		<td>계산해야 함</td>
+		<td><%=detail.getAttTotal() %>%</td>
 	</tr>
 	<tr>
 		<th>자바</th>
@@ -102,7 +102,7 @@ button{
 		<td colspan="2">
 			<button><a href = "stuEdit.bit?stuNo=<%=detail.getStuNo()%>">수정</a></button>
 			<button><a href = "stuDelete.bit?stuNo=<%=detail.getStuNo()%>">삭제</a></button>
-			<button><a href = "stuPage.bit">뒤로</a></button>
+			<button><a href = "${pageContext.request.contextPath }/stuMgmt/stuList.bit?selectLec=<%=detail.getLecNo() %>">뒤로</a></button>
 		</td>
 	</tr>
 </table>

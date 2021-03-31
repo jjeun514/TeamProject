@@ -62,7 +62,7 @@ button{
 <body>
 <%@ include file="/templates/menu.jspf" %>
 
-	<% StuInfoDto edit = (StuInfoDto)request.getAttribute("detail");  %>
+	<% StuInfoDto edit = (StuInfoDto)request.getAttribute("stuDetail");  %>
 <form action="${pageContext.request.contextPath }/stuMgmt/stuEditSubmit.bit">
 	<table id="conTable">
 	<tr><td colspan="2" id="subject"><h1>수강생 정보 수정</h1></td></tr>
