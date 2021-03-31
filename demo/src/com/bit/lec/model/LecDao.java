@@ -37,6 +37,7 @@ public class LecDao {
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
+			System.out.println(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				LecDto bean = new LecDto();
