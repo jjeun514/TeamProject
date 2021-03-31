@@ -18,14 +18,14 @@ public class AttListCotroller extends HttpServlet {
 	public AttListCotroller() {}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("stuAttList 컨트롤러 도착");
+		System.out.println("----------stuAttListController-----------");
 		
 		int lecNo = Integer.parseInt(req.getParameter("selectLec"));
 		
 		StuAttDao dao = new StuAttDao();
-		req.setAttribute("stuAttList", dao.stuAttList(lecNo));		
+		req.setAttribute("stuAttList", dao.stuAttStatusList(lecNo));		
 		req.setAttribute("lecInfoList", dao.lecInfoList());
 		
 		RequestDispatcher rd = req.getRequestDispatcher("./stuAtt.jsp");

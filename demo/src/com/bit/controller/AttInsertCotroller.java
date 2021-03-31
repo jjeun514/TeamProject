@@ -18,19 +18,27 @@ public class AttInsertCotroller extends HttpServlet {
 	public AttInsertCotroller() {}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//req.getParameterNames()
+		//int checkNo = Integer.parseInt(req.getParameter("checkNo"));
 		
-		int stuNo;
+		int stuNo = Integer.parseInt(req.getParameter("stuNo"));
+		int lecNo = Integer.parseInt(req.getParameter("lecNo"));
 		int stuAtt;
 		int stuLate;
 		int stuAbsent;
 		
-		System.out.println("stuAttInsert 컨트롤러 도착");
-		
+		System.out.println("----------stuAttInsertController-----------");
+				
 		stuNo = Integer.parseInt(req.getParameter("stuNo"));
-		if(req.getParameter("stuAtt")==null) { stuAtt=0; } else { stuAtt = Integer.parseInt(req.getParameter("stuAtt")); }
-		if(req.getParameter("stuLate")==null) { stuLate=0; } else { stuLate = Integer.parseInt(req.getParameter("stuLate")); }
-		if(req.getParameter("stuAbsent")==null) { stuAbsent=0; } else { stuAbsent = Integer.parseInt(req.getParameter("stuAbsent")); }
+		lecNo = Integer.parseInt(req.getParameter("lecNo"));
+		System.out.println("출석 입력한 학생 번호 : " + stuNo);
+		if(req.getParameter("stuAtt")==null || req.getParameter("stuAtt") == "")       { stuAtt=0; } else { stuAtt = Integer.parseInt(req.getParameter("stuAtt")); }
+		System.out.println("출석 입력한 학생 출석 : " + stuAtt);
+		if(req.getParameter("stuLate")==null || req.getParameter("stuLate") == "")     { stuLate=0; } else { stuLate = Integer.parseInt(req.getParameter("stuLate")); }
+		System.out.println("출석 입력한 학생 지각 : " + stuLate);
+		if(req.getParameter("stuAbsent")==null || req.getParameter("stuAbsent") == "") { stuAbsent=0; } else { stuAbsent = Integer.parseInt(req.getParameter("stuAbsent")); }
+		System.out.println("출석 입력한 학생 결석 : " + stuAbsent);
 		// int lecNo = Integer.parseInt(req.getParameter("selectLec"));
 		
 		
@@ -39,9 +47,9 @@ public class AttInsertCotroller extends HttpServlet {
 		
 		// 수강생목록 화면에서 강의 선택을 위한 강의 정보 추출
 		StuInfoDao dao = new StuInfoDao();
-		req.setAttribute("lecInfoList", dao.lecInfoList()); // 만약에 여기서 값을 전달해주고 bit url로 포워드한다면?
+		req.setAttribute("lecInfoList", dao.lecInfoList());
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./stuAtt.jsp"); // 어떻게 하면 다시 돌아갈 수 있을까?
+		RequestDispatcher rd = req.getRequestDispatcher("./stuAttList.bit?selectLec="+lecNo);
 		rd.forward(req, resp);
 	}
 	

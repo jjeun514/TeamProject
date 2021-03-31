@@ -19,7 +19,7 @@ public class AttPageCotroller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("stuAtt 컨트롤러 도착");
+		System.out.println("----------stuAttController-----------");
 		
 		// 수강생목록 화면에서 강의 선택을 위한 강의 정보 추출
 		StuInfoDao dao = new StuInfoDao();

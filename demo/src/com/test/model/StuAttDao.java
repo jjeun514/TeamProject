@@ -137,10 +137,10 @@ public class StuAttDao {
 	public List<StuInfoDto> stuAttStatusList(int lecNo) {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, count(att.stuAtt) as stuAtt, count(att.stuLate) as stuLate,";
-		query += " count(att.stuAbsent) as stuAbsent, count(att.attTotal) as attTotal, lec.lecNo";
-		query += " from student stu left outer join attendance att on stu.stuNo=att.stuNo";
-		query += " left outer join lecture lec on stu.lecNo=lec.lecNo where stu.lecNo =? group by stu.stuNo";
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, sum(ifnull(att.stuAtt,0)) as stuAtt, sum(ifnull(att.stuLate,0)) as stuLate,";
+		query       += " sum(ifnull(att.stuAbsent,0)) as stuAbsent, sum(ifnull(att.attTotal,0)) as attTotal, lec.lecNo,";
+		query       += " lec.lecDays from student stu left outer join attendance att on stu.stuNo=att.stuNo";
+		query       += " left outer join lecture lec on stu.lecNo=lec.lecNo where stu.lecNo = ? group by stu.stuNo;";
 		System.out.println(query);
 		
 		try {
@@ -161,6 +161,7 @@ public class StuAttDao {
 				stuList.setStuAbsent(rs.getInt("stuAbsent"));
 				stuList.setAttTotal(rs.getInt("attTotal"));
 				stuList.setLecNo(rs.getInt("lecNo"));
+				stuList.setLecDays(rs.getString("lecDays"));
 				list.add(stuList);
 			}
 			System.out.println("출석 리스트 add 후"+list.size());
@@ -178,5 +179,7 @@ public class StuAttDao {
 		
 		return list;
 	}
+	
+	
 	
 }

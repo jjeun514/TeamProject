@@ -5,6 +5,12 @@ public class StuInfoDto {
 	private int stuNo, lecNo, java, web, framework, stuAtt, stuLate, stuAbsent, attTotal;
 	private String stuName, stuPhone, lecName;
 	
+	private String lecStartDate, lecFinishDate, lecRoom, lecDays;
+	
+	public StuInfoDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getStuNo() {
 		return stuNo;
 	}
@@ -76,6 +82,32 @@ public class StuInfoDto {
 	}
 	public void setAttTotal(int attTotal) {
 		this.attTotal = attTotal;
+	}
+	public String getLecStartDate() {
+		return lecStartDate;
+	}
+	public void setLecStartDate(String lecStartDate) {
+		this.lecStartDate = lecStartDate;
+	}
+	public String getLecFinishDate() {
+		return lecFinishDate;
+	}
+	public void setLecFinishDate(String lecFinishDate) {
+		this.lecFinishDate = lecFinishDate;
+	}
+	public String getLecRoom() {
+		return lecRoom;
+	}
+	public void setLecRoom(String lecRoom) {
+		this.lecRoom = lecRoom;
+	}
+
+	public String getLecDays() {
+		return lecDays;
+	}
+
+	public void setLecDays(String lecDays) {
+		this.lecDays = lecDays;
 	}
 	
 	
