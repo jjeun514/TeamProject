@@ -14,17 +14,20 @@ import com.test.model.StuEditDao;
 import com.test.model.StuInfoDto;
 
 @WebServlet("/stuMgmt/stuEditSubmit.bit")
-public class StuEditController extends HttpServlet {
+public class StuEditSubmitController extends HttpServlet {
 
-	public StuEditController() {}
+	public StuEditSubmitController() {}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("----------stuEditSubmitController-----------");
+		
+		req.setCharacterEncoding("utf-8");
 		String stuName = req.getParameter("stuName");
 		String stuPhone = req.getParameter("stuPhone");
 		int stuNo = Integer.parseInt(req.getParameter("stuNo"));
-		System.out.println("수정된 수강생 번호 : " + stuNo);
+		System.out.println("수정 요청한 수강생 번호 : " + stuNo);
 		
 		StuEditDao dao = new StuEditDao();
 		

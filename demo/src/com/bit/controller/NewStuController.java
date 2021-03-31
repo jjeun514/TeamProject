@@ -18,15 +18,15 @@ public class NewStuController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("컨트롤러 도착");
+		System.out.println("----------newStuController-----------");
+		
+		req.setCharacterEncoding("utf-8");
 		int stuNo = Integer.parseInt(req.getParameter("stuNo"));
-		System.out.println("양호");
 		String stuName = req.getParameter("stuName");
-		System.out.println("양호");
 		String stuPhone = req.getParameter("stuPhone");
-		System.out.println("양호");
 		System.out.println(req.getParameter("lecNo"));
 		int lecNo = Integer.parseInt(req.getParameter("lecNo"));
+
 		System.out.println("등록할 학생 번호 : "+stuNo);
 		System.out.println("등록할 학생 이름 : "+stuName);
 		System.out.println("등록할 학생 전화 : "+stuPhone);
