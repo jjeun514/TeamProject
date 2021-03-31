@@ -99,4 +99,19 @@ public class StuListCotroller extends HttpServlet {
 			}			
 		}
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String param = req.getParameter("selectLec");
+		int lecNo = Integer.parseInt(param);
+		System.out.println(lecNo);
+		
+		StuInfoDao dao = new StuInfoDao();
+		req.setAttribute("selectStu", dao.stuList(lecNo));
+		req.setAttribute("selectLec", dao.lecInfoList()); // 페이지 이동했을 때 강의 선택 셀렉트 박스에 강의 리스트 셋.
+	
+		RequestDispatcher rd = req.getRequestDispatcher("./stuList.jsp");
+		rd.forward(req, resp);
+	}
 }

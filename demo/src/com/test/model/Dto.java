@@ -1,7 +1,7 @@
 package com.test.model;
 
 public class Dto {
-	private String sysId,sysPw;
+	private String sysId,sysPw,ename;
 	private int empNo, deptno;
 	public String getSysId() {
 		return sysId;
@@ -14,6 +14,12 @@ public class Dto {
 	}
 	public void setSysPw(String sysPw) {
 		this.sysPw = sysPw;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
 	}
 	public int getEmpNo() {
 		return empNo;
@@ -29,9 +35,9 @@ public class Dto {
 	}
 	@Override
 	public String toString() {
-		return "Dto [sysId=" + sysId + ", sysPw=" + sysPw + ", empNo=" + empNo + ", deptno=" + deptno + "]";
+		return "Dto [sysId=" + sysId + ", sysPw=" + sysPw + ", ename=" + ename + ", empNo=" + empNo + ", deptno="
+				+ deptno + "]";
 	}
-	
 	
 	
 	

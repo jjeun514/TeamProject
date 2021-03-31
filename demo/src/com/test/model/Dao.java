@@ -55,17 +55,17 @@ public class Dao {
 				return null;
 			}
 			Dto a=list.get(0);
-			
+
 			pstmt1=conn.prepareStatement(sql2);
 			pstmt1.setInt(1, a.getEmpNo());
 			rs=pstmt1.executeQuery();
-			
+
 			if(rs.next()) {
 				bean.setDeptno(rs.getInt("deptno"));
 				System.out.println("로그인 시 deptno 담기 위해 "+bean);
 				list.add(bean);
 			}
-			
+
 			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -150,7 +150,7 @@ public class Dao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+
 			//System.out.println("sql 익셉션이 일어날 경우");
 			//return error;
 		}finally {
@@ -166,7 +166,7 @@ public class Dao {
 		return list;
 
 	}
-	
+
 	public int accAddCheck(String sysId) {
 		String sql="select * from account where sysID=?";
 
@@ -175,20 +175,20 @@ public class Dao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,sysId);
 			rs=pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				return 1;
 			}else {
 				return 0;
 			}
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
 	}
-	
+
 	public int empNoCheck(String empNo) {
 		String sql="select * from account where empNo=?";
 
@@ -197,13 +197,13 @@ public class Dao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,empNo);
 			rs=pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				return 1;
 			}else {
 				return 0;
 			}
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,18 +218,80 @@ public class Dao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,empNo);
 			rs=pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				return 1;
 			}else {
 				return 0;
 			}
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
 	}
+
+	public List<Dto> IdFind(String ename, int empNo) {
+		String sql="select * from emp where ename=? and empNo=?";
+		String sql2="select sysId from account where empNo=?";
+		
+		List<Dto> list=new ArrayList<Dto>();
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, ename);
+			pstmt.setInt(2, empNo);
+			rs=pstmt.executeQuery();
+			Dto bean=new Dto();
+			
+			if(rs.next()==false) {
+				System.out.println("이름과 사번이 일치하지 않습니다.");
+			}else {
+				System.out.println("여기 타면안됨1");
+				pstmt=conn.prepareStatement(sql2);
+				pstmt.setInt(1, empNo);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					System.out.println("여기 타면안됨2");
+					bean.setSysId(rs.getString(1));
+					list.add(bean);
+				}
+				System.out.println("여기 타면안됨3");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Dto> PwFind(String sysId, int empNo) {
+		String sql="select sysPw from account where sysId=? and empNo=?";
+		
+		List<Dto> list=new ArrayList<Dto>();
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sysId);
+			pstmt.setInt(2, empNo);
+			rs=pstmt.executeQuery();
+			Dto bean=new Dto();
+			
+			if(rs.next()==false) {
+				System.out.println("아이디와 사번이 일치하지 않습니다.");
+			}else {
+				bean.setSysPw(rs.getString(1));
+				list.add(bean);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+
 
 }

@@ -71,7 +71,6 @@ $(function(){
           $('#pwSame').attr('color', 'blue');
           $('#empNo').attr("disabled", false);
           $('#empNoTest').attr("disabled", false);
-  		 
         }
     });
     

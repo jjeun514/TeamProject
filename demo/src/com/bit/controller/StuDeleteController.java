@@ -34,7 +34,7 @@ public class StuDeleteController extends HttpServlet {
 		StuInfoDao lec = new StuInfoDao();
 		req.setAttribute("allLecList", lec.lecInfoList());
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/stuMgmt/stuPage.bit");
+		RequestDispatcher rd = req.getRequestDispatcher("./stuMgmt/stuPage.bit");
 		rd.forward(req, resp);
 	}
 	

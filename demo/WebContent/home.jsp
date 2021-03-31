@@ -21,6 +21,7 @@
 	</head>
 	<body>
 	<% 
+	
 	List<Dto> information=(List<Dto>)request.getAttribute("list");
 	Dto dto=information.get(0);	
 
