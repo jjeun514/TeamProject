@@ -2,10 +2,7 @@ package com.test.model;
 
 public class Dto {
 	private String sysId,sysPw;
-	private int empNo;
-	
-	
-	
+	private int empNo, deptno;
 	public String getSysId() {
 		return sysId;
 	}
@@ -24,10 +21,20 @@ public class Dto {
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
 	@Override
 	public String toString() {
-		return "Dto [sysId=" + sysId + ", sysPw=" + sysPw + ", empNo=" + empNo + "]";
+		return "Dto [sysId=" + sysId + ", sysPw=" + sysPw + ", empNo=" + empNo + ", deptno=" + deptno + "]";
 	}
+	
+	
+	
+	
 	
 	
 }

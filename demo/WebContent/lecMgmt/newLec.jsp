@@ -118,6 +118,13 @@ $(document).ready(function(){
 				return false;
 			}else{
 				$('#msg2').hide();
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
 			}
 			return false;
 		}else{
@@ -135,6 +142,13 @@ $(document).ready(function(){
 				return false;
 			}else{
 				$('#msg2').hide();
+				// 교육기간
+				if(start>=end){
+					$('#msg4').show();	// msg 출력
+					return false;
+				}else{
+					$('#msg4').hide();
+				}
 			}
 		}
 	});
@@ -144,6 +158,9 @@ $(document).ready(function(){
 <body>
 <%@ include file="/templates/menu.jspf" %>
 <%
+// 강사의 deptNo=3
+session.getAttribute("empNo");
+
 /* 교육기간 시작일 선택 시, 종강일은 3개월 뒤로 자동 계산
    (시작일의 default는 오늘 날짜로 뜨도록 해놨음)*/
 	Calendar cal=Calendar.getInstance();

@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 
 public class LecDao {
 	// DB 연결 
@@ -37,7 +39,6 @@ public class LecDao {
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				LecDto bean = new LecDto();
@@ -350,7 +351,7 @@ public class LecDao {
 		}
 		System.out.println("삭제 불가능하도록!");
 	}
-	
+/*	
 	// 삭제
 	public void deleteOne(int lecNo) {
 		String sql="delete from lecture where lecNo=?";
@@ -358,6 +359,54 @@ public class LecDao {
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, lecNo);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+*/
+	// 삭제
+	public void deleteOne(int lecNo) {
+		/* 
+		 * 일단 student의 모든 데이터가 나와야 하고,
+		 * score와 attendance에서 없는 데이터는 null로 나오도록 select
+		 * select * from student stu left outer join score sco on stu.stuNo=sco.stuNo left outer join attendance att on stu.stuNo=att.stuNo;
+		 * 
+		 * 여기서부터 순차적으로 쿼리 날리면 됨
+		 * lecNo=? 인 하위 score, attendance의 데이터를 먼저 지우고
+		 * delete sco, att from student stu left outer join score sco on stu.stuNo=sco.stuNo left outer join attendance att on stu.stuNo=att.stuNo where lecNo=?;
+		 * 
+		 * lecNo=? 인 student의 데이터를 지우고
+		 * delete from student where lecNo=?
+		 * 
+		 * lecNo=? 인 lecture의 데이터를 지운다
+		 * delete from lecture where lecNo=?
+		 */
+		String joinSql = "delete sco, att from student stu left outer join score sco on stu.stuNo=sco.stuNo left outer join attendance att on stu.stuNo=att.stuNo where lecNo=?";
+		String student = "delete from student where lecNo=?";
+		String lecture= "delete from lecture where lecNo=?";
+				
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(joinSql);
+			pstmt.setInt(1, lecNo);
+			pstmt.executeUpdate();
+				
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(student);
+			pstmt.setInt(1, lecNo);
+			pstmt.executeUpdate();
+				
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(lecture);
 			pstmt.setInt(1, lecNo);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
