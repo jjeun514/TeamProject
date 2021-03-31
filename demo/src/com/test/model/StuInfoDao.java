@@ -30,10 +30,9 @@ public class StuInfoDao {
 	public List<StuInfoDto> stuList(int lecNo) {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 		
-		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework";
-		query += " from student stu left outer join score score";
-		query += " on stu.stuNo = score.stuNo where stu.lecNo = ?";
-		query += " order by stu.stuNo, stu.lecNo";
+		String query = "select stu.stuNo, stu.stuName, stu.stuPhone, score.java, score.web, score.framework, lec.lecDays";
+		query       += " from student stu left outer join score score on stu.stuNo = score.stuNo";
+		query       += " left outer join lecture lec on stu.lecNo = lec.lecNo where stu.lecNo = ? order by stu.stuNo, stu.lecNo;";
 		System.out.println(query);
 		
 		try {
@@ -52,6 +51,7 @@ public class StuInfoDao {
 				stuInfo.setJava(rs.getInt("java"));
 				stuInfo.setWeb(rs.getInt("web"));
 				stuInfo.setFramework(rs.getInt("framework"));
+				stuInfo.setLecDays(rs.getString("lecDays"));
 				list.add(stuInfo);
 			}
 			System.out.println("리스트 add 후"+list.size());
@@ -73,7 +73,7 @@ public class StuInfoDao {
 	public List<StuInfoDto> lecInfoList() {
 		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
 
-		String query = "select lecNo, lecName from lecture order by lecNo";
+		String query = "select lecNo, lecName, lecRoom, lecStartDate, lecFinishDate from lecture order by lecNo";
 		
 		try {
 			conn = dataSource.getConnection();
@@ -86,9 +86,50 @@ public class StuInfoDao {
 				lecList = new StuInfoDto();
 				lecList.setLecNo(rs.getInt("lecNo"));
 				lecList.setLecName(rs.getString("lecName"));
+				lecList.setLecRoom(rs.getString("lecRoom"));
+				lecList.setLecStartDate(rs.getString("lecStartDate"));
+				lecList.setLecFinishDate(rs.getString("lecFinishDate"));
 				list.add(lecList);
 			}
-			System.out.println("강의 리스트 add 후 : "+list.size());
+			System.out.println("리스트에 추가된 강의 개수 : "+list.size());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	public List<StuInfoDto> selectLecInfo(int lecNo) {
+		List<StuInfoDto> list=new ArrayList<StuInfoDto>();
+
+		String query = "select lecNo, lecName, lecRoom, lecStartDate, lecFinishDate from lecture where lecNo=?";
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, lecNo);
+			rs = pstmt.executeQuery();
+			
+			StuInfoDto lecList = null;
+			
+			while(rs.next()) {
+				lecList = new StuInfoDto();
+				lecList.setLecNo(rs.getInt("lecNo"));
+				lecList.setLecName(rs.getString("lecName"));
+				lecList.setLecRoom(rs.getString("lecRoom"));
+				lecList.setLecStartDate(rs.getString("lecStartDate"));
+				lecList.setLecFinishDate(rs.getString("lecFinishDate"));
+				list.add(lecList);
+			}
+			System.out.println("리스트에 추가된 강의 개수 : "+list.size());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
