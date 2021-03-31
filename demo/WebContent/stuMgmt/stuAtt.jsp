@@ -58,18 +58,8 @@
 			text-align: center;
 		}
 </style>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-$(function(){
-	$('.ok').click(function(e){
-		var name=$(':radio').attr('name');
-		console.log(name);
-		var checked=$('input[name=\"'+name+'\"]:checked').val();
-		$('#result').html(checked);
-		// 확인 버튼 한 번 누르면 버튼 비활성화
-		//$('.ok').prop("disabled",true);	
-	});
-});
 
 function lecChoice() {
 	// alert("java scaript call");
@@ -77,20 +67,33 @@ function lecChoice() {
 	document.stuAttFormName.submit();
 }
 
-function attChoice() {
-
-	document.stuAttFormName.action = "/demo/stuMgmt/stuAttInsert.bit";
-	document.stuAttFormName.submit();
+function attChoice(stuNoVal) {
+	var stuAtt,stuLate,stuAbsent;
+	stuAtt = document.getElementsByName("stuAtt"+stuNoVal)[0].checked == true ? 1:null;
+	stuLate = document.getElementsByName("stuLate"+stuNoVal)[0].checked == true ? 1:null;
+	stuAbsent = document.getElementsByName("stuAbsent"+stuNoVal)[0].checked == true ? 1:null;
 	
-	// 여기서 입력 버튼 눌렀을 때 입력결과 td에 값을 변경시켜줘야 함.
+	if(stuAtt == null && stuLate == null && stuAbsent == null) {
+		alert("출결을 선택해주세요.");
+		return;
+	} else {
+		document.getElementById("stuNoId").value     = document.getElementsByName("stuNo"+stuNoVal)[0].value;
+		document.getElementById("stuAttId").value    = stuAtt;
+		document.getElementById("stuLateId").value   = stuLate;
+		document.getElementById("stuAbsentId").value = stuAbsent;
+		document.stuAttFormName.action = "/demo/stuMgmt/stuAttInsert.bit";
+		document.stuAttFormName.submit();
+		var attInsert = document.getElementById('confirm');
+		attInsert.innerText = "입력완료";
+	}
 }
 
 </script>
 </head>
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<h1>＜ 출결 관리 ＞</h1>
-	<form name = "stuAttFormName" method = "post">
+<h1>＜ 출결 입력 ＞</h1>
+	<form name = "stuAttFormName">
 			<table id="topPart">
 				<tr><td><select name="selectLec" onchange="lecChoice()">
 					<option>강의를 선택하시오</option>
@@ -102,7 +105,6 @@ function attChoice() {
 					<option value="<%=bean.getLecNo()%>"><%=bean.getLecName() %></option>
 				<%}}%>
 				</select>
-<button><a href="${pageContext.request.contextPath }/stuMgmt/stuAttList.bit" id="addBtn">목록</a></button>
 			</table>
 	<table id="stuAtt">
 		<thead>
@@ -116,7 +118,7 @@ function attChoice() {
 				<th>출석</th>
 				<th>지각</th>
 				<th>결석</th>
-				<th>출석률</th>
+				<th>입력여부</th>
 			</tr>
 		</thead>
 		
@@ -130,25 +132,29 @@ function attChoice() {
 				for (StuInfoDto stuAtt: list){
 			%>
 			<tr id="link">
-				<td><input type = "hidden" name = "stuNo" value = "<%=stuAtt.getStuNo() %>"/></td>
+				<td><input type = "hidden" name = "stuNo<%=stuAtt.getStuNo() %>" value = "<%=stuAtt.getStuNo() %>"/></td>
 				<td><%=stuAtt.getStuNo() %></td>
 				<td><%=stuAtt.getStuName() %></td>
 				<td><%=stuAtt.getStuPhone() %></td>
 				
 				
-				<td><input type="radio" name="stuAtt" value="1">출석</td>
-				<td><input type="radio" name="stuLate" value="1">지각</td>
-				<td><input type="radio" name="stuAbsent" value="1">결석</td>
-				<td>미입력</td>
+				<td><input type="checkbox" name="stuAtt<%=stuAtt.getStuNo() %>" value="1">출석</td>
+				<td><input type="checkbox" name="stuLate<%=stuAtt.getStuNo() %>" value="1">지각</td>
+				<td><input type="checkbox" name="stuAbsent<%=stuAtt.getStuNo() %>" value="1">결석</td>
+				<td id = "confirm">미입력</td>
 				
 				<td id="result">
 				</td>
 				<td>
-					<input type = "button" class="ok" onclick = "attChoice();" value = "입 력"/>
+					<input type = "button" class="ok" onclick = "attChoice(<%=stuAtt.getStuNo() %>);" value = "입 력"/><input type = "hidden" name = "lecNo" value = "<%=stuAtt.getLecNo()%>"/>
 			</tr>
 			<%}} %>
 		</tbody>
 	</table>
+	<input type = "hidden" id = "stuNoId"     name="stuNo" />
+	<input type = "hidden" id = "stuAttId"    name="stuAtt"/>
+	<input type = "hidden" id = "stuLateId"   name="stuLate"/>
+	<input type = "hidden" id = "stuAbsentId" name="stuAbsent"/>
 </form>
 <%@ include file="/templates/footer.jspf" %>
 </body>

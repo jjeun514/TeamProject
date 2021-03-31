@@ -71,7 +71,6 @@
 	<body>
 	<%@ include file="../templates/menu.jspf" %>
 	<h1>＜ 출결 현황 ＞</h1>
-	<h3>강의명</h3>
 	
 	<form action="${pageContext.request.contextPath }/stuMgmt/stuAttStatus.bit" method="post">
 			<table id="topPart">
@@ -97,6 +96,7 @@
 							<th>출석</th>
 							<th>지각</th>
 							<th>결석</th>
+							<th>총 수업일수</th>
 							<th>출석률</th>
 						</tr>
 					</thead>
@@ -115,7 +115,8 @@
 							<td><%=attList.getStuAtt() %></td>
 							<td><%=attList.getStuLate() %></td>
 							<td><%=attList.getStuAbsent() %></td>
-							<td>계산해야 함</td>
+							<td><%=attList.getLecDays() %></td>
+							<td><%=attList.getAttTotal() %>%</td>
 						</tr>				
 					<%}} %>
 					</tbody>
