@@ -97,7 +97,7 @@ h1{
     <ul class="nav navbar-nav">
     	<li><a href="/advertising/adHome.jsp">HOME</a></li>
     	<li><a href="/advertising/adIntro.jsp">학원소개</a></li>
-    	<li><a href="/advertising/Bbs.jsp">교육과정</a></li>    	
+    	<li><a href="/advertising/Bbs.bit">교육과정</a></li>    	
     </ul>
   </div>
 </nav>

@@ -17,6 +17,7 @@ public class AdInsertController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		String lecName=req.getParameter("lecName");
 		String lecStartDate=req.getParameter("lecStartDate");
 		String lecFinishDate=req.getParameter("lecFinishDate");
