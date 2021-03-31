@@ -50,9 +50,19 @@ lecName varchar(50) not null,
 lecRoom varchar(5) not null,
 lecStartDate date,
 lecFinishDate date,
+lecDays int(3),
 empNo int(4) not null,
 foreign key (empNo) references emp(empNo)
 );
+
+-- 강의 기간 내 평일을 구하는 사용자 정의 함수
+CREATE FUNCTION LecDays(date1 DATE, date2 DATE)
+RETURNS INT
+RETURN ABS(DATEDIFF(date2, date1)) + 1
+        - ABS(DATEDIFF(ADDDATE(date2, INTERVAL 1 - DAYOFWEEK(date2) DAY),
+                       ADDDATE(date1, INTERVAL 1 - DAYOFWEEK(date1) DAY))) / 7 * 2
+        - (DAYOFWEEK(IF(date1 < date2, date1, date2)) = 1)
+        - (DAYOFWEEK(IF(date1 > date2, date1, date2)) = 7);
 
 -- 수강생 테이블 생성
 create table student (
