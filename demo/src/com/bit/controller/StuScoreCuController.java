@@ -29,6 +29,8 @@ public class StuScoreCuController extends HttpServlet {
 		
 		StuScoreDao scoreDao=new StuScoreDao();
 		
+		req.setAttribute("lecName", scoreDao.selectLecName());
+		
 		for(int i=0;i<listA.size();i++) {
 			req.setAttribute("lecList"+i, scoreDao.selectAll(listA.get(i)));
 		}

@@ -32,6 +32,38 @@ public class StuScoreDao {
 		
 	}
 	
+	public List<StuScoreDto> selectLecName(){
+		String sql="select lecNo,lecName from lecture order by lecNo desc";
+		
+		List<StuScoreDto> lecNameList=new ArrayList<StuScoreDto>();
+		try {
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				StuScoreDto bean=new StuScoreDto();
+				bean.setLecNo(rs.getInt("lecNo"));
+				bean.setLecName(rs.getString("lecName"));
+				lecNameList.add(bean);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return lecNameList;
+	
+	}
+	
 	public List<Integer> selectLecNo() {
 		String sql="select lecNo from lecture order by lecNo";
 		

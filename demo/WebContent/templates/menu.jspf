@@ -152,7 +152,7 @@ $(function(){
 			<li id="sub222"><a href="/demo/stuMgmt/stuAttStatusPage.bit">└ 출결현황</a></li>
 			
 			<li id="sub23">성적관리</li>
-			<li id="sub231"><a href="/demo/stuMgmt/stuScore.jsp">└ 성적입력</a></li> 
+			<li id="sub231"><a href="/demo/stuMgmt/stuScore.bit">└ 성적입력</a></li> 
 			
 			<li id="sub232"><a href="/demo/stuMgmt/stuScoreList.bit">└ 성적현황</a></li>
 			

@@ -82,19 +82,19 @@
 
 <body>
 <%@ include file="/templates/menu.jspf" %>
-<h1>＜ 성적 관리 ＞</h1>
+<h1>＜ 성적 현황 ＞</h1>
 <div>
 
 </div>
-<form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
+<form action="${pageContext.request.contextPath}/stuMgmt/stuSearch.bit" >
 <table id="topPart">
 <tr>
 	<td>
 		<select name="scoreList" onchange="this.form.submit();">
 			<option value="0">강의를 선택하시오</option>
-			<option value="1">웹 개발자 양성 A</option>
-			<option value="2">웹 개발자 양성 B</option>
-			<option value="3">웹 개발자 양성 C</option>
+		<c:forEach items="${lecName }" var="lec">
+			<option value="${lec.lecNo }">${lec.lecName }</option>
+		</c:forEach>
 		</select>
 	</td>
 </tr>

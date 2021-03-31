@@ -77,19 +77,17 @@
 
 <body>
 <%@ include file="../templates/menu.jspf" %>
-<h1>＜ 성적 입력 ＞</h1>
+<h1>＜ 성적 현황＞</h1>
 
-<form action="${pageContext.request.contextPath}/stuMgmt/stuScore.bit" >
+<form action="${pageContext.request.contextPath}/stuMgmt/stuSearch.bit" >
 <table id="topPart">
 <tr>
 	<td>
 		<select name="scoreList" onchange="this.form.submit();">
 			<option value="0">강의를 선택하시오</option>
-	
 		<c:forEach items="${lecName }" var="lec">
 			<option value="${lec.lecNo }">${lec.lecName }</option>
 		</c:forEach>
-			
 		</select>
 	</td>
 </tr>
@@ -109,15 +107,13 @@
  		<tbody>
 			<c:forEach items="${allList}" var="bean">
 				<tr class="link">
-		<form action="${pageContext.request.contextPath}/stuMgmt/stuScoreInsert.bit" method="post">
 					
-					<td><input name="stuNo" type="text" value="${bean.stuNo }" readonly="readonly"/></td>
-					<td>${bean.stuName}</td>
-					<td><input class="inputScore" name="java" type="text" value="${bean.java }" /></td>
-					<td><input class="inputScore" name="web" type="text" value="${bean.web }" /></td>
-					<td><input class="inputScore" name="framework" type="text" value="${bean.framework }" /></td>
-					<td><button class="ok" type="submit">확인</button></td>		
-		</form>
+				<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=${bean.stuNo }">${bean.stuNo }</a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=${bean.stuNo }">${bean.stuName }</a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=${bean.stuNo }">${bean.java }</a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=${bean.stuNo }">${bean.web }</a></td>
+					<td><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDetail.bit?stuNo=${bean.stuNo }">${bean.framework}</a></td>
+					
 				</tr>
 			</c:forEach>	
 		</tbody>

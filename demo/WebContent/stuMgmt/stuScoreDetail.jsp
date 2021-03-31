@@ -102,9 +102,9 @@ button{
 		
 	<tr>
 		<td colspan="2">
-			<button type="submit">수정</button>
-			<button type="button"><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreDelete.bit">삭제</a></button>
-			<button type="button"><a href="${pageContext.request.contextPath}/stuMgmt/stuScoreList.bit">목록</a></button>
+			<button type="submit">수 정</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/stuMgmt/stuScoreDelete.bit?stuNo=<%=bean.getStuNo()%>'">삭 제</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/stuMgmt/stuScoreList.bit'">목 록</button>
 		</td>
 	</tr>
 	</form>
