@@ -1,0 +1,152 @@
+.row {
+    clear: left;
+}
+
+.container {
+    margin: 0px auto;
+}
+
+@media screen and (max-width:767px) {
+    .mclear {
+        display: none;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .mgrid1,
+    .mgrid2,
+    .mgrid3,
+    .mgrid4,
+    .mgrid5,
+    .mgrid6,
+    .mgrid7,
+    .mgrid8,
+    .mgrid9,
+    .mgrid10,
+    .mgrid11,
+    .mgrid12 {
+        float: left;
+    }
+
+    .container > .row > .mgrid1 {
+        width: 8.33%;
+    }
+
+    .container > .row > .mgrid2 {
+        width: 16.66%;
+    }
+
+    .container > .row > .mgrid3 {
+        width: 25%;
+    }
+
+    .container > .row > .mgrid4 {
+        width: 33.33%;
+    }
+
+    .container > .row > .mgrid5 {
+        width: 41.66%;
+    }
+
+    .container > .row > .mgrid6 {
+        width: 50%;
+    }
+
+    .container > .row > .mgrid7 {
+        width: 58.33%;
+    }
+
+    .container > .row > .mgrid8 {
+        width: 66.66%;
+    }
+
+    .container > .row > .mgrid9 {
+        width: 75%;
+    }
+
+    .container > .row > .mgrid10 {
+        width: 83.33%;
+    }
+
+    .container > .row > .mgrid11 {
+        width: 91.66%;
+    }
+
+    .container > .row > .mgrid12 {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .pclear {
+        display: none;
+    }
+    .container {
+        width: 768px;
+    }
+
+    .grid1,
+    .grid2,
+    .grid3,
+    .grid4,
+    .grid5,
+    .grid6,
+    .grid7,
+    .grid8,
+    .grid9,
+    .grid10,
+    .grid11,
+    .grid12 {
+        float: left;
+    }
+
+    .container > .row > .grid1 {
+        width: 64px;
+    }
+
+    .container > .row > .grid2 {
+        width: 128px;
+    }
+
+    .container > .row > .grid3 {
+        width: 192px;
+    }
+
+    .container > .row > .grid4 {
+        width: 256px;
+    }
+
+    .container > .row > .grid5 {
+        width: 320px;
+    }
+
+    .container > .row > .grid6 {
+        width: 384px;
+    }
+
+    .container > .row > .grid7 {
+        width: 448px;
+    }
+
+    .container > .row > .grid8 {
+        width: 512px;
+    }
+
+    .container > .row > .grid9 {
+        width: 576px;
+    }
+
+    .container > .row > .grid10 {
+        width: 640px;
+    }
+
+    .container > .row > .grid11 {
+        width: 704px;
+    }
+
+    .container > .row > .grid12 {
+        width: 768px;
+    }
+}
