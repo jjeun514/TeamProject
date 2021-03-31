@@ -161,7 +161,13 @@ public class LecDao {
 		
 	// 추가
 	public void insertOne(String lecName, String lecStartDate, String lecFinishDate, String lecRoom, String lecturer, int empNo) {
-		String sql="insert into lecture (lecName, lecStartDate, lecFinishDate, lecRoom, empNo) values (?,?,?,?,?)";
+
+
+		//String sql="insert into lecture (lecName, lecStartDate, lecFinishDate, lecRoom, empNo) values (?,?,?,?,?)";
+		String sql = "insert into lecture (lecName, lecStartDate, lecFinishDate, lecRoom, empNo, lecDays)";
+		sql += " values (?,?,?,?,?,lecDays(str_to_date(?,'%Y-%m-%d'),str_to_date(?,'%Y-%m-%d')));";
+		
+		
 		/* 강사는 emp테이블에서 select 해오는 것이고,
 		   lecture와 선택된 강사를 연결 시키려면 해당 강사의 empNo를 뽑아와서
 		   lecture 테이블에 empNo를 같이 insert 해주어야함
@@ -176,6 +182,8 @@ public class LecDao {
 			pstmt.setString(3, lecFinishDate);
 			pstmt.setString(4, lecRoom);
 			pstmt.setInt(5, empNo);
+			pstmt.setString(6, lecStartDate);
+			pstmt.setString(7, lecFinishDate);
 			pstmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
